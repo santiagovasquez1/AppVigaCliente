@@ -1,0 +1,84 @@
+<form [formGroup]="fg">
+    <div class="container containerForm">
+        <h3>Datos de Entrada</h3>
+        <br>
+        <!-- <div class="vigaContainer">
+            <viga-Image></viga-Image>
+        </div> -->
+        <div class="vigaInfoContainer">
+            <div class="row">
+                <div class="col-lg-2">
+                    <label>Fy= </label>
+                </div>
+                <div class="col">
+                    <input class="form-control" type="number" id="tbFy" [formControl]="fg.controls['fy']">
+                </div>
+                <div class="col-lg-3">
+                    <label>kgf/cm²</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2">
+                    <label>F'c= </label>
+                </div>
+                <div class="col">
+                    <input class="form-control" type="number" id="tbFc" [formControl]="fg.controls['fc']">
+                </div>
+                <div class="col-lg-3">
+                    <label>kgf/cm²</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2">
+                    <label>b=</label>
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" id="tbBw" [formControl]="fg.controls['b']">
+                </div>
+                <div class="col-lg-3">
+                    <label>cm</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2">
+                    <label>h=</label>
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" id="tbHw" [formControl]="fg.controls['h']">
+                </div>
+                <div class="col-lg-3">
+                    <label>cm</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2">
+                    <label>d'=</label>
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" id="tbr" [formControl]="fg.controls['dSup']">
+                </div>
+                <div class="col-lg-3">
+                    <label>cm</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2">
+                    <label>M=</label>
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" id="tbMu" [formControl]="fg.controls['Mu']">
+                </div>
+                <div class="col-lg-3">
+                    <label>tf-m</label>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <button class="btn btn-primary" (click)="onClick()">Calcular</button>
+        <br>
+    </div>
+</form>
+
+<h1>{{viga.fy}}</h1>
+<p>{{viga|json}}</p>
