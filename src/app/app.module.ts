@@ -6,11 +6,23 @@ import { AppComponent } from './app.component';
 import { VigaInputComponent } from './Components/viga-input/viga-input.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DestacarDirective } from './Directives/destacar.directive';
+import { MultiplicarDirective } from './Directives/multiplicar.directive';
+import { EncryptInfoPipe } from './Pipes/encrypt-info.pipe';
+import { LoginComponent } from './Pages/Login/login/login.component';
+import { VigaOutputComponent } from './Components/viga-output/viga-output.component';
+import { CookieService } from 'ngx-cookie-service';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     VigaInputComponent,
+    DestacarDirective,
+    MultiplicarDirective,
+    EncryptInfoPipe,
+    LoginComponent,
+    VigaOutputComponent,
   ],
   imports: [
     BrowserModule,
@@ -18,9 +30,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,9 +1,10 @@
 import { Viga } from './../../models/viga';
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 import { WebApiVigaService } from 'src/app/services/web-api-viga.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-viga-input',
@@ -12,50 +13,59 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class VigaInputComponent implements OnInit {
 
-  public listVigas: Viga[];
-  viga: Viga = {
-    id: 0,
-    bw: 0,
-    hw: 0,
-    r: 0,
-    fc: 0,
-    fy: 0,
-    d: 0,
-    cuantiaTemp: 0,
-    cuantiaMin: 0,
-    cuantiaMax: 0,
-    cuantiaReq: 0,
-    asTemp: 0,
-    asMin: 0,
-    asMax: 0,
-    asReq: 0,
-    Mu: 0,
-    phiFlexion: 0.90,
-    aWhitney: 0,
-    phiMn: 0,
-  };
-  fg: FormGroup;
+  listVigas: Viga[] = [];
+  viga: Viga;
+  myForm: FormGroup;
 
-  constructor(private vigaService: WebApiVigaService, fb: FormBuilder) {
-    this.fg = fb.group({
-      fy: [4220, Validators.required],
-      fc: [210, Validators.required],
-      b: [30, Validators.required],
-      h: [40, Validators.required],
-      dSup: [6, Validators.required],
-      Mu: [15, Validators.required]
-    });
-  }
-
-  ngOnInit(): void {
+  constructor(private vigaService: WebApiVigaService, private cookieService: CookieService) {
     this.GetListVigas();
   }
 
+  ngOnInit(): void {
 
-  private GetListVigas() {
+  }
+
+  private GetListVigas(): void {
     this.vigaService.GetVigas().subscribe(result => {
-      this.listVigas = result;
-      console.log(this.listVigas);
+      this.listVigas = result.results;
+      if (this.listVigas !== undefined) {
+        this.viga = this.listVigas[0];
+      } else {
+        this.viga = new Viga();
+      }
+      this.loadFormGroup();
+    }, error => {
+      console.log(error);
+    });
+
+
+  }
+
+  private loadFormGroup() {
+    this.myForm = new FormGroup({
+      bw: new FormControl(this.viga.bw, [Validators.required]),
+      hw: new FormControl(this.viga.hw, [Validators.required]),
+      r: new FormControl(this.viga.r, [Validators.required]),
+      fc: new FormControl(this.viga.fc, [Validators.required]),
+      fy: new FormControl(this.viga.fy, [Validators.required]),
+      Mu: new FormControl(this.viga.Mu, [Validators.required]),
+      phiFlexion: new FormControl(this.viga.phiFlexion, [Validators.required])
+    });
+  }
+
+  private UpdateViga(index): void {
+
+    this.vigaService.UpdateVigaById(index, this.viga).subscribe(result => {
+      this.viga = result;
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  private CreateViga(): void {
+    this.vigaService.setViga(this.viga).subscribe(result => {
+      this.viga = result;
+      console.log(this.viga);
     },
       error => {
         console.log(error);
@@ -63,27 +73,18 @@ export class VigaInputComponent implements OnInit {
   }
 
   onClick() {
-
-    const dataModel = {
-      bw: this.fg.controls.b.value,
-      hw: this.fg.controls.h.value,
-      r: this.fg.controls.dSup.value,
-      fc: this.fg.controls.fc.value,
-      fy: this.fg.controls.fy.value,
-      Mu: this.fg.controls.Mu.value,
-      phiFlexion: 0.90,
-    };
-
-    this.vigaService.setViga(dataModel).subscribe(result => {
-      this.viga = result;
-      this.GetListVigas();
-      console.log(this.viga);
-    },
-      error => {
-        console.log(error);
-      });
+    if (this.listVigas.length > 0) {
+      this.UpdateViga(this.viga.id);
+    }
+    else {
+      this.CreateViga();
+    }
 
     return false;
+  }
+
+  onChangeEvent(event: any) {
+    this.viga[event.target.name] = event.target.value;
   }
 
 }

@@ -1,4 +1,4 @@
-export interface Viga {
+export class Viga {
   id: number;
   bw: number;
   hw: number;

@@ -1,4 +1,4 @@
-<form [formGroup]="fg">
+<form [formGroup]="myForm">
     <div class="container containerForm">
         <h3>Datos de Entrada</h3>
         <br>
@@ -11,7 +11,11 @@
                     <label>Fy= </label>
                 </div>
                 <div class="col">
-                    <input class="form-control" type="number" id="tbFy" [formControl]="fg.controls['fy']">
+                    <input name="fy" class="form-control" type="number" id="tbFy" formControlName="fy" (change)="onChangeEvent($event)">
+                    <div *ngIf="myForm.get('fy').invalid &&
+                    (myForm.get('fy').dirty||myForm.get('fy').touched)" class="alert">
+                        El valor de fy es obligatorio
+                    </div>
                 </div>
                 <div class="col-lg-3">
                     <label>kgf/cm²</label>
@@ -22,63 +26,64 @@
                     <label>F'c= </label>
                 </div>
                 <div class="col">
-                    <input class="form-control" type="number" id="tbFc" [formControl]="fg.controls['fc']">
+                    <input name="fc" class="form-control" type="number" id="tbFc" formControlName="fc" (change)="onChangeEvent($event)">
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 ">
                     <label>kgf/cm²</label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-2">
+            <div class="row ">
+                <div class="col-lg-2 ">
                     <label>b=</label>
                 </div>
-                <div class="col">
-                    <input type="number" class="form-control" id="tbBw" [formControl]="fg.controls['b']">
+                <div class="col ">
+                    <input name="bw" type="number " class="form-control " id="tbBw " formControlName="bw" (change)="onChangeEvent($event)">
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 ">
                     <label>cm</label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-2">
+            <div class="row ">
+                <div class="col-lg-2 ">
                     <label>h=</label>
                 </div>
-                <div class="col">
-                    <input type="number" class="form-control" id="tbHw" [formControl]="fg.controls['h']">
+                <div class="col ">
+                    <input name="hw" type="number " class="form-control " id="tbHw " formControlName="hw" (change)="onChangeEvent($event)">
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 ">
                     <label>cm</label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-2">
+            <div class="row ">
+                <div class="col-lg-2 ">
                     <label>d'=</label>
                 </div>
-                <div class="col">
-                    <input type="number" class="form-control" id="tbr" [formControl]="fg.controls['dSup']">
+                <div class="col ">
+                    <input name="r" type="number " class="form-control " id="tbr " formControlName="r" (change)="onChangeEvent($event)">
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 ">
                     <label>cm</label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-2">
+            <div class="row ">
+                <div class="col-lg-2 ">
                     <label>M=</label>
                 </div>
-                <div class="col">
-                    <input type="number" class="form-control" id="tbMu" [formControl]="fg.controls['Mu']">
+                <div class="col ">
+                    <input name="Mu" type="number " class="form-control " id="tbMu " formControlName="Mu" (change)="onChangeEvent($event)">
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 ">
                     <label>tf-m</label>
                 </div>
             </div>
         </div>
 
         <br>
-        <button class="btn btn-primary" (click)="onClick()">Calcular</button>
+        <button [disabled]="myForm.invalid" class="btn btn-primary " (click)="onClick() ">Calcular</button>
         <br>
     </div>
 </form>
 
+-
 <h1>{{viga.fy}}</h1>
 <p>{{viga|json}}</p>
