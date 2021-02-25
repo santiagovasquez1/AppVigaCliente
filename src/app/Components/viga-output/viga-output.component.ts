@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { WebApiVigaService } from 'src/app/services/web-api-viga.service';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { Viga } from 'src/app/models/viga';
 
 @Component({
   selector: 'app-viga-output',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VigaOutputComponent implements OnInit {
 
-  constructor() { }
+  outputForm: FormGroup;
+  @Input() viga: Viga;
+
+  constructor(public vigaService: WebApiVigaService) {
+  }
 
   ngOnInit(): void {
+
   }
 
 }

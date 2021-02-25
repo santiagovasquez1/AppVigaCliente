@@ -12,6 +12,8 @@ import { EncryptInfoPipe } from './Pipes/encrypt-info.pipe';
 import { LoginComponent } from './Pages/Login/login/login.component';
 import { VigaOutputComponent } from './Components/viga-output/viga-output.component';
 import { CookieService } from 'ngx-cookie-service';
+import { VigaContainerComponent } from './Components/viga-container/viga-container.component';
+import { SecurityTellerIdComponent } from './shared/components/security-teller-id/security-teller-id.component';
 
 
 @NgModule({
@@ -23,6 +25,8 @@ import { CookieService } from 'ngx-cookie-service';
     EncryptInfoPipe,
     LoginComponent,
     VigaOutputComponent,
+    VigaContainerComponent,
+    SecurityTellerIdComponent,
   ],
   imports: [
     BrowserModule,
