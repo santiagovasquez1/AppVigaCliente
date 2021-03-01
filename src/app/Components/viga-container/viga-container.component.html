@@ -1,35 +1,19 @@
-<div id="container">
-    <header>
-        <!-- <h1>{{Title1}}</h1> -->
-    </header>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="timer" [fullScreen]="true">
+    <p style="color: white"> Cargando </p>
+</ngx-spinner>
 
-
-    <nav>
-        <ul>
-            <li>
-                <a class="bar-item bar-button" href="#">Inicio</a>
-                <a class="bar-item bar-button" href="#">Diseño viga a flexion</a>
-                <a class="bar-item bar-button" href="#">Chequeo de viga a flexion</a>
-            </li>
-        </ul>
-    </nav>
-
-    <div class="clearfix"></div>
-
-    <div class="row">
-        <div class="col-lg">
-            <app-viga-input [viga]="vigaContainer" (vigaCalcEmitter)="onVigaCalcEmitter($event)"></app-viga-input>
-        </div>
-        <div class="col-lg">
-            <app-viga-output [viga]="vigaContainer"></app-viga-output>
+<body>
+    <div id="container">
+        <header>
+            <h1>Diseño a Flexion Vigas Rectangulares</h1>
+        </header>
+        <div class="formContainer">
+            <div class="formContent">
+                <app-viga-input [viga]="vigaContainer" (vigaCalcEmitter)="onVigaCalcEmitter($event)"></app-viga-input>
+            </div>
+            <div class="formContent">
+                <app-viga-output [viga]="vigaContainer"></app-viga-output>
+            </div>
         </div>
     </div>
-
-    <div class="clearfix"></div>
-
-    <footer>
-        Santiago Vásquez &copy; 2021
-    </footer>
-
-
-</div>
+</body>

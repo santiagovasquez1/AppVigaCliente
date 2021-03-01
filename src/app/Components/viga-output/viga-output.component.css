@@ -48,3 +48,23 @@
     color: #212529;
     text-align: left;
 }
+
+.Results {
+    color: blue;
+    font-weight: bold;
+}
+
+
+/* mat-card {
+    padding: 0;
+} */
+
+
+
+.headerCard {
+    background: #1976D2;
+    height: 50px;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+}

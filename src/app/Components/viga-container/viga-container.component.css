@@ -1,18 +1,12 @@
-* {
-    margin: 0px;
-    padding: 0px;
-}
-
 body {
-    background-color: lightgray;
+    overflow: hidden;
 }
 
 #container {
-    width: 90%;
+    width: 100%;
+    height: 100%;
     margin: 0px auto;
     padding: 5px;
-    display: grid;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #container header {
@@ -20,89 +14,21 @@ body {
     width: 100%;
     text-align: center;
     line-height: 50px;
-    border-bottom: 3px black solid;
+    border-bottom: 3px gray solid;
 }
 
-nav {
-    float: left;
-    background: grey;
-    height: 50px;
-    width: 100%;
-    border-bottom: 1px black solid;
-    margin-bottom: 10px;
-    box-shadow: 0 4px 8px black;
+.formContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
 }
 
-nav ul li {
-    float: left;
-    list-style: none;
-    margin: 10px;
-    line-height: 30px;
-}
-
-li a {
-    color: white;
-}
-
-.bar-item {
-    float: left;
-    width: auto;
-    border: none;
-    display: block;
-    outline: 0;
-    color: white;
-}
-
-.bar-item.bar-button {
-    border: none;
-    display: inline-block;
-    padding: 0px 16px;
-    vertical-align: middle;
-    overflow: hidden;
-    text-decoration: none;
-    color: white;
-    background-color: inherit;
-    text-align: center;
-    cursor: pointer;
-    white-space: nowrap;
-    margin: 0px auto;
-    height: 50px;
-}
-
-.bar-item.bar-button:hover {
-    height: 48px;
-    line-height: 48px;
-    background: darkgray;
-    margin-top: -10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-#content {
-    float: left;
-    width: 50%;
-    background: green;
-    height: 100%;
-}
-
-aside {
-    float: left;
-    width: 50%;
-    background: orange;
-    height: 100%;
-}
-
-footer {
-    margin-top: 2px;
-    background: black;
-    color: white;
-    text-align: center;
-    height: 50px;
-    line-height: 50px;
+.formContent {
+    margin: 5px;
+    padding: 5px;
 }
 
 
-/*
-Elemento para que los elementos debajo del objeto float se queden en su posicion */
+/* Elemento para que los elementos debajo del objeto float se queden en su posicion  */
 
 .clearfix {
     clear: both;

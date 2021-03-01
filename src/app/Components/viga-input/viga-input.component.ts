@@ -1,3 +1,4 @@
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Viga } from './../../models/viga';
 import { Observable } from 'rxjs';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
@@ -17,12 +18,12 @@ export class VigaInputComponent implements OnInit {
   formInput: FormGroup;
   @Output() vigaCalcEmitter = new EventEmitter<Viga>();
 
-  constructor(private cookieService: CookieService) {
+  constructor(private cookieService: CookieService, private spinner: NgxSpinnerService) {
 
   }
 
   ngOnInit(): void {
-
+    this.spinner.show();
     setTimeout(() => {
       this.formInput = new FormGroup({
         bw: new FormControl(this.viga.bw, [Validators.required]),
@@ -33,7 +34,8 @@ export class VigaInputComponent implements OnInit {
         Mu: new FormControl(this.viga.Mu, [Validators.required]),
         phiFlexion: new FormControl(this.viga.phiFlexion = 0.90, [Validators.required])
       });
-    }, 500);
+      this.spinner.hide();
+    }, 1000);
   }
 
   onClick() {

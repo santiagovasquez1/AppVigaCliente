@@ -1,37 +1,9 @@
-.container.containerForm {
-    border: #D4D4D4 1px solid;
-    border-radius: 10px;
-    background: whitesmoke;
-    margin: 5px auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-}
-
-.vigaContainer {
-    grid-column: 1;
-}
-
-.vigaInfoContainer {
-    grid-column: 2/span 2;
-}
-
-.viagaOutputContainer {
-    grid-column: 1/span 3;
-}
-
-.containerForm button {
+mat-form-field {
     width: 100%;
-    margin: 2px;
-    grid-column: 1/span 3;
 }
 
-.containerForm h3 {
+button {
     width: 100%;
-    margin: 2px;
-    grid-column: 1/span 3;
-}
-
-.containerForm input {
-    width: 100%;
-    margin: 2px;
+    background: gray;
+    color: white;
 }

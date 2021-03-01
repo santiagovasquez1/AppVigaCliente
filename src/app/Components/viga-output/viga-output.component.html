@@ -1,34 +1,52 @@
-<div class="container containerForm">
-    <h3>Resultados</h3>
-    <br>
-    <div class="viagaOutputContainer">
-        <div class="row">
-            <div class="col-lg-3">
-                <p class="resultLabel">Cuantia Máxima</p>
+<mat-card>
+    <mat-card-title class="headerCard">
+        <h1>Resultados</h1>
+    </mat-card-title>
+    <mat-card-content>
+        <p>Cuantia Máxima de la Sección:
+            <span class="Results">{{viga.cuantiaMax}}</span>
+        </p>
+        <mat-divider></mat-divider>
+        <p>Acero Máximo de la Sección:
+            <span class="Results">{{viga.asMax}}</span>
+            <span> cm²</span>
+        </p>
+        <mat-divider></mat-divider>
+        <p>Momento Máxima de la sección:
+            <span class="Results">{{viga.phiMnMax}}</span>
+            <span> Tonf-m</span>
+        </p>
+        <mat-divider></mat-divider>
+        <p>Acero temperatura de la Sección:
+            <span class="Results"> {{viga.asTemp}}</span>
+            <span> cm²</span>
+        </p>
+        <mat-divider></mat-divider>
+        <p>Cuantia Requerida a flexión:
+            <span class="Results">{{viga.cuantiaReq}}</span>
+        </p>
+        <mat-divider></mat-divider>
+        <p>Acero requerido por flexión de la Sección:
+            <span class="Results"> {{viga.asReq}}</span>
+            <span> cm²</span>
+        </p>
+        <mat-divider></mat-divider>
+        <p *ngIf="viga.asReq2>0"> Acero requerido por Compresión de la Sección:
+            <span class="Results"> {{viga.asReq2}}</span>
+            <span> cm²</span>
+        </p>
+        <mat-divider></mat-divider>
+        <mat-card-footer>
+            <div *ngIf="viga.asReq2>0; else elseBlock">
+                <h1 style="text-align: center; color: red;">
+                    ¡¡Viga Doblemente Reforzada!!
+                </h1>
             </div>
-            <div class="col-lg-3">
-                <p class="form-control resultInput">{{viga.cuantiaMax}}</p>
-            </div>
-            <div class="col-lg-3">
-                <p class="resultLabel">Acero Temperatura:</p>
-            </div>
-            <div class="col-lg-3">
-                <p class="form-control resultInput">{{viga.asTemp}} cm²</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-3">
-                <p class="resultLabel">Acero Máximo</p>
-            </div>
-            <div class="col-lg-3">
-                <p class="form-control resultInput">{{viga.asMax}} cm²</p>
-            </div>
-            <div class="col-lg-3">
-                <p class="resultLabel">Acero a flexión</p>
-            </div>
-            <div class="col-lg-3">
-                <p class="form-control resultInput">{{viga.asReq}} cm²</p>
-            </div>
-        </div>
-    </div>
-</div>
+            <ng-template #elseBlock>
+                <h1 style="text-align: center;">
+                    ¡¡Viga Simplemente Reforzada!!
+                </h1>
+            </ng-template>
+        </mat-card-footer>
+    </mat-card-content>
+</mat-card>

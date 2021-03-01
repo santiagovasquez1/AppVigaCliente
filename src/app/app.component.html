@@ -1,1 +1,22 @@
-<router-outlet></router-outlet>
+<mat-toolbar>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="openNavBar()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Diseño vigas a Flexion</span>
+</mat-toolbar>
+
+<mat-drawer-container class="mainContainer">
+    <mat-drawer *ngIf="opened" mode="side" opened style="background: #f5f5f5;">
+        <mat-selection-list [multiple]="false">
+            <mat-list-option [routerLink]="['login']">Inicio</mat-list-option>
+            <mat-list-option [routerLink]="['disenioflexion']">Diseño a flexion</mat-list-option>
+            <mat-list-option>Chequeo sección</mat-list-option>
+        </mat-selection-list>
+    </mat-drawer>
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
+<footer>
+    Santiago Vásquez &copy; 2021
+</footer>

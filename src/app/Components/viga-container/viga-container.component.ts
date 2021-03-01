@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Viga } from 'src/app/models/viga';
 import { WebApiVigaService } from 'src/app/services/web-api-viga.service';
 
@@ -13,7 +14,7 @@ export class VigaContainerComponent implements OnInit {
   vigaContainer: Viga;
   listVigas: Viga[];
 
-  constructor(public vigaService: WebApiVigaService) { }
+  constructor(public vigaService: WebApiVigaService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.GetListVigas();
@@ -30,26 +31,31 @@ export class VigaContainerComponent implements OnInit {
   }
 
   private UpdateViga(index): void {
-
+    this.spinner.show();
     this.vigaService.UpdateVigaById(index, this.vigaContainer).subscribe(result => {
       this.vigaContainer = result;
       this.vigaService.currentViga = this.vigaContainer;
       console.log(this.vigaService.currentViga);
       this.vigaService.changeProperty = true;
+      this.spinner.hide();
     }, error => {
+      this.spinner.hide();
       console.log(error);
     });
   }
 
   private CreateViga(): void {
+    this.spinner.show();
     this.vigaService.setViga(this.vigaContainer).subscribe(result => {
       this.vigaContainer = result;
       this.vigaService.currentViga = this.vigaContainer;
       this.vigaService.changeProperty = true;
       this.listVigas.push(this.vigaContainer);
       console.log(this.vigaService.currentViga);
+      this.spinner.hide();
     },
       error => {
+        this.spinner.hide();
         console.log(error);
       });
   }

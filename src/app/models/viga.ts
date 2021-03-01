@@ -14,9 +14,11 @@ export class Viga {
   asMin: number;
   asMax: number;
   asReq: number;
+  asReq2: number;
   Mu: number;
   phiFlexion: number;
   aWhitney: number;
   phiMn: number;
+  phiMnMax: number;
 }
 
