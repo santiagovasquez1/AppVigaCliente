@@ -12,6 +12,7 @@ export class WebApiVigaService {
 
   // private vigas: Array<Viga>;
   currentViga: Viga = new Viga();
+  vigaChequeo: Viga = new Viga();
   changeProperty = false;
 
   constructor(private http: HttpClient) { }
@@ -38,24 +39,23 @@ export class WebApiVigaService {
     return this.http.post<Viga>(url, dataInput);
   }
 
+  ChequeoVigaById(index, dataInput): Observable<Viga> {
+    const url = this.apiEndPoint + index + '/' + 'chequeoVigaFlexion/';
+    console.log('Request is sent!');
+    return this.http.post<Viga>(url, dataInput);
+  }
+
   sentViga(): Observable<Viga> {
 
     const sendVigaObservable = new Observable<Viga>(observer => {
 
-      if (this.changeProperty){
+      if (this.changeProperty) {
         observer.next(this.currentViga);
       }
-        // setTimeout(() => {
-        //   observer.next(this.currentViga);
-        // }, 500);
-
     });
 
     return sendVigaObservable;
   }
 
-  // GetVigas2():Observable<any></any>{
-  //   return this.http.get(this.apiEndPoint);
-  // }
 
 }

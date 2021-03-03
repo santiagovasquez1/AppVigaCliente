@@ -14,7 +14,9 @@ export class VigaContainerComponent implements OnInit {
   vigaContainer: Viga;
   listVigas: Viga[];
 
-  constructor(public vigaService: WebApiVigaService, private spinner: NgxSpinnerService) { }
+  constructor(public vigaService: WebApiVigaService, private spinner: NgxSpinnerService) {
+    this.vigaContainer = new Viga();
+  }
 
   ngOnInit(): void {
     this.GetListVigas();
@@ -27,7 +29,6 @@ export class VigaContainerComponent implements OnInit {
     } else {
       this.CreateViga();
     }
-
   }
 
   private UpdateViga(index): void {

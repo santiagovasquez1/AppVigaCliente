@@ -33,3 +33,16 @@ footer {
     height: 50px;
     line-height: 50px;
 }
+
+.headerCard {
+    background: #1976D2;
+    height: 50px;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+}
+
+.ToolBoxVigas {
+    background: #1976D2;
+    color: white;
+}

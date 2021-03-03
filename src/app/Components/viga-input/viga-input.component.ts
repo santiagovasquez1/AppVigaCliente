@@ -18,24 +18,32 @@ export class VigaInputComponent implements OnInit {
   formInput: FormGroup;
   @Output() vigaCalcEmitter = new EventEmitter<Viga>();
 
-  constructor(private cookieService: CookieService, private spinner: NgxSpinnerService) {
-
+  constructor(private cookieService: CookieService, private spinner: NgxSpinnerService, private fb: FormBuilder) {
+    this.formInput = this.fb.group({
+      bw: ['', [Validators.required]],
+      hw: ['', [Validators.required]],
+      r: ['', [Validators.required]],
+      fc: ['', [Validators.required]],
+      fy: ['', [Validators.required]],
+      Mu: ['', [Validators.required]],
+      phiFlexion: ['', [Validators.required]]
+    });
   }
 
   ngOnInit(): void {
     this.spinner.show();
     setTimeout(() => {
-      this.formInput = new FormGroup({
-        bw: new FormControl(this.viga.bw, [Validators.required]),
-        hw: new FormControl(this.viga.hw, [Validators.required]),
-        r: new FormControl(this.viga.r, [Validators.required]),
-        fc: new FormControl(this.viga.fc, [Validators.required]),
-        fy: new FormControl(this.viga.fy, [Validators.required]),
-        Mu: new FormControl(this.viga.Mu, [Validators.required]),
-        phiFlexion: new FormControl(this.viga.phiFlexion = 0.90, [Validators.required])
+      this.formInput = this.fb.group({
+        bw: [this.viga.bw, [Validators.required]],
+        hw: [this.viga.hw, [Validators.required]],
+        r: [this.viga.r, [Validators.required]],
+        fc: [this.viga.fc, [Validators.required]],
+        fy: [this.viga.fy, [Validators.required]],
+        Mu: [this.viga.Mu, [Validators.required]],
+        phiFlexion: [this.viga.phiFlexion = 0.90, [Validators.required]]
       });
       this.spinner.hide();
-    }, 1000);
+    }, 200);
   }
 
   onClick() {

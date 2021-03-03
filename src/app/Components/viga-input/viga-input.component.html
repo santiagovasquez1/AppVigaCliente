@@ -1,5 +1,5 @@
 <mat-card>
-    <mat-card-title style="background: #f5f5f5;">
+    <mat-card-title class="headerCard">
         <h1>Datos de entrada</h1>
     </mat-card-title>
     <mat-card-content>
@@ -7,7 +7,7 @@
             <p>
                 <mat-form-field appearance="outline">
                     <mat-label>Fy(kgf/cm²)</mat-label>
-                    <input matInput name="fy" type="number" id="tbFy" formControlName="fy" (change)="onChangeEvent($event)" placeholder="4220">
+                    <input matInput type="number" id="tbFy" formControlName="fy" (change)="onChangeEvent($event)">
                 </mat-form-field>
             </p>
             <p>

@@ -14,6 +14,7 @@ export class VigaOutputComponent implements OnInit {
   @Input() viga: Viga;
 
   constructor(public vigaService: WebApiVigaService) {
+
   }
 
   ngOnInit(): void {
