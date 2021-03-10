@@ -15,29 +15,29 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./base-control.component.css']
 })
 export class BaseControlComponent implements OnInit {
+
   @Output() vigaCalcEmitter = new EventEmitter<Viga>();
   formInput: FormGroup;
   vigaService: WebApiVigaService;
   spinner: NgxSpinnerService;
 
-  constructor(private formGroup: FormBuilder) {
+  constructor() {
 
     try {
       const injector = MyInjector.getInjector();
       this.vigaService = injector.get(WebApiVigaService);
+      this.vigaService.currentViga.phiFlexion = 0.90;
+      this.vigaService.vigaChequeo.phiFlexion = 0.90;
       this.spinner = injector.get(NgxSpinnerService);
     } catch (error) {
       console.log('Failed initializing dependencies', error);
     }
+
   }
 
   ngOnInit(): void {
   }
 
-  loadFormGroup(controlsConfig) {
-
-    this.formGroup.group(controlsConfig);
-  }
 
   onChangeEvent(event: any, viga: Viga) {
     viga[event.target.name] = event.target.value;

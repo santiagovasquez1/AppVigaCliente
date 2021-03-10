@@ -12,6 +12,7 @@ export class VigaContainerComponent implements OnInit {
 
   @Output() getViga = new EventEmitter<Viga>();
   vigaContainer: Viga;
+  isDisenio = true;
   listVigas: Viga[];
 
   constructor(public vigaService: WebApiVigaService, private spinner: NgxSpinnerService) {

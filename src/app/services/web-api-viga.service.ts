@@ -13,6 +13,7 @@ export class WebApiVigaService {
   // private vigas: Array<Viga>;
   currentViga: Viga = new Viga();
   vigaChequeo: Viga = new Viga();
+
   changeProperty = false;
 
   constructor(private http: HttpClient) { }

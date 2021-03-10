@@ -6,36 +6,41 @@
         <p>Cuantia Máxima de la Sección:
             <span class="Results">{{viga.cuantiaMax}}</span>
         </p>
-        <mat-divider></mat-divider>
+
         <p>Acero Máximo de la Sección:
             <span class="Results">{{viga.asMax}}</span>
             <span> cm²</span>
         </p>
-        <mat-divider></mat-divider>
+
         <p>Momento Máxima de la sección:
             <span class="Results">{{viga.phiMnMax}}</span>
             <span> Tonf-m</span>
         </p>
-        <mat-divider></mat-divider>
+
         <p>Acero temperatura de la Sección:
             <span class="Results"> {{viga.asTemp}}</span>
             <span> cm²</span>
         </p>
-        <mat-divider></mat-divider>
-        <p>Cuantia Requerida a flexión:
+
+        <p *ngIf="isDisenio">Cuantia Requerida a flexión:
             <span class="Results">{{viga.cuantiaReq}}</span>
         </p>
-        <mat-divider></mat-divider>
-        <p>Acero requerido por flexión de la Sección:
+
+        <p *ngIf="isDisenio">Acero requerido por flexión de la Sección:
             <span class="Results"> {{viga.asReq}}</span>
             <span> cm²</span>
         </p>
-        <mat-divider></mat-divider>
-        <p *ngIf="viga.asReq2>0"> Acero requerido por Compresión de la Sección:
+
+        <p *ngIf="viga.asReq2>0 && isDisenio"> Acero requerido por Compresión de la Sección:
             <span class="Results"> {{viga.asReq2}}</span>
             <span> cm²</span>
         </p>
-        <mat-divider></mat-divider>
+
+        <p>Momento resistente de la Sección:
+            <span class="Results"> {{viga.phiMn}}</span>
+            <span> Tonf-m</span>
+        </p>
+
         <mat-card-footer>
             <div *ngIf="viga.asReq2>0; else elseBlock">
                 <h1 style="text-align: center; color: red;">

@@ -28,8 +28,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { VigaChequeoContainerComponent } from './Components/ChequeoViga/viga-chequeo-container/viga-chequeo-container.component';
-import { VigaChequeoInputComponent } from './Components/ChequeoViga/viga-chequeo-input/viga-chequeo-input.component';
-import { VigaChequeoOutputComponent } from './Components/ChequeoViga/viga-chequeo-output/viga-chequeo-output.component';
 import { BaseControlComponent } from './Components/Bases/base-control/base-control.component';
 import { MyInjector } from './Injectors/my-injector';
 
@@ -45,8 +43,6 @@ import { MyInjector } from './Injectors/my-injector';
     VigaContainerComponent,
     SecurityTellerIdComponent,
     VigaChequeoContainerComponent,
-    VigaChequeoInputComponent,
-    VigaChequeoOutputComponent,
     BaseControlComponent
   ],
   imports: [

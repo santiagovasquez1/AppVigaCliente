@@ -2,6 +2,19 @@
     <p style="color: white"> Cargando </p>
 </ngx-spinner>
 
-<p>viga-chequeo-container works!</p>
-<p>{{vigaService.vigaChequeo|json}}</p>
-<app-viga-chequeo-input (vigaCalcEmitter)="onVigaCalcEmitter($event)"></app-viga-chequeo-input>
+
+<body class="containerBody">
+    <div class="container">
+        <header>
+            <h1>Chequeo a Flexion Vigas Rectangulares</h1>
+        </header>
+        <div class="formContainer">
+            <div class="formContent">
+                <app-viga-input [viga]="vigaService.vigaChequeo" [isDisenio]="isDisenio" (vigaCalcEmitter)="onVigaCalcEmitter($event)"></app-viga-input>
+            </div>
+            <div class="formContent">
+                <app-viga-output [viga]="vigaService.vigaChequeo" [isDisenio]="isDisenio"></app-viga-output>
+            </div>
+        </div>
+    </div>
+</body>

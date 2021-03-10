@@ -1,3 +1,4 @@
+import { BaseControlComponent } from './../Bases/base-control/base-control.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Viga } from './../../models/viga';
 import { Observable } from 'rxjs';
@@ -12,25 +13,28 @@ import { CookieService } from 'ngx-cookie-service';
   templateUrl: './viga-input.component.html',
   styleUrls: ['./viga-input.component.css']
 })
-export class VigaInputComponent implements OnInit {
+export class VigaInputComponent extends BaseControlComponent implements OnInit {
 
   @Input() viga: Viga;
-  formInput: FormGroup;
-  @Output() vigaCalcEmitter = new EventEmitter<Viga>();
+  @Input() isDisenio: boolean;
+  constructor(private fb: FormBuilder) {
+    super();
 
-  constructor(private cookieService: CookieService, private spinner: NgxSpinnerService, private fb: FormBuilder) {
     this.formInput = this.fb.group({
       bw: ['', [Validators.required]],
       hw: ['', [Validators.required]],
       r: ['', [Validators.required]],
       fc: ['', [Validators.required]],
       fy: ['', [Validators.required]],
-      Mu: ['', [Validators.required]],
-      phiFlexion: ['', [Validators.required]]
+      mu: [''],
+      asReq: [''],
+      asReq2: [''],
+      phiFlexion: ['']
     });
   }
 
   ngOnInit(): void {
+
     this.spinner.show();
     setTimeout(() => {
       this.formInput = this.fb.group({
@@ -39,19 +43,13 @@ export class VigaInputComponent implements OnInit {
         r: [this.viga.r, [Validators.required]],
         fc: [this.viga.fc, [Validators.required]],
         fy: [this.viga.fy, [Validators.required]],
-        Mu: [this.viga.Mu, [Validators.required]],
-        phiFlexion: [this.viga.phiFlexion = 0.90, [Validators.required]]
+        mu: [this.viga.Mu],
+        asReq: [this.viga.asReq],
+        asReq2: [this.viga.asReq2],
+        phiFlexion: [this.viga.phiFlexion = 0.90]
       });
       this.spinner.hide();
-    }, 200);
-  }
-
-  onClick() {
-    this.vigaCalcEmitter.emit(this.viga);
-  }
-
-  onChangeEvent(event: any) {
-    this.viga[event.target.name] = event.target.value;
+    }, 500);
   }
 
 }

@@ -12,8 +12,9 @@ export class VigaOutputComponent implements OnInit {
 
   outputForm: FormGroup;
   @Input() viga: Viga;
+  @Input() isDisenio: boolean;
 
-  constructor(public vigaService: WebApiVigaService) {
+  constructor() {
 
   }
 

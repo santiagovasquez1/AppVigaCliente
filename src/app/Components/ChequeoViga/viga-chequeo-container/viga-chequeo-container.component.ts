@@ -10,6 +10,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class VigaChequeoContainerComponent implements OnInit {
 
+  isDisenio = false;
   constructor(public vigaService: WebApiVigaService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
@@ -26,7 +27,7 @@ export class VigaChequeoContainerComponent implements OnInit {
   }
 
   onVigaCalcEmitter(viga: Viga) {
-    console.log(this.vigaService.vigaChequeo);
+    this.GetVigaChequeo(viga.id, viga);
   }
 
   private GetVigaChequeo(index, dataViga): void {
