@@ -30,6 +30,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { VigaChequeoContainerComponent } from './Components/ChequeoViga/viga-chequeo-container/viga-chequeo-container.component';
 import { BaseControlComponent } from './Components/Bases/base-control/base-control.component';
 import { MyInjector } from './Injectors/my-injector';
+import { CortanteContainerComponent } from './Components/CortanteViga/cortante-container/cortante-container.component';
+import { CortanteBaseControlComponent } from './Components/Bases/cortante-base-control/cortante-base-control.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { MyInjector } from './Injectors/my-injector';
     VigaContainerComponent,
     SecurityTellerIdComponent,
     VigaChequeoContainerComponent,
-    BaseControlComponent
+    BaseControlComponent,
+    CortanteContainerComponent,
+    CortanteBaseControlComponent,
   ],
   imports: [
     BrowserModule,

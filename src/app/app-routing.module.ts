@@ -1,3 +1,4 @@
+import { CortanteContainerComponent } from './Components/CortanteViga/cortante-container/cortante-container.component';
 import { VigaChequeoContainerComponent } from './Components/ChequeoViga/viga-chequeo-container/viga-chequeo-container.component';
 import { VigaContainerComponent } from './Components/viga-container/viga-container.component';
 import { AuthGuard } from './security/auth.guard';
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'disenioflexion', component: VigaContainerComponent },
   { path: 'chequeoSeccionFlexion', component: VigaChequeoContainerComponent },
+  { path: 'disenioCortante', component: CortanteContainerComponent },
   { path: '**', component: LoginComponent }
 ];
 
