@@ -1,0 +1,73 @@
+<mat-card>
+    <mat-card-title class="headerCard">
+        <h1>Datos de entrada</h1>
+    </mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="formInput">
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Fy(kgf/cm²)</mat-label>
+                    <input matInput name="fy" type="number" id="tbFy" formControlName="fy" (change)="onChangeEvent($event,cortanteViga)">
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Fc(kgf/cm²)</mat-label>
+                    <input matInput name="fc" type="number" id="tbFc" formControlName="fc" (change)="onChangeEvent($event,cortanteViga)">
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>b(cm)</mat-label>
+                    <input matInput name="bw" type="number" id="tbBw " formControlName="bw" (change)="onChangeEvent($event,cortanteViga)">
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>h(cm)</mat-label>
+                    <input matInput name="hw" type="number" id="tbHw " formControlName="hw" (change)="onChangeEvent($event,cortanteViga)">
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>d'(cm)</mat-label>
+                    <input matInput name="r" type="number" id="tbr " formControlName="r" (change)="onChangeEvent($event,cortanteViga)">
+                </mat-form-field>
+            </p>
+
+            <div *ngIf="isDisenio">
+                <p>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Vu(Tonf)</mat-label>
+                        <input matInput name="Vu" type="number" formControlName="Vu" (change)="onChangeEvent($event,cortanteViga)">
+                    </mat-form-field>
+                </p>
+
+                <label id="example-radio-group-label">Seleccione según cual condicion diseñar:</label>
+                <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="selectedCondition" (change)="onOpcionSelected()">
+                    <mat-radio-button class="example-radio-button" *ngFor="let condition of conditions" [value]="condition">{{condition}}</mat-radio-button>
+                </mat-radio-group>
+
+                <p *ngIf="formInput.get('selectedCondition').value === conditions[0]">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Separación(cm)</mat-label>
+                        <input matInput name="separacionAs" type="number" formControlName="separacionAs" (change)="onChangeEvent($event,cortanteViga)">
+                    </mat-form-field>
+                </p>
+
+                <p *ngIf="formInput.get('selectedCondition').value === conditions[1]">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Acero a cortante(cm²)</mat-label>
+                        <input matInput name="asCortante" type="number" formControlName="asCortante" (change)="onChangeEvent($event,cortanteViga)">
+                    </mat-form-field>
+                </p>
+            </div>
+
+
+        </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <button class="bottonStyle" mat-raised-button (click)="onClick(cortanteViga)">Calcular</button>
+    </mat-card-actions>
+</mat-card>

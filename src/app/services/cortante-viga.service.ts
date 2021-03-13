@@ -12,26 +12,34 @@ export class CortanteVigaService {
   private readonly apiEndPoint = 'http://localhost:8000/cortante/';
 
   disenioCortante: CortanteViga = new CortanteViga();
-  cehqueoCortante: CortanteViga = new CortanteViga();
+  chequeoCortante: CortanteViga = new CortanteViga();
 
   constructor(private cookieService: CookieService, private http: HttpClient) { }
 
-  disenioCortanteCookie(): CortanteViga {
-    const cookieDisenioCortante = this.cookieService.get('disenioCortanteCookie');
-    if (cookieDisenioCortante === '') {
-      return new CortanteViga();
+  GetCortanteCookie(cookieString: string): CortanteViga {
+    const cookieCortante = this.cookieService.get(cookieString);
+    if (cookieCortante === '') {
+      const cortanteTemp: CortanteViga = {
+        bw: 30,
+        hw: 50,
+        r: 6,
+        fc: 210,
+        fy: 4220,
+        d: 0,
+        phiCortante: 0.75,
+        phiVc: 0,
+        phiVs: 0,
+        phiVn: 0,
+        Vu: 5.8,
+        phiVsMax: 0,
+        phiVnMax: 0,
+        asCortante: 1.42,
+        separacionAs: 0
+      };
+      return cortanteTemp;
     }
-    const disenioCortante = JSON.parse(cookieDisenioCortante);
-    return disenioCortante;
-  }
-
-  chequeoCortanteCookie(): CortanteViga {
-    const cookieChequeoCortante = this.cookieService.get('chequeoCortanteCookie');
-    if (cookieChequeoCortante === '') {
-      return new CortanteViga();
-    }
-    const chequeoCortante = JSON.parse(cookieChequeoCortante);
-    return chequeoCortante;
+    const cortante = JSON.parse(cookieCortante);
+    return cortante;
   }
 
   disenioCortanteService(dataInput): Observable<CortanteViga> {

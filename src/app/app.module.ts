@@ -32,6 +32,8 @@ import { BaseControlComponent } from './Components/Bases/base-control/base-contr
 import { MyInjector } from './Injectors/my-injector';
 import { CortanteContainerComponent } from './Components/CortanteViga/cortante-container/cortante-container.component';
 import { CortanteBaseControlComponent } from './Components/Bases/cortante-base-control/cortante-base-control.component';
+import { CortanteInputComponent } from './Components/CortanteViga/cortante-input/cortante-input.component';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import { CortanteBaseControlComponent } from './Components/Bases/cortante-base-c
     BaseControlComponent,
     CortanteContainerComponent,
     CortanteBaseControlComponent,
+    CortanteInputComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ import { CortanteBaseControlComponent } from './Components/Bases/cortante-base-c
     MatSidenavModule,
     MatListModule,
     MatDividerModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatRadioModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

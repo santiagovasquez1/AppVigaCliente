@@ -1,1 +1,19 @@
-<p>cortante-container works!</p>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="timer" [fullScreen]="true">
+    <p style="color: white"> Cargando </p>
+</ngx-spinner>
+
+<div class="containerBody">
+    <div class="container">
+        <header>
+            <h1>Diseño a Cortante Vigas Rectangulares</h1>
+        </header>
+        <div class="formContainer">
+            <div class="formContent">
+                <app-cortante-input [cortanteViga]="cortanteVigaService.disenioCortante" [isDisenio]="isDisenio" (CortanteCalcEmitter)="onVigaCalcEmitter($event)"></app-cortante-input>
+            </div>
+            <div class="formContent">
+                <app-cortante-input [cortanteViga]="cortanteVigaService.disenioCortante"></app-cortante-input>
+            </div>
+        </div>
+    </div>
+</div>

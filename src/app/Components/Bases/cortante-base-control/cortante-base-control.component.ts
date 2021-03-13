@@ -2,7 +2,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { CortanteVigaService } from './../../../services/cortante-viga.service';
 import { FormGroup } from '@angular/forms';
 import { CortanteViga } from './../../../models/cortante-viga';
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { MyInjector } from 'src/app/Injectors/my-injector';
 
 @Component({
@@ -20,13 +20,12 @@ export class CortanteBaseControlComponent implements OnInit {
   formInput: FormGroup;
   cortanteVigaService: CortanteVigaService;
   spinner: NgxSpinnerService;
+  @Input() isDisenio: boolean;
+  @Input() cortanteViga: CortanteViga;
 
   constructor() {
     try {
       const injector = MyInjector.getInjector();
-      this.cortanteVigaService = injector.get(CortanteVigaService);
-      this.cortanteVigaService.disenioCortante.phiCortante = 0.75;
-      this.cortanteVigaService.cehqueoCortante.phiCortante = 0.75;
       this.spinner = injector.get(NgxSpinnerService);
     } catch (error) {
       console.log('Failed initializing dependencies', error);
@@ -34,6 +33,7 @@ export class CortanteBaseControlComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   onChangeEvent(event: any, cortanteViga: CortanteViga) {
