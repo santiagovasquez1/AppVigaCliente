@@ -1,3 +1,4 @@
+import { CookieService } from 'ngx-cookie-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CortanteViga } from './../../../models/cortante-viga';
 import { CortanteVigaService } from './../../../services/cortante-viga.service';
@@ -11,7 +12,8 @@ import { Component, OnInit } from '@angular/core';
 export class CortanteContainerComponent implements OnInit {
 
   isDisenio = true;
-  constructor(public cortanteVigaService: CortanteVigaService, private spinner: NgxSpinnerService) {
+  selectOption: string;
+  constructor(public cortanteVigaService: CortanteVigaService, private spinner: NgxSpinnerService, private cookieService: CookieService) {
 
   }
 
@@ -22,16 +24,26 @@ export class CortanteContainerComponent implements OnInit {
 
   onVigaCalcEmitter(cortanteViga: CortanteViga) {
     this.spinner.show();
+    if (this.selectOption == 'separacion') {
+      cortanteViga.asCortante = 0;
+    } else {
+      cortanteViga.separacionAs = 0;
+    }
     this.cortanteVigaService.disenioCortanteService(cortanteViga).subscribe(result => {
       this.cortanteVigaService.disenioCortante = result;
+      this.cookieService.set('disenioCortante', JSON.stringify(result), {
+        sameSite: 'Lax'
+      });
       console.log(result);
       this.spinner.hide();
     }, error => {
       this.spinner.hide();
       console.log(error);
     });
-
   }
 
+  onSelectOptionEmitter(selectOption: string) {
+    this.selectOption = selectOption;
+  }
 
 }

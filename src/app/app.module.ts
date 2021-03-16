@@ -34,6 +34,10 @@ import { CortanteContainerComponent } from './Components/CortanteViga/cortante-c
 import { CortanteBaseControlComponent } from './Components/Bases/cortante-base-control/cortante-base-control.component';
 import { CortanteInputComponent } from './Components/CortanteViga/cortante-input/cortante-input.component';
 import {MatRadioModule} from '@angular/material/radio';
+import { CortanteOutputComponent } from './Components/CortanteViga/cortante-output/cortante-output.component';
+import { NgxMaskModule, IConfig } from 'ngx-mask'
+
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 @NgModule({
   declarations: [
@@ -51,6 +55,7 @@ import {MatRadioModule} from '@angular/material/radio';
     CortanteContainerComponent,
     CortanteBaseControlComponent,
     CortanteInputComponent,
+    CortanteOutputComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +76,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatListModule,
     MatDividerModule,
     NgxSpinnerModule,
-    MatRadioModule
+    MatRadioModule,
+    NgxMaskModule.forRoot()
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

@@ -1,6 +1,6 @@
 import { CortanteViga } from './../../../models/cortante-viga';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CortanteBaseControlComponent } from '../../Bases/cortante-base-control/cortante-base-control.component';
 
 @Component({
@@ -11,6 +11,7 @@ import { CortanteBaseControlComponent } from '../../Bases/cortante-base-control/
 export class CortanteInputComponent extends CortanteBaseControlComponent implements OnInit {
 
   conditions: string[] = ['separacion', 'AsVertical'];
+  @Output() selectOptionEmitter = new EventEmitter<string>();
   constructor(private fb: FormBuilder) {
     super();
 
@@ -54,6 +55,7 @@ export class CortanteInputComponent extends CortanteBaseControlComponent impleme
   }
 
   onOpcionSelected() {
-    console.log(this.formInput);
+    let selectConditions = this.formInput.get('selectedCondition').value;
+    this.selectOptionEmitter.emit(selectConditions);
   }
 }

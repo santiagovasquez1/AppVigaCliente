@@ -18,7 +18,6 @@ export class CortanteBaseControlComponent implements OnInit {
 
   @Output() CortanteCalcEmitter = new EventEmitter<CortanteViga>();
   formInput: FormGroup;
-  cortanteVigaService: CortanteVigaService;
   spinner: NgxSpinnerService;
   @Input() isDisenio: boolean;
   @Input() cortanteViga: CortanteViga;
@@ -37,7 +36,7 @@ export class CortanteBaseControlComponent implements OnInit {
   }
 
   onChangeEvent(event: any, cortanteViga: CortanteViga) {
-    cortanteViga[event.target.name] = event.target.value;
+    cortanteViga[event.target.name] = Number.parseFloat(event.target.value);
   }
 
   onClick(cortanteViga: CortanteViga) {

@@ -9,10 +9,10 @@
         </header>
         <div class="formContainer">
             <div class="formContent">
-                <app-cortante-input [cortanteViga]="cortanteVigaService.disenioCortante" [isDisenio]="isDisenio" (CortanteCalcEmitter)="onVigaCalcEmitter($event)"></app-cortante-input>
+                <app-cortante-input [cortanteViga]="cortanteVigaService.disenioCortante" [isDisenio]="isDisenio" (CortanteCalcEmitter)="onVigaCalcEmitter($event)" (selectOptionEmitter)="onSelectOptionEmitter($event)"></app-cortante-input>
             </div>
             <div class="formContent">
-                <app-cortante-input [cortanteViga]="cortanteVigaService.disenioCortante"></app-cortante-input>
+                <app-cortante-output [cortanteViga]="cortanteVigaService.disenioCortante"></app-cortante-output>
             </div>
         </div>
     </div>

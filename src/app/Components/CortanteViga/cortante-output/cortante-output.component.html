@@ -1,0 +1,35 @@
+<mat-card>
+    <mat-card-title class="headerCard">
+        <h1>Resultados</h1>
+    </mat-card-title>
+
+    <p>Phi Cortante:
+        <span class="Results">{{cortanteViga.phiCortante}}</span>
+    </p>
+
+    <p>Phi Vc (Tonf):
+        <span class="Results">{{cortanteViga.phiVc|mask:"separator.2"}}</span>
+    </p>
+
+    <p>Phi Vs (Tonf):
+        <span class="Results">{{cortanteViga.phiVs|mask:"separator.2"}}</span>
+    </p>
+
+    <p>Phi Vs máx (Tonf):
+        <span class="Results">{{cortanteViga.phiVsMax|mask:"separator.2"}}</span>
+    </p>
+
+    <p>Separación de los estribos (cm²)
+        <span class="Results">{{cortanteViga.separacionAs|mask:"separator.2"}}</span>
+    </p>
+
+    <p>Acero de estribo (cm²/m)
+        <span class="Results">{{cortanteViga.asCortante|mask:"separator.2"}}</span>
+    </p>
+
+    <p>Phi Vn máx (Tonf):
+        <span class="Results">{{cortanteViga.phiVnMax|mask:"separator.2"}}</span>
+    </p>
+
+
+</mat-card>
