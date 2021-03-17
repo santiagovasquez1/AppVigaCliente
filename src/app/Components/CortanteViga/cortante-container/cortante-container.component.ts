@@ -13,6 +13,8 @@ export class CortanteContainerComponent implements OnInit {
 
   isDisenio = true;
   selectOption: string;
+  isSectionOk = true;
+  SectionMessage = "";
   constructor(public cortanteVigaService: CortanteVigaService, private spinner: NgxSpinnerService, private cookieService: CookieService) {
 
   }
@@ -24,22 +26,30 @@ export class CortanteContainerComponent implements OnInit {
 
   onVigaCalcEmitter(cortanteViga: CortanteViga) {
     this.spinner.show();
-    if (this.selectOption == 'separacion') {
-      cortanteViga.asCortante = 0;
-    } else {
-      cortanteViga.separacionAs = 0;
-    }
     this.cortanteVigaService.disenioCortanteService(cortanteViga).subscribe(result => {
       this.cortanteVigaService.disenioCortante = result;
       this.cookieService.set('disenioCortante', JSON.stringify(result), {
         sameSite: 'Lax'
       });
       console.log(result);
+      this.checkDimensions(result);
       this.spinner.hide();
     }, error => {
       this.spinner.hide();
       console.log(error);
     });
+  }
+
+  checkDimensions(viga: CortanteViga) {
+    if (Number.parseFloat(viga.Vu.toString()) > Number.parseFloat(viga.phiVnMax.toString())) {
+      this.isSectionOk = false;
+      this.SectionMessage="¡¡Cortante ultimo mayor a la capacidad máxima de la sección!!"
+    } else if (Number.parseFloat(viga.phiVs.toString()) > Number.parseFloat(viga.phiVsMax.toString())) {
+      this.isSectionOk = false;
+      this.SectionMessage=" ¡¡Cortante aportado por el acero mayor a la capacidad máxima de la sección!!"
+    }else{
+      this.isSectionOk = true;
+    }
   }
 
   onSelectOptionEmitter(selectOption: string) {

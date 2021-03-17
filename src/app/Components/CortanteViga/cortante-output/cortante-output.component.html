@@ -8,28 +8,40 @@
     </p>
 
     <p>Phi Vc (Tonf):
-        <span class="Results">{{cortanteViga.phiVc|mask:"separator.2"}}</span>
+        <span class="Results">{{cortanteViga.phiVc}}</span>
     </p>
 
     <p>Phi Vs (Tonf):
-        <span class="Results">{{cortanteViga.phiVs|mask:"separator.2"}}</span>
+        <span class="Results">{{cortanteViga.phiVs}}</span>
+    </p>
+
+    <p>Phi Vn (Tonf):
+        <span class="Results">{{cortanteViga.phiVn}}</span>
     </p>
 
     <p>Phi Vs máx (Tonf):
-        <span class="Results">{{cortanteViga.phiVsMax|mask:"separator.2"}}</span>
-    </p>
-
-    <p>Separación de los estribos (cm²)
-        <span class="Results">{{cortanteViga.separacionAs|mask:"separator.2"}}</span>
-    </p>
-
-    <p>Acero de estribo (cm²/m)
-        <span class="Results">{{cortanteViga.asCortante|mask:"separator.2"}}</span>
+        <span class="Results">{{cortanteViga.phiVsMax}}</span>
     </p>
 
     <p>Phi Vn máx (Tonf):
-        <span class="Results">{{cortanteViga.phiVnMax|mask:"separator.2"}}</span>
+        <span class="Results">{{cortanteViga.phiVnMax}}</span>
     </p>
+
+    <p>Separación de los estribos (cm²)
+        <span class="Results">{{cortanteViga.separacionAs}}</span>
+    </p>
+
+    <p>Acero de estribo (cm²/m)
+        <span class="Results">{{cortanteViga.asCortante}}</span>
+    </p>
+
+    <mat-card-footer>
+        <div *ngIf="!isSectionOk">
+            <h1 style="text-align: center; color: red;">
+                {{SectionMessage}}
+            </h1>
+        </div>
+    </mat-card-footer>
 
 
 </mat-card>

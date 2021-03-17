@@ -12,6 +12,7 @@ export class CortanteInputComponent extends CortanteBaseControlComponent impleme
 
   conditions: string[] = ['separacion', 'AsVertical'];
   @Output() selectOptionEmitter = new EventEmitter<string>();
+
   constructor(private fb: FormBuilder) {
     super();
 

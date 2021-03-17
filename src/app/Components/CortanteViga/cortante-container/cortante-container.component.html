@@ -12,7 +12,7 @@
                 <app-cortante-input [cortanteViga]="cortanteVigaService.disenioCortante" [isDisenio]="isDisenio" (CortanteCalcEmitter)="onVigaCalcEmitter($event)" (selectOptionEmitter)="onSelectOptionEmitter($event)"></app-cortante-input>
             </div>
             <div class="formContent">
-                <app-cortante-output [cortanteViga]="cortanteVigaService.disenioCortante"></app-cortante-output>
+                <app-cortante-output [cortanteViga]="cortanteVigaService.disenioCortante" [isSectionOk]="isSectionOk" [SectionMessage]="SectionMessage"></app-cortante-output>
             </div>
         </div>
     </div>
