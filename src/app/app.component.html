@@ -8,14 +8,16 @@
 <mat-drawer-container class="mainContainer">
     <mat-drawer *ngIf="opened" mode="side" opened>
         <mat-selection-list [multiple]="false">
-            <mat-list-option [routerLink]="['login']">Inicio</mat-list-option>
             <mat-list-option [routerLink]="['disenioflexion']">Diseño a flexion</mat-list-option>
             <mat-list-option [routerLink]="['chequeoSeccionFlexion']">Chequeo a flexión de sección</mat-list-option>
             <mat-list-option [routerLink]="['disenioCortante']">Diseño a cortante sección rectangular</mat-list-option>
         </mat-selection-list>
     </mat-drawer>
-    <mat-drawer-content>
+    <mat-drawer-content style="overflow-x: hidden;">
         <router-outlet></router-outlet>
+        <div class="clearfix"></div>
+        <footer>
+            Santiago Vásquez &copy; 2021
+        </footer>
     </mat-drawer-content>
-
 </mat-drawer-container>

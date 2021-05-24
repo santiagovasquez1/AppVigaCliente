@@ -1,8 +1,11 @@
-<mat-card>
-    <mat-card-title class="headerCard">
-        <h1>Resultados</h1>
-    </mat-card-title>
-    <mat-card-content>
+<div class="myCard">
+    <div class="headerCard">
+        <h2>
+            Resultados
+        </h2>
+    </div>
+
+    <div class="resultsContent">
         <p>Cuantia Máxima de la Sección:
             <span class="Results">{{viga.cuantiaMax}}</span>
         </p>
@@ -41,17 +44,15 @@
             <span> Tonf-m</span>
         </p>
 
-        <mat-card-footer>
-            <div *ngIf="viga.asReq2>0; else elseBlock">
-                <h1 style="text-align: center; color: red;">
-                    ¡¡Viga Doblemente Reforzada!!
-                </h1>
-            </div>
-            <ng-template #elseBlock>
-                <h1 style="text-align: center;">
-                    ¡¡Viga Simplemente Reforzada!!
-                </h1>
-            </ng-template>
-        </mat-card-footer>
-    </mat-card-content>
-</mat-card>
+        <div *ngIf="viga.asReq2>0; else elseBlock">
+            <h1 style="text-align: center; color: red;">
+                ¡¡Viga Doblemente Reforzada!!
+            </h1>
+        </div>
+        <ng-template #elseBlock>
+            <h1 style="text-align: center;">
+                ¡¡Viga Simplemente Reforzada!!
+            </h1>
+        </ng-template>
+    </div>
+</div>

@@ -1,8 +1,10 @@
-<mat-card class="mat-card">
-    <mat-card-title class="headerCard">
-        <h1>Datos de entrada</h1>
-    </mat-card-title>
-    <mat-card-content class="mat-card-content">
+<div class="myCard">
+    <div class="headerCard">
+        <h2>
+            Datos de entrada
+        </h2>
+    </div>
+    <div class="myForm">
         <form [formGroup]="formInput">
             <p>
                 <mat-form-field appearance="outline">
@@ -55,9 +57,9 @@
                 </mat-form-field>
             </p>
 
+            <button mat-raised-button class="bottonStyle" (click)="onClick(viga)">Calcular</button>
+
         </form>
-    </mat-card-content>
-    <mat-card-actions>
-        <button class="bottonStyle" mat-raised-button (click)="onClick(viga)">Calcular</button>
-    </mat-card-actions>
-</mat-card>
+    </div>
+
+</div>

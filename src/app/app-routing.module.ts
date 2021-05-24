@@ -10,11 +10,10 @@ import { Routes, RouterModule } from '@angular/router';
 //Clase encargada de las rutas de la app
 //canActivate: [AuthGuard]
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
   { path: 'disenioflexion', component: VigaContainerComponent },
   { path: 'chequeoSeccionFlexion', component: VigaChequeoContainerComponent },
   { path: 'disenioCortante', component: CortanteContainerComponent },
-  { path: '**', component: LoginComponent }
+  { path: '**', component: VigaContainerComponent }
 ];
 
 @NgModule({

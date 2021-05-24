@@ -3,18 +3,12 @@
 </ngx-spinner>
 
 
-<div class="containerBody">
-    <div class="container">
-        <header>
-            <h1>Chequeo a Flexion Vigas Rectangulares</h1>
-        </header>
-        <div class="formContainer">
-            <div class="formContent">
-                <app-viga-input [viga]="vigaService.vigaChequeo" [isDisenio]="isDisenio" (vigaCalcEmitter)="onVigaCalcEmitter($event)"></app-viga-input>
-            </div>
-            <div class="formContent">
-                <app-viga-output [viga]="vigaService.vigaChequeo" [isDisenio]="isDisenio"></app-viga-output>
-            </div>
-        </div>
-    </div>
+
+<div class="container">
+    <header>
+        <h1>Chequeo a Flexion Vigas Rectangulares</h1>
+    </header>
+    <app-viga-input [viga]="vigaService.vigaChequeo" [isDisenio]="isDisenio" (vigaCalcEmitter)="onVigaCalcEmitter($event)"></app-viga-input>
+    <app-viga-output [viga]="vigaService.vigaChequeo" [isDisenio]="isDisenio"></app-viga-output>
+
 </div>
