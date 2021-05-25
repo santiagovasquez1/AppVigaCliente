@@ -23,11 +23,11 @@ export class VigaContainerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.infoContainerLeft=$(".infoContainer-left");
-    this.infoContainerRight=$(".infoContainer-right");
+    this.infoContainerLeft = $(".infoContainer-left");
+    this.infoContainerRight = $(".infoContainer-right");
 
-    console.log(this.infoContainerLeft);
-    
+    this.onResizeWindow();
+
     window.addEventListener('load', event => {
       this.onResizeWindow();
     });
@@ -35,19 +35,18 @@ export class VigaContainerComponent implements OnInit {
     window.addEventListener('resize', event => {
       this.onResizeWindow();
     });
-    
+
     this.GetListVigas();
-    
   }
 
   onResizeWindow() {
-    
-    if(window.innerWidth<=750){
-      this.infoContainerLeft.css("width","80%").css("float","none");
-      this.infoContainerRight.css("width","80%").css("float","none");
-    }else{
-      this.infoContainerLeft.css("width","40%").css("float","left");
-      this.infoContainerRight.css("width","40%").css("float","right");
+
+    if (window.innerWidth <= 750) {
+      this.infoContainerLeft.css("width", "80%").css("float", "none").css("margin", "0px auto");
+      this.infoContainerRight.css("width", "80%").css("float", "none").css("margin", "0px auto");;
+    } else {
+      this.infoContainerLeft.css("width", "40%").css("float", "left").css("margin-left", "20px");
+      this.infoContainerRight.css("width", "40%").css("float", "right").css("margin-right", "20px");
     }
   }
 

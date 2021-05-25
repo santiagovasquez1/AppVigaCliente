@@ -2,6 +2,7 @@ import { Viga } from './../../../models/viga';
 import { WebApiVigaService } from 'src/app/services/web-api-viga.service';
 import { Component, OnInit, Output } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-viga-chequeo-container',
@@ -11,9 +12,26 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class VigaChequeoContainerComponent implements OnInit {
 
   isDisenio = false;
+  infoContainerRight: JQuery<HTMLElement>;
+  infoContainerLeft: JQuery<HTMLElement>;
+
   constructor(public vigaService: WebApiVigaService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
+
+    this.infoContainerLeft = $(".infoContainer-left");
+    this.infoContainerRight = $(".infoContainer-right");
+
+    this.onResizeWindow();
+
+    window.addEventListener('load', event => {
+      this.onResizeWindow();
+    });
+
+    window.addEventListener('resize', event => {
+      this.onResizeWindow();
+    });
+
     this.vigaService.GetVigas().subscribe(result => {
       const vigas = result.results as Viga[];
       if (vigas.length > 1) {
@@ -24,6 +42,17 @@ export class VigaChequeoContainerComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  onResizeWindow() {
+
+    if (window.innerWidth <= 750) {
+      this.infoContainerLeft.css("width", "80%").css("float", "none").css("margin", "0px auto");
+      this.infoContainerRight.css("width", "80%").css("float", "none").css("margin", "0px auto");;
+    } else {
+      this.infoContainerLeft.css("width", "40%").css("float", "left").css("margin-left", "20px");
+      this.infoContainerRight.css("width", "40%").css("float", "right").css("margin-right", "20px");
+    }
   }
 
   onVigaCalcEmitter(viga: Viga) {

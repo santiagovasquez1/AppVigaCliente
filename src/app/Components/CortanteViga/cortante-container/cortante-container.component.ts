@@ -3,6 +3,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { CortanteViga } from './../../../models/cortante-viga';
 import { CortanteVigaService } from './../../../services/cortante-viga.service';
 import { Component, OnInit } from '@angular/core';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-cortante-container',
@@ -14,14 +15,42 @@ export class CortanteContainerComponent implements OnInit {
   isDisenio = true;
   selectOption: string;
   isSectionOk = true;
+  infoContainerRight: JQuery<HTMLElement>;
+  infoContainerLeft: JQuery<HTMLElement>;
+
   SectionMessage = "";
   constructor(public cortanteVigaService: CortanteVigaService, private spinner: NgxSpinnerService, private cookieService: CookieService) {
 
   }
 
   ngOnInit(): void {
+
+    this.infoContainerLeft = $(".infoContainer-left");
+    this.infoContainerRight = $(".infoContainer-right");
+
+    this.onResizeWindow();
+
+    window.addEventListener('load', event => {
+      this.onResizeWindow();
+    });
+
+    window.addEventListener('resize', event => {
+      this.onResizeWindow();
+    });
+
     this.cortanteVigaService.disenioCortante = this.cortanteVigaService.GetCortanteCookie('disenioCortante');
     this.cortanteVigaService.chequeoCortante = this.cortanteVigaService.GetCortanteCookie('chequeoCortante');
+  }
+
+  onResizeWindow() {
+
+    if (window.innerWidth <= 750) {
+      this.infoContainerLeft.css("width", "80%").css("float", "none").css("margin", "0px auto");
+      this.infoContainerRight.css("width", "80%").css("float", "none").css("margin", "0px auto");;
+    } else {
+      this.infoContainerLeft.css("width", "40%").css("float", "left").css("margin-left", "20px");
+      this.infoContainerRight.css("width", "40%").css("float", "right").css("margin-right", "20px");
+    }
   }
 
   onVigaCalcEmitter(cortanteViga: CortanteViga) {
