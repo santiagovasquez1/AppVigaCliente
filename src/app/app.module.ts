@@ -36,7 +36,7 @@ import { CortanteInputComponent } from './Components/CortanteViga/cortante-input
 import {MatRadioModule} from '@angular/material/radio';
 import { CortanteOutputComponent } from './Components/CortanteViga/cortante-output/cortante-output.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask'
-
+import * as $ from 'jquery';
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 @NgModule({

@@ -1,14 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  opened: boolean = false;
-  title = 'vigas-angular-electron';
+export class AppComponent implements OnInit {
 
+  opened: boolean = false;
+  title = 'Herramientas de diseño SVG';
+  divSection: any
+ 
+  ngOnInit(): void {
+
+  }
 
   openNavBar() {
     if (this.opened === false) {

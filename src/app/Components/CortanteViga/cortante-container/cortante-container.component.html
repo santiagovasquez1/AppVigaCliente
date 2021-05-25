@@ -2,18 +2,16 @@
     <p style="color: white"> Cargando </p>
 </ngx-spinner>
 
-<div class="containerBody">
-    <div class="container">
-        <header>
-            <h1>Diseño a Cortante Vigas Rectangulares</h1>
-        </header>
-        <div class="formContainer">
-            <div class="formContent">
-                <app-cortante-input [cortanteViga]="cortanteVigaService.disenioCortante" [isDisenio]="isDisenio" (CortanteCalcEmitter)="onVigaCalcEmitter($event)" (selectOptionEmitter)="onSelectOptionEmitter($event)"></app-cortante-input>
-            </div>
-            <div class="formContent">
-                <app-cortante-output [cortanteViga]="cortanteVigaService.disenioCortante" [isSectionOk]="isSectionOk" [SectionMessage]="SectionMessage"></app-cortante-output>
-            </div>
-        </div>
+
+<div class="container">
+    <header>
+        <h1>Diseño a Cortante Vigas Rectangulares</h1>
+    </header>
+    <div class="infoContainer-left">
+        <app-cortante-input [cortanteViga]="cortanteVigaService.disenioCortante" [isDisenio]="isDisenio" (CortanteCalcEmitter)="onVigaCalcEmitter($event)" (selectOptionEmitter)="onSelectOptionEmitter($event)"></app-cortante-input>
     </div>
+    <div class="infoContainer-right">
+        <app-cortante-output [cortanteViga]="cortanteVigaService.disenioCortante" [isSectionOk]="isSectionOk" [SectionMessage]="SectionMessage"></app-cortante-output>
+    </div>
+    <div class="clearfix"></div>
 </div>

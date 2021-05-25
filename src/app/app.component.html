@@ -2,7 +2,7 @@
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="openNavBar()">
       <mat-icon>menu</mat-icon>
     </button>
-    <span>Diseño vigas a Flexion</span>
+    <span>{{title}}</span>
 </mat-toolbar>
 
 <mat-drawer-container class="mainContainer">
@@ -14,8 +14,9 @@
         </mat-selection-list>
     </mat-drawer>
     <mat-drawer-content style="overflow-x: hidden;">
-        <router-outlet></router-outlet>
-        <div class="clearfix"></div>
+        <section id="contenido">
+            <router-outlet></router-outlet>
+        </section>
         <footer>
             Santiago Vásquez &copy; 2021
         </footer>

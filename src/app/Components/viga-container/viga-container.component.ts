@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Viga } from 'src/app/models/viga';
 import { WebApiVigaService } from 'src/app/services/web-api-viga.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-viga-container',
@@ -14,13 +15,40 @@ export class VigaContainerComponent implements OnInit {
   vigaContainer: Viga;
   isDisenio = true;
   listVigas: Viga[];
+  infoContainerRight: JQuery<HTMLElement>;
+  infoContainerLeft: JQuery<HTMLElement>;
 
   constructor(public vigaService: WebApiVigaService, private spinner: NgxSpinnerService) {
     this.vigaContainer = new Viga();
   }
 
   ngOnInit(): void {
+    this.infoContainerLeft=$(".infoContainer-left");
+    this.infoContainerRight=$(".infoContainer-right");
+
+    console.log(this.infoContainerLeft);
+    
+    window.addEventListener('load', event => {
+      this.onResizeWindow();
+    });
+
+    window.addEventListener('resize', event => {
+      this.onResizeWindow();
+    });
+    
     this.GetListVigas();
+    
+  }
+
+  onResizeWindow() {
+    
+    if(window.innerWidth<=750){
+      this.infoContainerLeft.css("width","80%").css("float","none");
+      this.infoContainerRight.css("width","80%").css("float","none");
+    }else{
+      this.infoContainerLeft.css("width","40%").css("float","left");
+      this.infoContainerRight.css("width","40%").css("float","right");
+    }
   }
 
   onVigaCalcEmitter(viga: Viga) {

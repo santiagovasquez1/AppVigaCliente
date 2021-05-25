@@ -6,6 +6,11 @@
     <header>
         <h1>Diseño a Flexion Vigas Rectangulares</h1>
     </header>
-    <app-viga-input [viga]="vigaService.currentViga" [isDisenio]="isDisenio" (vigaCalcEmitter)="onVigaCalcEmitter($event)"></app-viga-input>
-    <app-viga-output [viga]="vigaService.currentViga" [isDisenio]="isDisenio"></app-viga-output>
+    <div class="infoContainer-left">
+        <app-viga-input [viga]="vigaService.currentViga" [isDisenio]="isDisenio" (vigaCalcEmitter)="onVigaCalcEmitter($event)"></app-viga-input>
+    </div>
+    <div class="infoContainer-right">
+        <app-viga-output [viga]="vigaService.currentViga" [isDisenio]="isDisenio"></app-viga-output>
+    </div>
+    <div class="clearfix"></div>
 </div>

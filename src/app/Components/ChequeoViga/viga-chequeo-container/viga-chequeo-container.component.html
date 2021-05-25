@@ -2,13 +2,15 @@
     <p style="color: white"> Cargando </p>
 </ngx-spinner>
 
-
-
 <div class="container">
     <header>
         <h1>Chequeo a Flexion Vigas Rectangulares</h1>
     </header>
-    <app-viga-input [viga]="vigaService.vigaChequeo" [isDisenio]="isDisenio" (vigaCalcEmitter)="onVigaCalcEmitter($event)"></app-viga-input>
-    <app-viga-output [viga]="vigaService.vigaChequeo" [isDisenio]="isDisenio"></app-viga-output>
-
+    <div class="infoContainer-left">
+        <app-viga-input [viga]="vigaService.vigaChequeo" [isDisenio]="isDisenio" (vigaCalcEmitter)="onVigaCalcEmitter($event)"></app-viga-input>
+    </div>
+    <div class="infoContainer-right">
+        <app-viga-output [viga]="vigaService.vigaChequeo" [isDisenio]="isDisenio"></app-viga-output>
+    </div>
+    <div class="clearFix"></div>
 </div>

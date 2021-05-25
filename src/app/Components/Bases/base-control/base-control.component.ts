@@ -21,6 +21,7 @@ export class BaseControlComponent implements OnInit {
   vigaService: WebApiVigaService;
   spinner: NgxSpinnerService;
 
+
   constructor() {
 
     try {
@@ -36,7 +37,9 @@ export class BaseControlComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
+
 
 
   onChangeEvent(event: any, viga: Viga) {
