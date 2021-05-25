@@ -3,34 +3,26 @@ import { WebApiVigaService } from 'src/app/services/web-api-viga.service';
 import { Component, OnInit, Output } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as $ from 'jquery';
+import { ContainerBaseComponent } from '../../Bases/container-base/container-base.component';
 
 @Component({
   selector: 'app-viga-chequeo-container',
   templateUrl: './viga-chequeo-container.component.html',
   styleUrls: ['./viga-chequeo-container.component.css']
 })
-export class VigaChequeoContainerComponent implements OnInit {
+export class VigaChequeoContainerComponent extends ContainerBaseComponent implements OnInit {
 
   isDisenio = false;
-  infoContainerRight: JQuery<HTMLElement>;
-  infoContainerLeft: JQuery<HTMLElement>;
 
-  constructor(public vigaService: WebApiVigaService, private spinner: NgxSpinnerService) { }
+  constructor(public vigaService: WebApiVigaService, private spinner: NgxSpinnerService) {
+    super();
+  }
 
   ngOnInit(): void {
 
     this.infoContainerLeft = $(".infoContainer-left");
     this.infoContainerRight = $(".infoContainer-right");
-
-    this.onResizeWindow();
-
-    window.addEventListener('load', event => {
-      this.onResizeWindow();
-    });
-
-    window.addEventListener('resize', event => {
-      this.onResizeWindow();
-    });
+    this.onComponentInit();
 
     this.vigaService.GetVigas().subscribe(result => {
       const vigas = result.results as Viga[];
