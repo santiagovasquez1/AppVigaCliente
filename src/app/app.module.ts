@@ -38,6 +38,7 @@ import { CortanteOutputComponent } from './Components/CortanteViga/cortante-outp
 import { NgxMaskModule, IConfig } from 'ngx-mask'
 import * as $ from 'jquery';
 import { ContainerBaseComponent } from './Components/Bases/container-base/container-base.component';
+import { AngularResizedEventModule } from 'angular-resize-event';
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 @NgModule({
@@ -79,6 +80,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     MatDividerModule,
     NgxSpinnerModule,
     MatRadioModule,
+    AngularResizedEventModule,
     NgxMaskModule.forRoot()
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

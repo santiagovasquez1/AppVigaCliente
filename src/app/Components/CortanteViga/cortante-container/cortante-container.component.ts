@@ -1,3 +1,4 @@
+import { GlobalService } from './../../../services/global.service';
 import { CookieService } from 'ngx-cookie-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CortanteViga } from './../../../models/cortante-viga';
@@ -11,23 +12,18 @@ import { ContainerBaseComponent } from '../../Bases/container-base/container-bas
   templateUrl: './cortante-container.component.html',
   styleUrls: ['./cortante-container.component.css']
 })
-export class CortanteContainerComponent extends ContainerBaseComponent implements OnInit {
+export class CortanteContainerComponent implements OnInit {
 
   isDisenio = true;
   selectOption: string;
   isSectionOk = true;
 
   SectionMessage = "";
-  constructor(public cortanteVigaService: CortanteVigaService, private spinner: NgxSpinnerService, private cookieService: CookieService) {
-    super();
+  constructor(public cortanteVigaService: CortanteVigaService, private spinner: NgxSpinnerService, private cookieService: CookieService, public global:GlobalService) {
+
   }
 
   ngOnInit(): void {
-
-    this.infoContainerLeft = $(".infoContainer-left");
-    this.infoContainerRight = $(".infoContainer-right");
-    this.onComponentInit();
-
     this.cortanteVigaService.disenioCortante = this.cortanteVigaService.GetCortanteCookie('disenioCortante');
     this.cortanteVigaService.chequeoCortante = this.cortanteVigaService.GetCortanteCookie('chequeoCortante');
   }

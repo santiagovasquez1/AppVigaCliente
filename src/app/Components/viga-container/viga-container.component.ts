@@ -1,3 +1,4 @@
+import { GlobalService } from './../../services/global.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Viga } from 'src/app/models/viga';
@@ -10,22 +11,21 @@ import { ContainerBaseComponent } from '../Bases/container-base/container-base.c
   templateUrl: './viga-container.component.html',
   styleUrls: ['./viga-container.component.css']
 })
-export class VigaContainerComponent extends ContainerBaseComponent implements OnInit {
+export class VigaContainerComponent implements OnInit {
 
   @Output() getViga = new EventEmitter<Viga>();
   vigaContainer: Viga;
   isDisenio = true;
   listVigas: Viga[];
 
-  constructor(public vigaService: WebApiVigaService, private spinner: NgxSpinnerService) {
-    super();
+  constructor(public vigaService: WebApiVigaService, private spinner: NgxSpinnerService,public global:GlobalService) {
     this.vigaContainer = new Viga();
   }
 
   ngOnInit(): void {
-    this.infoContainerLeft = $(".infoContainer-left");
-    this.infoContainerRight = $(".infoContainer-right");
-    this.onComponentInit();
+    // this.infoContainerLeft = $(".infoContainer-left");
+    // this.infoContainerRight = $(".infoContainer-right");
+    // this.onComponentInit();
     this.GetListVigas();
   }
 

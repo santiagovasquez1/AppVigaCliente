@@ -1,3 +1,4 @@
+import { GlobalService } from './../../../services/global.service';
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 
@@ -15,12 +16,12 @@ export class ContainerBaseComponent implements OnInit {
   infoContainerRight: JQuery<HTMLElement>;
   infoContainerLeft: JQuery<HTMLElement>;
 
-  constructor() { }
+  constructor(public global: GlobalService) { }
 
   ngOnInit(): void {
   }
 
-  onComponentInit(){
+  onComponentInit() {
     this.onResizeWindow();
 
     window.addEventListener('load', event => {
@@ -33,6 +34,8 @@ export class ContainerBaseComponent implements OnInit {
   }
 
   onResizeWindow() {
+
+    console.log(this.global.sectionWidht);
 
     if (window.innerWidth <= 750) {
       this.infoContainerLeft.css("width", "80%").css("float", "none").css("margin", "0px auto");
