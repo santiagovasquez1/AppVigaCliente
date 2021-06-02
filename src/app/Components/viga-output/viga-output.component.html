@@ -7,44 +7,44 @@
 
     <div class="resultsContent">
         <p>Cuantia Máxima de la Sección:
-            <span class="Results">{{viga.cuantiaMax}}</span>
+            <span class="Results">{{flexion.cuantiaMax}}</span>
         </p>
 
         <p>Acero Máximo de la Sección:
-            <span class="Results">{{viga.asMax}}</span>
+            <span class="Results">{{flexion.aceroMaximo}}</span>
             <span> cm²</span>
         </p>
 
         <p>Momento Máxima de la sección:
-            <span class="Results">{{viga.phiMnMax}}</span>
+            <span class="Results">{{flexion.phiMnMax}}</span>
             <span> Tonf-m</span>
         </p>
 
         <p>Acero temperatura de la Sección:
-            <span class="Results"> {{viga.asTemp}}</span>
+            <span class="Results"> {{flexion.aceroTemperatura}}</span>
             <span> cm²</span>
         </p>
 
         <p *ngIf="isDisenio">Cuantia Requerida a flexión:
-            <span class="Results">{{viga.cuantiaReq}}</span>
+            <span class="Results">{{flexion.cuantiaRequerida}}</span>
         </p>
 
         <p *ngIf="isDisenio">Acero requerido por flexión de la Sección:
-            <span class="Results"> {{viga.asReq}}</span>
+            <span class="Results"> {{flexion.aceroRequerido}}</span>
             <span> cm²</span>
         </p>
 
-        <p *ngIf="viga.asReq2>0 && isDisenio"> Acero requerido por Compresión de la Sección:
-            <span class="Results"> {{viga.asReq2}}</span>
+        <p *ngIf="flexion.aceroRequerido2>0 && isDisenio"> Acero requerido por Compresión de la Sección:
+            <span class="Results"> {{flexion.aceroRequerido2}}</span>
             <span> cm²</span>
         </p>
 
         <p>Momento resistente de la Sección:
-            <span class="Results"> {{viga.phiMn}}</span>
+            <span class="Results"> {{flexion.phiMn}}</span>
             <span> Tonf-m</span>
         </p>
 
-        <div *ngIf="viga.asReq2>0; else elseBlock">
+        <div *ngIf="flexion.aceroRequerido2>0; else elseBlock">
             <h1 style="text-align: center; color: red;">
                 ¡¡Viga Doblemente Reforzada!!
             </h1>

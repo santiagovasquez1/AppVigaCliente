@@ -1,4 +1,4 @@
-import { WebApiVigaService } from 'src/app/services/web-api-viga.service';
+import { Flexion } from './../../models/flexion';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { Viga } from 'src/app/models/viga';
@@ -10,16 +10,16 @@ import { Viga } from 'src/app/models/viga';
 })
 export class VigaOutputComponent implements OnInit {
 
-  outputForm: FormGroup;
   @Input() viga: Viga;
   @Input() isDisenio: boolean;
+  flexion: Flexion;
 
   constructor() {
 
   }
 
   ngOnInit(): void {
-
+    this.flexion = <Flexion>this.viga.calculo
   }
 
 }

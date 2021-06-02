@@ -9,51 +9,51 @@
             <p>
                 <mat-form-field appearance="outline">
                     <mat-label>Fy(kgf/cm²)</mat-label>
-                    <input matInput name="fy" type="number" id="tbFy" formControlName="fy" (change)="onChangeEvent($event,viga)">
+                    <input matInput name="fy" type="number" id="tbFy" formControlName="fy" (blur)="onblurEvent($event,viga)">
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field appearance="outline">
                     <mat-label>Fc(kgf/cm²)</mat-label>
-                    <input matInput name="fc" type="number" id="tbFc" formControlName="fc" (change)="onChangeEvent($event,viga)">
+                    <input matInput name="fc" type="number" id="tbFc" formControlName="fc" (blur)="onblurEvent($event,viga)">
                 </mat-form-field>
             </p>
 
             <p>
                 <mat-form-field appearance="outline">
                     <mat-label>b(cm)</mat-label>
-                    <input matInput name="bw" type="number" id="tbBw " formControlName="bw" (change)="onChangeEvent($event,viga)">
+                    <input matInput name="bw" type="number" id="tbBw " formControlName="bw" (blur)="onblurEvent($event,viga)">
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field appearance="outline">
                     <mat-label>h(cm)</mat-label>
-                    <input matInput name="hw" type="number" id="tbHw " formControlName="hw" (change)="onChangeEvent($event,viga)">
+                    <input matInput name="hw" type="number" id="tbHw " formControlName="hw" (blur)="onblurEvent($event,viga)">
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field appearance="outline">
                     <mat-label>d'(cm)</mat-label>
-                    <input matInput name="r" type="number" id="tbr " formControlName="r" (change)="onChangeEvent($event,viga)">
+                    <input matInput name="r" type="number" id="tbr " formControlName="r" (blur)="onblurEvent($event,viga)">
                 </mat-form-field>
             </p>
             <p *ngIf="isDisenio">
                 <mat-form-field appearance="outline">
                     <mat-label>Mu(tf-m)</mat-label>
-                    <input matInput name="Mu" type="number" id="tbMu " formControlName="mu" (change)="onChangeEvent($event,viga)">
+                    <input matInput name="Mu" type="number" id="tbMu " formControlName="mu" (blur)="onblurEvent($event,viga)">
                 </mat-form-field>
             </p>
 
             <p *ngIf="!isDisenio">
                 <mat-form-field appearance="outline">
                     <mat-label>Acero a Flexión(cm²)</mat-label>
-                    <input matInput name="asReq" type="number" id="tbr " formControlName="asReq" (change)="onChangeEvent($event,viga)">
+                    <input matInput name="asReq" type="number" id="tbr " formControlName="asReq" (blur)="onblurEvent($event,viga)">
                 </mat-form-field>
             </p>
             <p *ngIf="!isDisenio">
                 <mat-form-field appearance="outline">
                     <mat-label>Acero a Compresión(cm²)</mat-label>
-                    <input matInput name="asReq2" type="number" id="tbr " formControlName="asReq2" (change)="onChangeEvent($event,viga)">
+                    <input matInput name="asReq2" type="number" id="tbr " formControlName="asReq2" (blur)="onblurEvent($event,viga)">
                 </mat-form-field>
             </p>
 
