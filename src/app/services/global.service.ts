@@ -21,9 +21,7 @@ export class GlobalService {
   GetvigaFlexion(): Viga {
     const cookieVigaFlexion = this.cookieService.get('vigaFlexionCookie');
     if (cookieVigaFlexion === '') {
-      let flexion = new Flexion();
-      flexion.mu = 0;
-      flexion.phiFlexion = 0.90;
+      let flexion = new Flexion(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.90, 0, 0, 0);
       return new Viga(0, 0, 0, 0, 4220, 0, flexion);
     }
     const viga = JSON.parse(cookieVigaFlexion);

@@ -1,3 +1,4 @@
+import { Flexion } from './../../models/flexion';
 import { HerramientasDisenioService } from './../../services/herramientas-disenio.service';
 import { GlobalService } from './../../services/global.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
@@ -15,10 +16,12 @@ import { CookieService } from 'ngx-cookie-service';
 export class VigaContainerComponent implements OnInit {
 
   vigaContainer: Viga;
+  flexionCalculo: Flexion;
   isDisenio = true;
 
   constructor(public herramientasDisenioServer: HerramientasDisenioService, private spinner: NgxSpinnerService, public global: GlobalService) {
     this.vigaContainer = global.GetvigaFlexion();
+    this.flexionCalculo = <Flexion>this.vigaContainer.calculo;
   }
 
   ngOnInit(): void {
@@ -27,13 +30,23 @@ export class VigaContainerComponent implements OnInit {
 
   onVigaCalcEmitter(viga: Viga) {
     this.vigaContainer = viga;
-    this.CreateViga();
+    this.CalcularFlexion();
   }
 
-  private CreateViga(): void {
+  private CalcularFlexion(): void {
     this.spinner.show();
-    this.herramientasDisenioServer.FlexuralDesign(this.vigaContainer).subscribe(result => {
+    let params={
+      "bw":this.vigaContainer.bw,
+      "hw":this.vigaContainer.hw,
+      "rb":this.vigaContainer.rb,
+      "fc":this.vigaContainer.fc,
+      "fy":this.vigaContainer.fy,
+      "mu":this.flexionCalculo.mu,
+      "phiFlexion":this.flexionCalculo.phiFlexion
+    }
+    this.herramientasDisenioServer.FlexuralDesign(params).subscribe(result => {
       this.vigaContainer = result;
+      this.flexionCalculo=<Flexion>this.vigaContainer.calculo
       this.global.SetVigaCookie(this.vigaContainer, 'vigaFlexionCookie');
       this.spinner.hide();
     }, error => {

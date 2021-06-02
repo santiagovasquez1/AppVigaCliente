@@ -12,14 +12,14 @@ export class VigaOutputComponent implements OnInit {
 
   @Input() viga: Viga;
   @Input() isDisenio: boolean;
-  flexion: Flexion;
+  @Input() flexion: Flexion;
 
   constructor() {
 
   }
 
   ngOnInit(): void {
-    this.flexion = <Flexion>this.viga.calculo
+
   }
 
 }
