@@ -25,7 +25,7 @@ export class GlobalService {
       let flexion = new Flexion(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.90, 0, 0, 0);
       return new Viga(0, 0, 0, 0, 4220, 0, flexion);
     } else if (cookieViga === '' && type == Etype.Cortante) {
-      let cortante = new Cortante();
+      let cortante = new Cortante(0, 0, 0, 0, 0, 0, 0, 0.75, 0);
       return new Viga(0, 0, 0, 0, 4220, 0, cortante);
     }
     const viga = JSON.parse(cookieViga);

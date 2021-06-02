@@ -9,53 +9,37 @@ import { CortanteBaseControlComponent } from '../../Bases/cortante-base-control/
 })
 export class CortanteInputComponent extends CortanteBaseControlComponent implements OnInit {
 
-  conditions: string[] = ['separacion', 'AsVertical'];
+  conditions: string[];
+  private _selectedCondition: string;
+
+  public get selectedCondition(): string {
+    return this._selectedCondition;
+  }
+  public set selectedCondition(value: string) {
+    this._selectedCondition = value;
+    this.onOpcionSelected();
+  }
+  prueba: string;
   @Output() selectOptionEmitter = new EventEmitter<string>();
 
-  constructor(private fb: FormBuilder) {
+  constructor() {
     super();
-
-    // this.formInput = this.fb.group({
-    //   bw: ['', [Validators.required]],
-    //   hw: ['', [Validators.required]],
-    //   r: ['', [Validators.required]],
-    //   fc: ['', [Validators.required]],
-    //   fy: ['', [Validators.required]],
-    //   separacionAs: ['', Validators.required],
-    //   asCortante: ['', [Validators.required]],
-    //   Vu: ['', [Validators.required]],
-    //   selectedCondition: [''],
-    // });
+    this.conditions = ['separacion', 'AsVertical'];
+    this.selectedCondition = "";
+    this.prueba = "";
   }
 
   ngOnInit(): void {
-
-    // let selectConditions = "";
-    // if (this.cortanteViga.asCortante > 0) {
-    //   selectConditions = this.conditions[1];
-    // } else {
-    //   selectConditions = this.conditions[0];
-    // }
-
-    // this.spinner.show();
-    // setTimeout(() => {
-    //   this.formInput = this.fb.group({
-    //     bw: [this.cortanteViga.bw, [Validators.required]],
-    //     hw: [this.cortanteViga.hw, [Validators.required]],
-    //     r: [this.cortanteViga.r, [Validators.required]],
-    //     fc: [this.cortanteViga.fc, [Validators.required]],
-    //     fy: [this.cortanteViga.fy, [Validators.required]],
-    //     separacionAs: [this.cortanteViga.separacionAs, Validators.required],
-    //     asCortante: [this.cortanteViga.asCortante, [Validators.required]],
-    //     Vu: [this.cortanteViga.Vu, [Validators.required]],
-    //     selectedCondition: [selectConditions, [Validators.required]],
-    //   });
-    //   this.spinner.hide();
-    // }, 500);
+    this.selectedCondition = this.conditions[0];
   }
 
   onOpcionSelected() {
-    // let selectConditions = this.formInput.get('selectedCondition').value;
-    // this.selectOptionEmitter.emit(selectConditions);
+    if(this.cortanteCalculo!=undefined){
+      if (this.selectedCondition == this.conditions[0]) {
+        this.cortanteCalculo.asCortante = 0;
+      } else {
+        this.cortanteCalculo.separacionAs = 0;
+      }
+    }
   }
 }

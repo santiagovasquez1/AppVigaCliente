@@ -44,7 +44,8 @@ export class VigaContainerComponent implements OnInit {
       "fy":this.vigaContainer.fy,
       "mu":this.flexionCalculo.mu,
       "phiFlexion":this.flexionCalculo.phiFlexion
-    }
+    };
+
     this.herramientasDisenioServer.FlexuralDesign(params).subscribe(result => {
       this.vigaContainer = result;
       this.flexionCalculo=<Flexion>this.vigaContainer.calculo

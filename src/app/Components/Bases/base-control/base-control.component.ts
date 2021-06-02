@@ -1,12 +1,10 @@
 import { Flexion } from './../../../models/flexion';
 import { HerramientasDisenioService } from './../../../services/herramientas-disenio.service';
-import { ICalculo } from './../../../models/icalculo';
-import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { Viga } from 'src/app/models/viga';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { MyInjector } from 'src/app/Injectors/my-injector';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-base-control',
@@ -15,20 +13,17 @@ import { GlobalService } from 'src/app/services/global.service';
       base-control works!
     </p>
   `,
-  styleUrls: ['./base-control.component.css']
+  styleUrls: []
 })
 export class BaseControlComponent implements OnInit {
 
-  @Output() vigaCalcEmitter = new EventEmitter<Viga>();
   @Input() viga: Viga;
   @Input() flexionCalculo: Flexion
-  formInput: FormGroup;
+  @Output() vigaCalcEmitter = new EventEmitter<Viga>();
   spinner: NgxSpinnerService;
-
   herramientasDisenioSevice: HerramientasDisenioService
 
-  constructor(public global: GlobalService) {
-
+  constructor() {
     try {
       const injector = MyInjector.getInjector();
       this.herramientasDisenioSevice = injector.get(HerramientasDisenioService);
@@ -40,10 +35,6 @@ export class BaseControlComponent implements OnInit {
 
   ngOnInit(): void {
 
-  }
-
-  onClick(viga: Viga) {
-    this.vigaCalcEmitter.emit(viga);
   }
 
   onSubmit(form: NgForm) {
