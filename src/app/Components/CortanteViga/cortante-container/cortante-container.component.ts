@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Component, OnInit } from '@angular/core';
 import { Viga } from 'src/app/models/viga';
+import { Etype } from 'src/app/models/etype';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class CortanteContainerComponent implements OnInit {
   isSectionOk = true;
   SectionMessage = "";
   constructor(public herramientasDisenioServer: HerramientasDisenioService, private spinner: NgxSpinnerService, private cookieService: CookieService, public global: GlobalService) {
-    this.vigaContainer = global.GetVigaCortante();
+    this.vigaContainer = global.GetVigaCookie('vigaCortanteCookie',Etype.Cortante);
   }
 
   ngOnInit(): void {

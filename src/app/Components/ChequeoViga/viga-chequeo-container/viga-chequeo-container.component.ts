@@ -1,3 +1,4 @@
+import { Flexion } from 'src/app/models/flexion';
 import { HerramientasDisenioService } from './../../../services/herramientas-disenio.service';
 import { GlobalService } from './../../../services/global.service';
 import { Viga } from './../../../models/viga';
@@ -5,6 +6,7 @@ import { Component, OnInit, Output } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as $ from 'jquery';
 import { ContainerBaseComponent } from '../../Bases/container-base/container-base.component';
+import { Etype } from 'src/app/models/etype';
 
 @Component({
   selector: 'app-viga-chequeo-container',
@@ -13,37 +15,46 @@ import { ContainerBaseComponent } from '../../Bases/container-base/container-bas
 })
 export class VigaChequeoContainerComponent implements OnInit {
 
+  vigaContainer: Viga;
+  flexionCalculo: Flexion;
   isDisenio = false;
-  constructor(private herramientasDisenioService: HerramientasDisenioService, private spinner: NgxSpinnerService, public global: GlobalService) {
 
+  constructor(private herramientasDisenioService: HerramientasDisenioService, private spinner: NgxSpinnerService, public global: GlobalService) {
+    this.vigaContainer = this.global.GetVigaCookie('vigaFlexionChequeoCookie', Etype.Flexion);
+    this.flexionCalculo = <Flexion>this.vigaContainer.calculo;
   }
 
   ngOnInit(): void {
-    // this.vigaService.GetVigas().subscribe(result => {
-    //   const vigas = result.results as Viga[];
-    //   if (vigas.length > 1) {
-    //     this.vigaService.vigaChequeo = vigas[vigas.length - 1];
-    //   } else {
-    //     this.vigaService.vigaChequeo.id = vigas.length + 1;
-    //   }
-    // }, error => {
-    //   console.log(error);
-    // });
+
   }
 
   onVigaCalcEmitter(viga: Viga) {
-    // this.GetVigaChequeo(viga.id, viga);
+    this.vigaContainer = viga;
+    this.ChequearSeccion();
   }
 
-  private GetVigaChequeo(index, dataViga): void {
-    // this.spinner.show();
-    // this.vigaService.ChequeoVigaById(index, dataViga).subscribe(result => {
-    //   this.vigaService.vigaChequeo = result;
-    //   this.spinner.hide();
-    // }, error => {
-    //   this.spinner.hide();
-    //   console.log(error);
-    // });
+  private ChequearSeccion(): void {
+    this.spinner.show();
+    let params = {
+      "bw": this.vigaContainer.bw,
+      "hw": this.vigaContainer.hw,
+      "rb": this.vigaContainer.rb,
+      "fc": this.vigaContainer.fc,
+      "fy": this.vigaContainer.fy,
+      "mu": this.flexionCalculo.mu,
+      "phiFlexion": this.flexionCalculo.phiFlexion,
+      "asReq": this.flexionCalculo.aceroRequerido,
+      "asReq2": this.flexionCalculo.aceroRequerido2
+    }
+    this.herramientasDisenioService.FlexuralCheck(params).subscribe(result => {
+      this.vigaContainer = result;
+      this.flexionCalculo = <Flexion>this.vigaContainer.calculo
+      this.global.SetVigaCookie(this.vigaContainer, 'vigaFlexionChequeoCookie');
+      this.spinner.hide();
+    }, error => {
+      this.spinner.hide();
+      console.log(error);
+    });
   }
 
 }

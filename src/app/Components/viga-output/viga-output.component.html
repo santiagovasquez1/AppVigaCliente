@@ -7,40 +7,40 @@
 
     <div class="resultsContent">
         <p>Cuantia Máxima de la Sección:
-            <span class="Results">{{flexion.cuantiaMax}}</span>
+            <span class="Results">{{flexion.cuantiaMax|redondeo:4}}</span>
         </p>
 
         <p>Acero Máximo de la Sección:
-            <span class="Results">{{flexion.aceroMaximo}}</span>
+            <span class="Results">{{flexion.aceroMaximo|redondeo:2}}</span>
             <span> cm²</span>
         </p>
 
         <p>Momento Máxima de la sección:
-            <span class="Results">{{flexion.phiMnMax}}</span>
+            <span class="Results">{{flexion.phiMnMax|redondeo:2}}</span>
             <span> Tonf-m</span>
         </p>
 
         <p>Acero temperatura de la Sección:
-            <span class="Results"> {{flexion.aceroTemperatura}}</span>
+            <span class="Results"> {{flexion.aceroTemperatura|redondeo:2}}</span>
             <span> cm²</span>
         </p>
 
         <p *ngIf="isDisenio">Cuantia Requerida a flexión:
-            <span class="Results">{{flexion.cuantiaRequerida}}</span>
+            <span class="Results">{{flexion.cuantiaRequerida|redondeo:4}}</span>
         </p>
 
         <p *ngIf="isDisenio">Acero requerido por flexión de la Sección:
-            <span class="Results"> {{flexion.aceroRequerido}}</span>
+            <span class="Results"> {{flexion.aceroRequerido|redondeo:2}}</span>
             <span> cm²</span>
         </p>
 
         <p *ngIf="flexion.aceroRequerido2>0 && isDisenio"> Acero requerido por Compresión de la Sección:
-            <span class="Results"> {{flexion.aceroRequerido2}}</span>
+            <span class="Results"> {{flexion.aceroRequerido2|redondeo:2}}</span>
             <span> cm²</span>
         </p>
 
         <p>Momento resistente de la Sección:
-            <span class="Results"> {{flexion.phiMn}}</span>
+            <span class="Results"> {{flexion.phiMn|redondeo:2}}</span>
             <span> Tonf-m</span>
         </p>
 

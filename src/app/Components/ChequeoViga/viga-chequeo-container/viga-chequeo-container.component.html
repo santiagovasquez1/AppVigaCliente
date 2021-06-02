@@ -1,4 +1,4 @@
-<!-- <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="timer" [fullScreen]="true">
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="timer" [fullScreen]="true">
     <p style="color: white"> Cargando </p>
 </ngx-spinner>
 
@@ -7,10 +7,10 @@
         <h1>Chequeo a Flexion Vigas Rectangulares</h1>
     </header>
     <div class="infoContainer-left" [ngClass]="{'infoContainer': global.sectionWidht<=global.minWidth}">
-        <app-viga-input [viga]="vigaService.vigaChequeo" [isDisenio]="isDisenio" (vigaCalcEmitter)="onVigaCalcEmitter($event)"></app-viga-input>
+        <app-viga-input [viga]="vigaContainer" [flexionCalculo]="flexionCalculo" [isDisenio]="isDisenio" (vigaCalcEmitter)="onVigaCalcEmitter($event)"></app-viga-input>
     </div>
     <div class="infoContainer-right" [ngClass]="{'infoContainer': global.sectionWidht<=global.minWidth}">
-        <app-viga-output [viga]="vigaService.vigaChequeo" [isDisenio]="isDisenio"></app-viga-output>
+        <app-viga-output [viga]="vigaContainer" [flexion]="flexionCalculo" [isDisenio]="isDisenio"></app-viga-output>
     </div>
     <div class="clearFix" *ngIf="global.sectionWidht>global.minWidth"></div>
-</div> -->
+</div>

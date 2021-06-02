@@ -37,7 +37,7 @@
                 </mat-form-field>
             </p>
 
-            <p>
+            <p *ngIf="isDisenio">
                 <mat-form-field appearance="outline">
                     <mat-label>Mu(Tonf-m)</mat-label>
                     <input matInput name="mu" type="number" #inpuMu [(ngModel)]="flexionCalculo.mu" required>
@@ -46,13 +46,13 @@
 
             <div *ngIf="!isDisenio ">
                 <p>
-                    <mat-form-field appearance="outline ">
+                    <mat-form-field appearance="outline">
                         <mat-label>Acero a Flexión(cm²)</mat-label>
                         <input matInput name="asReq " type="number " #inputAs1 [(ngModel)]="flexionCalculo.aceroRequerido" required>
                     </mat-form-field>
                 </p>
                 <p>
-                    <mat-form-field appearance="outline ">
+                    <mat-form-field appearance="outline">
                         <mat-label>Acero a Compresión(cm²)</mat-label>
                         <input matInput name="asReq2 " type="number " #inputAs2 [(ngModel)]="flexionCalculo.aceroRequerido2">
                     </mat-form-field>

@@ -7,6 +7,7 @@ import { Viga } from 'src/app/models/viga';
 import * as $ from 'jquery';
 import { ContainerBaseComponent } from '../Bases/container-base/container-base.component';
 import { CookieService } from 'ngx-cookie-service';
+import { Etype } from 'src/app/models/etype';
 
 @Component({
   selector: 'app-viga-container',
@@ -20,7 +21,7 @@ export class VigaContainerComponent implements OnInit {
   isDisenio = true;
 
   constructor(public herramientasDisenioServer: HerramientasDisenioService, private spinner: NgxSpinnerService, public global: GlobalService) {
-    this.vigaContainer = global.GetvigaFlexion();
+    this.vigaContainer = this.global.GetVigaCookie('vigaFlexionCookie',Etype.Flexion);
     this.flexionCalculo = <Flexion>this.vigaContainer.calculo;
   }
 
