@@ -11,7 +11,7 @@
         <app-cortante-input [viga]="vigaContainer" [cortanteCalculo]="cortanteCalculo" [isDisenio]="isDisenio" (CortanteCalcEmitter)="onVigaCalcEmitter($event)" (selectOptionEmitter)="onSelectOptionEmitter($event)"></app-cortante-input>
     </div>
     <div class="infoContainer-right" [ngClass]="{'infoContainer': global.sectionWidht<=global.minWidth}">
-        <app-cortante-output [viga]="vigaContainer" [isSectionOk]="isSectionOk" [SectionMessage]="SectionMessage"></app-cortante-output>
+        <app-cortante-output [cortanteCalculo]="cortanteCalculo" [isSectionOk]="isSectionOk" [SectionMessage]="SectionMessage"></app-cortante-output>
     </div>
     <div class="clearfix" *ngIf="global.sectionWidht>global.minWidth"></div>
 </div>
