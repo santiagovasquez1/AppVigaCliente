@@ -8,10 +8,10 @@
         <h1>Diseño a Cortante Vigas Rectangulares</h1>
     </header>
     <div class="infoContainer-left" [ngClass]="{'infoContainer': global.sectionWidht<=global.minWidth}">
-        <app-cortante-input [cortanteViga]="cortanteVigaService.disenioCortante" [isDisenio]="isDisenio" (CortanteCalcEmitter)="onVigaCalcEmitter($event)" (selectOptionEmitter)="onSelectOptionEmitter($event)"></app-cortante-input>
+        <app-cortante-input [viga]="vigaContainer" [cortanteCalculo]="cortanteCalculo" [isDisenio]="isDisenio" (CortanteCalcEmitter)="onVigaCalcEmitter($event)" (selectOptionEmitter)="onSelectOptionEmitter($event)"></app-cortante-input>
     </div>
     <div class="infoContainer-right" [ngClass]="{'infoContainer': global.sectionWidht<=global.minWidth}">
-        <app-cortante-output [cortanteViga]="cortanteVigaService.disenioCortante" [isSectionOk]="isSectionOk" [SectionMessage]="SectionMessage"></app-cortante-output>
+        <app-cortante-output [cortanteCalculo]="cortanteCalculo" [isSectionOk]="isSectionOk" [SectionMessage]="SectionMessage"></app-cortante-output>
     </div>
     <div class="clearfix" *ngIf="global.sectionWidht>global.minWidth"></div>
 </div>

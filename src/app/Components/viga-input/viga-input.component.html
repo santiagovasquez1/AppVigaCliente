@@ -5,61 +5,59 @@
         </h2>
     </div>
     <div class="myForm">
-        <form [formGroup]="formInput">
+        <form #flexuralDesignForm (ngSubmit)="onSubmit(flexuralDesignForm)">
             <p>
                 <mat-form-field appearance="outline">
                     <mat-label>Fy(kgf/cm²)</mat-label>
-                    <input matInput name="fy" type="number" id="tbFy" formControlName="fy" (change)="onChangeEvent($event,viga)">
+                    <input matInput name="fy" type="number" #inputfy [(ngModel)]="viga.fy" required>
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field appearance="outline">
                     <mat-label>Fc(kgf/cm²)</mat-label>
-                    <input matInput name="fc" type="number" id="tbFc" formControlName="fc" (change)="onChangeEvent($event,viga)">
+                    <input matInput name="fc" type="number" #inputfc [(ngModel)]="viga.fc" required>
                 </mat-form-field>
             </p>
-
             <p>
                 <mat-form-field appearance="outline">
                     <mat-label>b(cm)</mat-label>
-                    <input matInput name="bw" type="number" id="tbBw " formControlName="bw" (change)="onChangeEvent($event,viga)">
+                    <input matInput name="bw" type="number" #inputbw [(ngModel)]="viga.bw" required>
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field appearance="outline">
                     <mat-label>h(cm)</mat-label>
-                    <input matInput name="hw" type="number" id="tbHw " formControlName="hw" (change)="onChangeEvent($event,viga)">
+                    <input matInput name="hw" type="number" #inputhw [(ngModel)]="viga.hw" required>
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field appearance="outline">
                     <mat-label>d'(cm)</mat-label>
-                    <input matInput name="r" type="number" id="tbr " formControlName="r" (change)="onChangeEvent($event,viga)">
+                    <input matInput name="r" type="number" #inputr [(ngModel)]="viga.rb" required>
                 </mat-form-field>
             </p>
+
             <p *ngIf="isDisenio">
                 <mat-form-field appearance="outline">
-                    <mat-label>Mu(tf-m)</mat-label>
-                    <input matInput name="Mu" type="number" id="tbMu " formControlName="mu" (change)="onChangeEvent($event,viga)">
+                    <mat-label>Mu(Tonf-m)</mat-label>
+                    <input matInput name="mu" type="number" #inpuMu [(ngModel)]="flexionCalculo.mu" required>
                 </mat-form-field>
             </p>
 
-            <p *ngIf="!isDisenio">
-                <mat-form-field appearance="outline">
-                    <mat-label>Acero a Flexión(cm²)</mat-label>
-                    <input matInput name="asReq" type="number" id="tbr " formControlName="asReq" (change)="onChangeEvent($event,viga)">
-                </mat-form-field>
-            </p>
-            <p *ngIf="!isDisenio">
-                <mat-form-field appearance="outline">
-                    <mat-label>Acero a Compresión(cm²)</mat-label>
-                    <input matInput name="asReq2" type="number" id="tbr " formControlName="asReq2" (change)="onChangeEvent($event,viga)">
-                </mat-form-field>
-            </p>
-
-            <button mat-raised-button class="bottonStyle" (click)="onClick(viga)">Calcular</button>
-
+            <div *ngIf="!isDisenio ">
+                <p>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Acero a Flexión(cm²)</mat-label>
+                        <input matInput name="asReq " type="number " #inputAs1 [(ngModel)]="flexionCalculo.aceroRequerido" required>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Acero a Compresión(cm²)</mat-label>
+                        <input matInput name="asReq2 " type="number " #inputAs2 [(ngModel)]="flexionCalculo.aceroRequerido2">
+                    </mat-form-field>
+                </p>
+            </div>
+            <button class="bottonStyle" mat-raised-button>Calcular</button>
         </form>
     </div>
-
-</div>

@@ -3,68 +3,69 @@
         <h2>Datos de entrada</h2>
     </div>
     <div class="myForm">
-        <form [formGroup]="formInput">
+        <form (ngSubmit)="onSubmit(cortanteForm)" #cortanteForm="ngForm">
             <p>
                 <mat-form-field appearance="outline">
                     <mat-label>Fy(kgf/cm²)</mat-label>
-                    <input matInput name="fy" type="number" id="tbFy" formControlName="fy" (change)="onChangeEvent($event,cortanteViga)">
+                    <input matInput name="fy" type="number" #inputfy [(ngModel)]="viga.fy" required>
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field appearance="outline">
                     <mat-label>Fc(kgf/cm²)</mat-label>
-                    <input matInput name="fc" type="number" id="tbFc" formControlName="fc" (change)="onChangeEvent($event,cortanteViga)">
+                    <input matInput name="fc" type="number" #inputfc [(ngModel)]="viga.fc" required>
                 </mat-form-field>
             </p>
-
             <p>
                 <mat-form-field appearance="outline">
                     <mat-label>b(cm)</mat-label>
-                    <input matInput name="bw" type="number" id="tbBw " formControlName="bw" (change)="onChangeEvent($event,cortanteViga)">
+                    <input matInput name="bw" type="number" #inputbw [(ngModel)]="viga.bw" required>
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field appearance="outline">
                     <mat-label>h(cm)</mat-label>
-                    <input matInput name="hw" type="number" id="tbHw " formControlName="hw" (change)="onChangeEvent($event,cortanteViga)">
+                    <input matInput name="hw" type="number" #inputhw [(ngModel)]="viga.hw" required>
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field appearance="outline">
                     <mat-label>d'(cm)</mat-label>
-                    <input matInput name="r" type="number" id="tbr " formControlName="r" (change)="onChangeEvent($event,cortanteViga)">
+                    <input matInput name="r" type="number" #inputr [(ngModel)]="viga.rb" required>
                 </mat-form-field>
             </p>
-
             <div *ngIf="isDisenio">
                 <p>
                     <mat-form-field appearance="outline">
                         <mat-label>Vu(Tonf)</mat-label>
-                        <input matInput name="Vu" type="number" formControlName="Vu" (change)="onChangeEvent($event,cortanteViga)">
+                        <input matInput name="Vu" type="number" #inputVu [(ngModel)]="cortanteCalculo.vu">
                     </mat-form-field>
                 </p>
 
-                <label id="example-radio-group-label">Seleccione según cual condicion diseñar:</label>
-                <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="selectedCondition" (change)="onOpcionSelected()">
-                    <mat-radio-button class="example-radio-button" *ngFor="let condition of conditions" [value]="condition">{{condition}}</mat-radio-button>
-                </mat-radio-group>
+                <p style="padding-left: 5px;">
+                    Seleccione según cual condicion diseñar:
+                </p>
 
-                <p *ngIf="formInput.get('selectedCondition').value === conditions[0]">
+                <label style="display: block; margin-bottom: 10px; padding-left: 10px;" *ngFor="let option of conditions">
+                  <input type="radio" [name]="option" [value]="option" [(ngModel)]="selectedCondition">
+                  {{option}}
+                </label>
+
+                <p *ngIf="selectedCondition === conditions[0]">
                     <mat-form-field appearance="outline">
                         <mat-label>Separación(cm)</mat-label>
-                        <input matInput name="separacionAs" type="number" formControlName="separacionAs" (change)="onChangeEvent($event,cortanteViga)">
+                        <input matInput name="separacionAs" #inputSep [(ngModel)]="cortanteCalculo.separacionAs" type="number" required>
                     </mat-form-field>
                 </p>
 
-                <p *ngIf="formInput.get('selectedCondition').value === conditions[1]">
+                <p *ngIf="selectedCondition === conditions[1]">
                     <mat-form-field appearance="outline">
                         <mat-label>Acero a cortante(cm²)</mat-label>
-                        <input matInput name="asCortante" type="number" formControlName="asCortante" (change)="onChangeEvent($event,cortanteViga)">
+                        <input matInput name="asCortante" type="number" #inputAs [(ngModel)]="cortanteCalculo.asCortante" required>
                     </mat-form-field>
                 </p>
             </div>
-
-            <button class="bottonStyle" mat-raised-button (click)="onClick(cortanteViga)">Calcular</button>
+            <button class="bottonStyle" mat-raised-button>Calcular</button>
         </form>
     </div>
 </div>

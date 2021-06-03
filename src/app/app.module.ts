@@ -39,6 +39,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask'
 import * as $ from 'jquery';
 import { ContainerBaseComponent } from './Components/Bases/container-base/container-base.component';
 import { AngularResizedEventModule } from 'angular-resize-event';
+import { RedondeoPipe } from './pipes/redondeo.pipe';
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 @NgModule({
@@ -58,7 +59,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     CortanteBaseControlComponent,
     CortanteInputComponent,
     CortanteOutputComponent,
-    ContainerBaseComponent
+    ContainerBaseComponent,
+    RedondeoPipe
   ],
   imports: [
     BrowserModule,

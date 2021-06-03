@@ -1,7 +1,8 @@
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { Flexion } from './../../../models/flexion';
+import { HerramientasDisenioService } from './../../../services/herramientas-disenio.service';
+import { NgForm } from '@angular/forms';
 import { Viga } from 'src/app/models/viga';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { WebApiVigaService } from 'src/app/services/web-api-viga.service';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { MyInjector } from 'src/app/Injectors/my-injector';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -12,42 +13,31 @@ import { NgxSpinnerService } from 'ngx-spinner';
       base-control works!
     </p>
   `,
-  styleUrls: ['./base-control.component.css']
+  styleUrls: []
 })
 export class BaseControlComponent implements OnInit {
 
+  @Input() viga: Viga;
+  @Input() flexionCalculo: Flexion
   @Output() vigaCalcEmitter = new EventEmitter<Viga>();
-  formInput: FormGroup;
-  vigaService: WebApiVigaService;
   spinner: NgxSpinnerService;
-
+  herramientasDisenioSevice: HerramientasDisenioService
 
   constructor() {
-
     try {
       const injector = MyInjector.getInjector();
-      this.vigaService = injector.get(WebApiVigaService);
-      this.vigaService.currentViga.phiFlexion = 0.90;
-      this.vigaService.vigaChequeo.phiFlexion = 0.90;
+      this.herramientasDisenioSevice = injector.get(HerramientasDisenioService);
       this.spinner = injector.get(NgxSpinnerService);
     } catch (error) {
       console.log('Failed initializing dependencies', error);
     }
-
   }
 
   ngOnInit(): void {
 
   }
 
-
-
-  onChangeEvent(event: any, viga: Viga) {
-    viga[event.target.name] = event.target.value;
+  onSubmit(form: NgForm) {
+    this.vigaCalcEmitter.emit(this.viga);
   }
-
-  onClick(viga: Viga) {
-    this.vigaCalcEmitter.emit(viga);
-  }
-
 }

@@ -1,7 +1,8 @@
+import { Cortante } from './../../../models/cortante';
+import { HerramientasDisenioService } from './../../../services/herramientas-disenio.service';
+import { Viga } from 'src/app/models/viga';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { CortanteVigaService } from './../../../services/cortante-viga.service';
-import { FormGroup } from '@angular/forms';
-import { CortanteViga } from './../../../models/cortante-viga';
+import { FormGroup, NgForm } from '@angular/forms';
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { MyInjector } from 'src/app/Injectors/my-injector';
 
@@ -16,15 +17,17 @@ import { MyInjector } from 'src/app/Injectors/my-injector';
 })
 export class CortanteBaseControlComponent implements OnInit {
 
-  @Output() CortanteCalcEmitter = new EventEmitter<CortanteViga>();
-  formInput: FormGroup;
-  spinner: NgxSpinnerService;
   @Input() isDisenio: boolean;
-  @Input() cortanteViga: CortanteViga;
+  @Input() viga: Viga;
+  @Input() cortanteCalculo: Cortante
+  @Output() CortanteCalcEmitter = new EventEmitter<Viga>();
+  spinner: NgxSpinnerService;
+  herramientasDisenioSevice: HerramientasDisenioService
 
   constructor() {
     try {
       const injector = MyInjector.getInjector();
+      this.herramientasDisenioSevice = injector.get(HerramientasDisenioService);
       this.spinner = injector.get(NgxSpinnerService);
     } catch (error) {
       console.log('Failed initializing dependencies', error);
@@ -35,12 +38,9 @@ export class CortanteBaseControlComponent implements OnInit {
 
   }
 
-  onChangeEvent(event: any, cortanteViga: CortanteViga) {
-    cortanteViga[event.target.name] = Number.parseFloat(event.target.value);
+  onSubmit(form: NgForm) {
+    this.CortanteCalcEmitter.emit(this.viga);
   }
 
-  onClick(cortanteViga: CortanteViga) {
-    this.CortanteCalcEmitter.emit(cortanteViga);
-  }
 
 }

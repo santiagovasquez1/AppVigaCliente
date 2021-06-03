@@ -1,10 +1,13 @@
+import { Flexion } from './../../models/flexion';
+import { HerramientasDisenioService } from './../../services/herramientas-disenio.service';
 import { GlobalService } from './../../services/global.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Viga } from 'src/app/models/viga';
-import { WebApiVigaService } from 'src/app/services/web-api-viga.service';
 import * as $ from 'jquery';
 import { ContainerBaseComponent } from '../Bases/container-base/container-base.component';
+import { CookieService } from 'ngx-cookie-service';
+import { Etype } from 'src/app/models/etype';
 
 @Component({
   selector: 'app-viga-container',
@@ -13,75 +16,44 @@ import { ContainerBaseComponent } from '../Bases/container-base/container-base.c
 })
 export class VigaContainerComponent implements OnInit {
 
-  @Output() getViga = new EventEmitter<Viga>();
   vigaContainer: Viga;
+  flexionCalculo: Flexion;
   isDisenio = true;
-  listVigas: Viga[];
 
-  constructor(public vigaService: WebApiVigaService, private spinner: NgxSpinnerService,public global:GlobalService) {
-    this.vigaContainer = new Viga();
+  constructor(public herramientasDisenioServer: HerramientasDisenioService, private spinner: NgxSpinnerService, public global: GlobalService) {
+    this.vigaContainer = this.global.GetVigaCookie('vigaFlexionCookie',Etype.Flexion);
+    this.flexionCalculo = <Flexion>this.vigaContainer.calculo;
   }
 
   ngOnInit(): void {
-    // this.infoContainerLeft = $(".infoContainer-left");
-    // this.infoContainerRight = $(".infoContainer-right");
-    // this.onComponentInit();
-    this.GetListVigas();
+
   }
 
   onVigaCalcEmitter(viga: Viga) {
     this.vigaContainer = viga;
-    if (this.listVigas.length > 0) {
-      this.UpdateViga(this.listVigas[0].id);
-    } else {
-      this.CreateViga();
-    }
+    this.CalcularFlexion();
   }
 
-  private UpdateViga(index): void {
+  private CalcularFlexion(): void {
     this.spinner.show();
-    this.vigaService.UpdateVigaById(index, this.vigaContainer).subscribe(result => {
+    let params={
+      "bw":this.vigaContainer.bw,
+      "hw":this.vigaContainer.hw,
+      "rb":this.vigaContainer.rb,
+      "fc":this.vigaContainer.fc,
+      "fy":this.vigaContainer.fy,
+      "mu":this.flexionCalculo.mu,
+      "phiFlexion":this.flexionCalculo.phiFlexion
+    };
+
+    this.herramientasDisenioServer.FlexuralDesign(params).subscribe(result => {
       this.vigaContainer = result;
-      this.vigaService.currentViga = this.vigaContainer;
-      console.log(this.vigaService.currentViga);
-      this.vigaService.changeProperty = true;
+      this.flexionCalculo=<Flexion>this.vigaContainer.calculo
+      this.global.SetVigaCookie(this.vigaContainer, 'vigaFlexionCookie');
       this.spinner.hide();
     }, error => {
       this.spinner.hide();
       console.log(error);
     });
   }
-
-  private CreateViga(): void {
-    this.spinner.show();
-    this.vigaService.setViga(this.vigaContainer).subscribe(result => {
-      this.vigaContainer = result;
-      this.vigaService.currentViga = this.vigaContainer;
-      this.vigaService.changeProperty = true;
-      this.listVigas.push(this.vigaContainer);
-      console.log(this.vigaService.currentViga);
-      this.spinner.hide();
-    },
-      error => {
-        this.spinner.hide();
-        console.log(error);
-      });
-  }
-
-  private GetListVigas(): void {
-    this.vigaService.GetVigas().subscribe(result => {
-      this.listVigas = result.results;
-      if (this.listVigas.length > 0) {
-        this.vigaContainer = this.listVigas[0];
-        this.vigaService.currentViga = this.listVigas[0];
-      } else {
-        this.vigaContainer = new Viga();
-        this.vigaService.currentViga = new Viga();
-      }
-    }, error => {
-      this.vigaService.currentViga = new Viga();
-      console.log(error);
-    });
-  }
-
 }

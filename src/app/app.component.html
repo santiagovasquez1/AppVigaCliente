@@ -6,7 +6,7 @@
 </mat-toolbar>
 
 <mat-drawer-container class="mainContainer">
-    <mat-drawer #drawer *ngIf="opened" mode="side" opened (openedChange)="onDrawerLoad()" (closedStart)="onDrawerLoad()">
+    <mat-drawer #drawer *ngIf="opened" mode="side" opened>
         <mat-selection-list [multiple]="false">
             <mat-list-option [routerLink]="['disenioflexion']">Diseño a flexion</mat-list-option>
             <mat-list-option [routerLink]="['chequeoSeccionFlexion']">Chequeo a flexión de sección</mat-list-option>

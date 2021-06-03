@@ -4,35 +4,35 @@
     </div>
     <div class="resultsContent">
         <p>Phi Cortante:
-            <span class="Results">{{cortanteViga.phiCortante}}</span>
+            <span class="Results">{{cortanteCalculo.phiCortante|redondeo:2}}</span>
         </p>
 
         <p>Phi Vc (Tonf):
-            <span class="Results">{{cortanteViga.phiVc}}</span>
+            <span class="Results">{{cortanteCalculo.phiVc|redondeo:2}}</span>
         </p>
 
         <p>Phi Vs (Tonf):
-            <span class="Results">{{cortanteViga.phiVs}}</span>
+            <span class="Results">{{cortanteCalculo.phiVs|redondeo:2}}</span>
         </p>
 
         <p>Phi Vn (Tonf):
-            <span class="Results">{{cortanteViga.phiVn}}</span>
+            <span class="Results">{{cortanteCalculo.phiVn|redondeo:2}}</span>
         </p>
 
         <p>Phi Vs máx (Tonf):
-            <span class="Results">{{cortanteViga.phiVsMax}}</span>
+            <span class="Results">{{cortanteCalculo.phiVsMax|redondeo:2}}</span>
         </p>
 
         <p>Phi Vn máx (Tonf):
-            <span class="Results">{{cortanteViga.phiVnMax}}</span>
+            <span class="Results">{{cortanteCalculo.phiVnMax|redondeo:2}}</span>
         </p>
 
         <p>Separación de los estribos (cm²)
-            <span class="Results">{{cortanteViga.separacionAs}}</span>
+            <span class="Results">{{cortanteCalculo.separacionAs|redondeo:2}}</span>
         </p>
 
         <p>Acero de estribo (cm²/m)
-            <span class="Results">{{cortanteViga.asCortante}}</span>
+            <span class="Results">{{cortanteCalculo.asCortante|redondeo:2}}</span>
         </p>
 
         <div *ngIf="!isSectionOk">

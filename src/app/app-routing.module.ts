@@ -1,14 +1,13 @@
 import { CortanteContainerComponent } from './Components/CortanteViga/cortante-container/cortante-container.component';
 import { VigaChequeoContainerComponent } from './Components/ChequeoViga/viga-chequeo-container/viga-chequeo-container.component';
 import { VigaContainerComponent } from './Components/viga-container/viga-container.component';
-import { AuthGuard } from './security/auth.guard';
 import { VigaInputComponent } from './Components/viga-input/viga-input.component';
 import { LoginComponent } from './Pages/Login/login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 //Clase encargada de las rutas de la app
-//canActivate: [AuthGuard]
+// canActivate: [AuthGuard]
 const routes: Routes = [
   { path: 'disenioflexion', component: VigaContainerComponent },
   { path: 'chequeoSeccionFlexion', component: VigaChequeoContainerComponent },
