@@ -38,18 +38,36 @@
 
                     <mat-form-field appearance="outline">
                         <mat-label>Amenaza</mat-label>
-                        <input type="text" name="Amenaza" id="Amenaza" #Amenaza="ngModel" [(ngModel)]="zonaSismica" matInput [disabled]="true" appZonaSismica value="Intermedia">
+                        <input type="text" name="Amenaza" id="Amenaza" #Amenaza="ngModel" [(ngModel)]="zonaSismica" matInput [disabled]="true">
                     </mat-form-field>
 
                     <mat-grid-list cols="2" rowHeight="70px">
                         <mat-grid-tile>
                             <mat-form-field appearance="outline">
+                                <mat-label>Aa:</mat-label>
+                                <input type="number" name="AaInput" id="AaInput" #AaInput="ngModel" [(ngModel)]="myMunicipio.aa" matInput [disabled]="true">
+                            </mat-form-field>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Av:</mat-label>
+                                <input type="number" name="AvInput" id="AvInput" #AvInput="ngModel" [(ngModel)]="myMunicipio.av" matInput [disabled]="true">
+                            </mat-form-field>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile>
+                            <mat-form-field appearance="outline">
                                 <mat-label>Capacidad de disipación de Energia</mat-label>
-                                <select matNativeControl name="" id="">
+                                <select matNativeControl name="CapacidadesLista" id="CapacidadesLista" required>
                                   <option value=""></option>
+                                  <option *ngFor="let capacidad of capacidades" value="{{capacidad}}">
+                                    {{capacidad}}
+                                  </option>
                                 </select>
                             </mat-form-field>
                         </mat-grid-tile>
+
                         <mat-grid-tile>
                             <mat-form-field appearance="outline">
                                 <mat-label>Irregularidad</mat-label>
@@ -81,12 +99,11 @@
                         <option value="two">Second option</option>
                     </select>
                     </mat-form-field>
-
                 </form>
 
             </mat-card>
         </mat-grid-tile>
         <mat-grid-tile>2</mat-grid-tile>
     </mat-grid-list>
-    {{myMunicipio.zonaSismica|zonaSismica}}
 </div>
+{{myMunicipio|json}}

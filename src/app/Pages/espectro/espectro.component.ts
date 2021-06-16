@@ -4,8 +4,7 @@ import { NgForm } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Component, OnInit } from '@angular/core';
 import { HerramientasDisenioService } from 'src/app/services/herramientas-disenio.service';
-import { EZonaSismica } from 'src/app/models/espectro/EzonaSismica';
-
+import { ECapacidad } from 'src/app/models/espectro/ECapacidad';
 
 @Component({
   selector: 'app-espectro',
@@ -22,6 +21,7 @@ export class EspectroComponent implements OnInit {
   public myMunicipio: Municipio;
   public departamentosDisabled: boolean;
   public municipiosDisabled: boolean;
+
   private _zonaSismica: string;
 
   public get zonaSismica(): string {
@@ -31,7 +31,7 @@ export class EspectroComponent implements OnInit {
     this._zonaSismica = EZonaSismica[this.myMunicipio.zonaSismica];
   }
 
-
+  public capacidades: string[];
 
   constructor(private herramientaDisenioService: HerramientasDisenioService, public spinnerService: NgxSpinnerService) {
     this.departamentos = [];
@@ -41,6 +41,15 @@ export class EspectroComponent implements OnInit {
     this.myMunicipio = new Municipio(0, "", "", 0, 0, EZonaSismica.Baja);
     this.departamentosDisabled = true;
     this.municipiosDisabled = true;
+
+    this.capacidades=[];
+
+    for (let value in ECapacidad) {
+      if(isNaN(Number(value))){
+        this.capacidades.push(value);
+      }
+    }
+
   }
 
   ngOnInit(): void {
