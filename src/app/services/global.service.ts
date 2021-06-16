@@ -16,7 +16,7 @@ export class GlobalService {
 
   constructor(private cookieService: CookieService) {
     this.minWidth = 800;
-    this.url = "https://localhost:44340/api/Vigas/"
+    this.url = "https://localhost:44340/api"
   }
 
   GetVigaCookie(cookieName: string, type: Etype): Viga {

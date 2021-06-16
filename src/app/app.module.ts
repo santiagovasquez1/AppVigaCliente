@@ -7,8 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DestacarDirective } from './Directives/destacar.directive';
-import { MultiplicarDirective } from './Directives/multiplicar.directive';
 import { EncryptInfoPipe } from './Pipes/encrypt-info.pipe';
 import { CookieService } from 'ngx-cookie-service';
 import { SecurityTellerIdComponent } from './shared/components/security-teller-id/security-teller-id.component';
@@ -34,8 +32,6 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
   declarations: [
     AppComponent,
-    DestacarDirective,
-    MultiplicarDirective,
     EncryptInfoPipe,
     SecurityTellerIdComponent
   ],

@@ -1,3 +1,4 @@
+import { EspectroComponent } from './espectro/espectro.component';
 import { PagesComponent } from './pages.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -7,12 +8,13 @@ import { CortanteContainerComponent } from './CortanteViga/cortante-container/co
 
 const routes: Routes = [
   {
-    path:"dashboard",
-    component:PagesComponent,
-    children:[
+    path: "dashboard",
+    component: PagesComponent,
+    children: [
       { path: 'disenioflexion', component: VigaContainerComponent },
       { path: 'chequeoSeccionFlexion', component: VigaChequeoContainerComponent },
       { path: 'disenioCortante', component: CortanteContainerComponent },
+      { path: 'Espectro', component: EspectroComponent },
       { path: '**', component: VigaContainerComponent }
     ]
   }

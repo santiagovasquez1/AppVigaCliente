@@ -190,6 +190,51 @@ mat-list-option:hover {
     min-height: 500px; */
 }
 
+.dataCard {
+    width: 400px;
+    height: 500px;
+    overflow: auto;
+}
+
+.dataCard mat-card-header {
+    position: relative;
+    top: -16px;
+    margin-left: -16px;
+    margin-right: -16px;
+    background: #1976D2;
+    border: solid 1px;
+    transition: 300ms all;
+}
+
+.dataCard mat-card-title {
+    color: white;
+    cursor: pointer;
+    margin: 0px auto;
+    margin-top: 10px;
+}
+
+.dataCard mat-card-header:hover {
+    background: black;
+}
+
+.dataCard form {
+    margin-top: 0px;
+}
+
+.dataCard form mat-form-field {
+    margin-top: 10px;
+}
+
+.formCheckBox {
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.prueba {
+    height: 20px;
+    overflow: auto;
+}
+
 
 /* Elemento para que los elementos debajo del objeto float se queden en su posicion  */
 

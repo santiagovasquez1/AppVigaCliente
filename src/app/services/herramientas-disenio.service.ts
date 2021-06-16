@@ -15,25 +15,36 @@ export class HerramientasDisenioService {
   }
 
   FlexuralDesign(viga: any): Observable<any> {
-    let url = `${this.global.url}FlexuralDesign`;
+    let url = `${this.global.url}/Vigas/FlexuralDesign`;
     let params = JSON.stringify(viga);
     console.log('Request is sent!');
     return this.http.post<any>(url, params, { headers: this.headers });
   }
 
   FlexuralCheck(viga: any): Observable<any> {
-    let url = `${this.global.url}FlexuralCheck`;
+    let url = `${this.global.url}/Vigas/FlexuralCheck`;
     let params = JSON.stringify(viga);
     console.log('Request is sent!');
     return this.http.post<any>(url, params, { headers: this.headers });
   }
 
-  ShearDesign(viga:any):Observable<any>{
-    let url = `${this.global.url}ShearDesign`;
+  ShearDesign(viga: any): Observable<any> {
+    let url = `${this.global.url}/Vigas/ShearDesign`;
     let params = JSON.stringify(viga);
     console.log('Request is sent!');
     return this.http.post<any>(url, params, { headers: this.headers });
   }
 
+  getDepartments(): Observable<any> {
+    let url = `${this.global.url}/Municipios/GetDepartmentos`;
+    console.log('Request is sent!');
+    return this.http.get<any>(url, { headers: this.headers });
+  }
+
+  getMunicipios(departamento:string):Observable<any>{
+    let url = `${this.global.url}/Municipios/GetMunicipioByDeparment/${departamento}`;
+    console.log('Request is sent!');
+    return this.http.get<any>(url, { headers: this.headers });
+  }
 
 }

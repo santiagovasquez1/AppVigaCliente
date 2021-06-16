@@ -1,3 +1,4 @@
+import { DirectivesModule } from './../Directives/directives.module';
 import { PipesModule } from './../Pipes/pipes.module';
 import { AngularResizedEventModule } from 'angular-resize-event';
 import { NgxMaskModule } from 'ngx-mask';
@@ -30,7 +31,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatRadioModule } from '@angular/material/radio';
-
+import { EspectroComponent } from './espectro/espectro.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,7 @@ import { MatRadioModule } from '@angular/material/radio';
     CortanteInputComponent,
     CortanteOutputComponent,
     ContainerBaseComponent,
+    EspectroComponent,
   ],
   imports: [
     CommonModule,
@@ -66,9 +70,12 @@ import { MatRadioModule } from '@angular/material/radio';
     MatListModule,
     MatDividerModule,
     MatRadioModule,
+    MatSelectModule,
+    MatCheckboxModule,
     AngularResizedEventModule,
     NgxMaskModule.forRoot(),
-    PipesModule
+    PipesModule,
+    DirectivesModule
   ],
   exports:[
     PagesComponent,
