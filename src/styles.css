@@ -191,9 +191,21 @@ mat-list-option:hover {
 }
 
 .dataCard {
-    width: 400px;
-    height: 500px;
+    width: 90%;
+    height: 90%;
+    margin: 0px auto;
     overflow: auto;
+}
+
+.myCanva {
+    width: 90%;
+    height: 90%;
+    border: solid 1px;
+    margin: 0px auto;
+}
+
+.myCanva canvas {
+    border: solid 1px;
 }
 
 .dataCard mat-card-header {

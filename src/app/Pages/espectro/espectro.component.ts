@@ -21,6 +21,7 @@ export class EspectroComponent implements OnInit {
   public myMunicipio: Municipio;
   public departamentosDisabled: boolean;
   public municipiosDisabled: boolean;
+  public microSelec: any
 
   private _zonaSismica: string;
 
@@ -42,10 +43,10 @@ export class EspectroComponent implements OnInit {
     this.departamentosDisabled = true;
     this.municipiosDisabled = true;
 
-    this.capacidades=[];
+    this.capacidades = [];
 
     for (let value in ECapacidad) {
-      if(isNaN(Number(value))){
+      if (isNaN(Number(value))) {
         this.capacidades.push(value);
       }
     }
@@ -98,7 +99,6 @@ export class EspectroComponent implements OnInit {
     } else {
       this.myMunicipio = new Municipio(0, "", "", 0, 0, EZonaSismica.Baja);
     }
-
   }
 
 }

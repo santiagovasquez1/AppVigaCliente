@@ -1,0 +1,9 @@
+<mat-card class="dataCard">
+    <mat-card-header>
+        <mat-card-title>Grafica Espectro</mat-card-title>
+    </mat-card-header>
+
+    <div style="display: block">
+        <canvas baseChart [chartType]="lineChartType" [datasets]="Data" [labels]="Labels" [colors]="colors"></canvas>
+    </div>
+</mat-card>

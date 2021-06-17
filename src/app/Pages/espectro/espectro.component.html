@@ -7,8 +7,8 @@
         <h1>Espectro de Diseño NSR10</h1>
     </header>
 
-    <mat-grid-list cols="2" rowHeight="550px">
-        <mat-grid-tile>
+    <mat-grid-list cols="2" rowHeight="550px" style="border: solid 1px;">
+        <mat-grid-tile style="border: solid 1px;">
             <mat-card class="dataCard">
                 <mat-card-header>
                     <mat-card-title>Datos Espectro</mat-card-title>
@@ -80,11 +80,12 @@
                     </mat-grid-list>
 
                     <div class="formCheckBox">
-                        <mat-checkbox>Microzonificacion</mat-checkbox>
+                        <mat-checkbox name="MicrozonificacionCheck" id="MicrozonificacionCheck" #MicrozonificacionCheck="ngModel" [(ngModel)]="microSelec">
+                            Microzonificacion
+                        </mat-checkbox>
                     </div>
 
-
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="outline" *ngIf="microSelec">
                         <mat-label>Tipo de Microzonificación</mat-label>
                         <select matNativeControl>
                           <option value="one">First option</option>
@@ -103,7 +104,9 @@
 
             </mat-card>
         </mat-grid-tile>
-        <mat-grid-tile>2</mat-grid-tile>
+        <mat-grid-tile style="border: solid 1px;">
+            <app-espectro-grafica></app-espectro-grafica>
+        </mat-grid-tile>
     </mat-grid-list>
 </div>
 {{myMunicipio|json}}
