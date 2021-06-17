@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ChartDataSets, ChartType } from 'chart.js';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { MultiDataSet, Label, Color } from 'ng2-charts';
 
 @Component({
@@ -12,8 +12,42 @@ export class EspectroGraficaComponent implements OnInit {
 
   @Input() public Labels: Label[];
   @Input() public Data: ChartDataSets[];
+  @ViewChild('canvasContainer') canvasContainer: ElementRef;
+  @ViewChild('myCanvas') myCanvas: ElementRef;
+
+
+  public canvasHeight: number;
+  public canvasWitdh: number;
+  public marginTop: number;
   public colors: Color[];
   public lineChartType: ChartType = 'line';
+
+  public scatterChartOptions: ChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      xAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: "Tiempo (s)",
+            fontSize: 15,
+            fontFamily: "Arial"
+          }
+        }
+      ],
+      yAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: "Sa (g)",
+            fontSize: 15,
+            fontFamily: "Arial"
+          }
+        }
+      ]
+    }
+  }
 
   constructor() {
 
@@ -31,9 +65,19 @@ export class EspectroGraficaComponent implements OnInit {
       }
 
     ];
+
+    this.canvasHeight = 500;
+    this.canvasWitdh = 500;
+    this.marginTop = 20;
   }
 
   ngOnInit(): void {
+
   }
+
+  ngAfterViewInit(): void {
+
+  }
+
 
 }
