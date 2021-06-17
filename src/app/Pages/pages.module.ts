@@ -36,6 +36,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { EspectroGraficaComponent } from './espectro-grafica/espectro-grafica.component';
 import { ChartsModule } from 'ng2-charts';
+import { EstructuraInfoComponent } from './estructura-info/estructura-info.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { ChartsModule } from 'ng2-charts';
     ContainerBaseComponent,
     EspectroComponent,
     EspectroGraficaComponent,
+    EstructuraInfoComponent,
   ],
   imports: [
     CommonModule,
@@ -92,7 +94,8 @@ import { ChartsModule } from 'ng2-charts';
     CortanteBaseControlComponent,
     CortanteInputComponent,
     CortanteOutputComponent,
-    ContainerBaseComponent
+    ContainerBaseComponent,
+    EstructuraInfoComponent
   ]
 })
 export class PagesModule { }

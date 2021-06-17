@@ -1,0 +1,54 @@
+<div style="border: solid 1px #ccc;padding: 5px; margin-top: 10px; border-radius: 5px;">
+    <h4>Informacion Estrcutra</h4>
+    <mat-grid-list cols="2" rowHeight="70px">
+
+        <mat-grid-tile>
+            <mat-form-field appearance="outline">
+                <mat-label>Capacidad de disipación de Energia</mat-label>
+                <select matNativeControl name="CapacidadesLista" id="CapacidadesLista" #CapacidadesLista="ngModel" [(ngModel)]="selectCapacidad" (ngModelChange)="onCapacidadChange()" required>
+            <option value=""></option>
+            <option *ngFor="let capacidad of capacidades" value="{{capacidad}}">
+              {{capacidad}}
+            </option>
+          </select>
+            </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <mat-form-field appearance="outline">
+                <mat-label>Irregularidad</mat-label>
+                <select matNativeControl name="" id="">
+            <option value="No">No</option>
+            <option value="Si">Si</option>
+          </select>
+            </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <mat-form-field appearance="outline">
+                <mat-label>Tipo de estructura</mat-label>
+                <select matNativeControl name="tipoEstructurasList" id="tipoEstructurasList" #tipoEstructurasList="ngModel" [(ngModel)]="selectTipoEstructura" (ngModelChange)="onTipoChange()" required>
+                <option value=""></option>
+                <option *ngFor="let tipo of tipoEstructuras" value="{{tipo}}">{{tipo}}</option>
+              </select>
+            </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <mat-form-field appearance="outline">
+                <mat-label>Grupo de Uso</mat-label>
+                <select matNativeControl name="grupoUsoList" id="grupoUsoList" #grupoUsoList="ngModel" [(ngModel)]="selectGrupoUso" (ngModelChange)="onGrupoChange()" required>
+        <option value=""></option>
+        <option *ngFor="let grupo of gruposUsos" value="{{grupo}}">{{grupo}}</option>
+      </select>
+            </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="2">
+            <mat-form-field appearance="outline">
+                <mat-label>Altura (m):</mat-label>
+                <input type="number" name="Altura" id="Altura" #Altura="ngModel" [(ngModel)]="estructuraInfo.H" matInput>
+            </mat-form-field>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
