@@ -1,5 +1,5 @@
-<div style="border: solid 1px #ccc;padding: 5px; margin-top: 10px; border-radius: 5px;">
-    <h4>Informacion Estrcutra</h4>
+<div class="espectroInfoContainer">
+    <h4>Informacion Estructra</h4>
     <mat-grid-list cols="2" rowHeight="70px">
 
         <mat-grid-tile>
@@ -47,7 +47,7 @@
         <mat-grid-tile colspan="2">
             <mat-form-field appearance="outline">
                 <mat-label>Altura (m):</mat-label>
-                <input type="number" name="Altura" id="Altura" #Altura="ngModel" [(ngModel)]="estructuraInfo.H" matInput>
+                <input type="number" name="Altura" id="Altura" #Altura="ngModel" [(ngModel)]="estructuraInfo.H" matInput required>
             </mat-form-field>
         </mat-grid-tile>
     </mat-grid-list>

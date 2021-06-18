@@ -67,7 +67,7 @@ export class EspectroComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    console.log("Send");
+    console.log(form.value);
   }
 
   onDepartamentoChange(departamento: string) {

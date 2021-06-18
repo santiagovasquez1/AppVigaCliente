@@ -37,6 +37,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { EspectroGraficaComponent } from './espectro-grafica/espectro-grafica.component';
 import { ChartsModule } from 'ng2-charts';
 import { EstructuraInfoComponent } from './estructura-info/estructura-info.component';
+import { SueloInfoComponent } from './suelo-info/suelo-info.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { EstructuraInfoComponent } from './estructura-info/estructura-info.compo
     EspectroComponent,
     EspectroGraficaComponent,
     EstructuraInfoComponent,
+    SueloInfoComponent,
   ],
   imports: [
     CommonModule,
