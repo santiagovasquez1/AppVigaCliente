@@ -7,103 +7,72 @@
         <h1>Espectro de Diseño NSR10</h1>
     </header>
 
-    <mat-grid-list cols="2" rowHeight="550px">
-        <mat-grid-tile>
-            <mat-card class="dataCard">
-                <mat-card-header>
-                    <mat-card-title>Datos Espectro</mat-card-title>
-                </mat-card-header>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <h2 class="card-header">
+                    Datos Espectro
+                </h2>
+                <div class="card-body">
+                    <form #espectroForm="ngForm" (ngSubmit)="onSubmit(espectroForm)">
 
-                <form #espectroForm="ngForm" (ngSubmit)="onSubmit(espectroForm)">
-
-                    <mat-form-field appearance="outline">
-                        <mat-label>Departamentos</mat-label>
-                        <select matNativeControl name="departamentosList" id="departamentosList" #departamentosList="ngModel" [(ngModel)]="selectDepartamento" [disabled]="departamentosDisabled" (ngModelChange)="onDepartamentoChange($event)" required>
-                          <option value=""></option>
-                          <option *ngFor="let departamento of departamentos " value="{{departamento}}">
-                            {{departamento}}
-                          </option>
-                        </select>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline">
-                        <mat-label>Municipio</mat-label>
-                        <select matNativeControl name="municipiosList" id="municipiosList" #municipiosList="ngModel" [(ngModel)]="selectMunicipio" [disabled]="municipiosDisabled" (ngModelChange)="onMunicipioChange($event)" required>
-                          <option value="" selected></option>
-                          <option *ngFor="let municipio of municipios " value="{{municipio.nombre}}">
-                            {{municipio.nombre}}
-                          </option>
-                        </select>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline">
-                        <mat-label>Amenaza</mat-label>
-                        <input type="text" name="Amenaza" id="Amenaza" #Amenaza="ngModel" [(ngModel)]="zonaSismica" matInput [disabled]="true">
-                    </mat-form-field>
-
-                    <mat-grid-list cols="2" rowHeight="70px">
-                        <mat-grid-tile>
+                        <div class="espectroInfoContainer">
+                            Informacion del Sitio
                             <mat-form-field appearance="outline">
-                                <mat-label>Aa:</mat-label>
-                                <input type="number" name="AaInput" id="AaInput" #AaInput="ngModel" [(ngModel)]="myMunicipio.aa" matInput [disabled]="true">
+                                <mat-label>Departamentos</mat-label>
+                                <select matNativeControl name="departamentosList" id="departamentosList" #departamentosList="ngModel" [(ngModel)]="selectDepartamento" [disabled]="departamentosDisabled" (ngModelChange)="onDepartamentoChange($event)" required>
+                            <option value=""></option>
+                            <option *ngFor="let departamento of departamentos " value="{{departamento}}">
+                              {{departamento}}
+                            </option>
+                          </select>
                             </mat-form-field>
-                        </mat-grid-tile>
 
-                        <mat-grid-tile>
                             <mat-form-field appearance="outline">
-                                <mat-label>Av:</mat-label>
-                                <input type="number" name="AvInput" id="AvInput" #AvInput="ngModel" [(ngModel)]="myMunicipio.av" matInput [disabled]="true">
+                                <mat-label>Municipio</mat-label>
+                                <select matNativeControl name="municipiosList" id="municipiosList" #municipiosList="ngModel" [(ngModel)]="selectMunicipio" [disabled]="municipiosDisabled" (ngModelChange)="onMunicipioChange($event)" required>
+                            <option value="" selected></option>
+                            <option *ngFor="let municipio of municipios " value="{{municipio.nombre}}">
+                              {{municipio.nombre}}
+                            </option>
+                          </select>
                             </mat-form-field>
-                        </mat-grid-tile>
 
-                        <mat-grid-tile>
                             <mat-form-field appearance="outline">
-                                <mat-label>Capacidad de disipación de Energia</mat-label>
-                                <select matNativeControl name="CapacidadesLista" id="CapacidadesLista" required>
-                                  <option value=""></option>
-                                  <option *ngFor="let capacidad of capacidades" value="{{capacidad}}">
-                                    {{capacidad}}
-                                  </option>
-                                </select>
+                                <mat-label>Amenaza</mat-label>
+                                <input type="text" name="Amenaza" id="Amenaza" #Amenaza="ngModel" [(ngModel)]="zonaSismica" matInput [disabled]="true">
                             </mat-form-field>
-                        </mat-grid-tile>
 
-                        <mat-grid-tile>
-                            <mat-form-field appearance="outline">
-                                <mat-label>Irregularidad</mat-label>
-                                <select matNativeControl name="" id="">
-                                  <option value="No">No</option>
-                                  <option value="Si">Si</option>
-                                </select>
-                            </mat-form-field>
-                        </mat-grid-tile>
-                    </mat-grid-list>
+                            <mat-grid-list cols="2" rowHeight="70px">
+                                <mat-grid-tile>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Aa:</mat-label>
+                                        <input type="number" name="AaInput" id="AaInput" #AaInput="ngModel" [(ngModel)]="myMunicipio.aa" matInput [disabled]="true">
+                                    </mat-form-field>
+                                </mat-grid-tile>
 
-                    <div class="formCheckBox">
-                        <mat-checkbox>Microzonificacion</mat-checkbox>
-                    </div>
+                                <mat-grid-tile>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Av:</mat-label>
+                                        <input type="number" name="AvInput" id="AvInput" #AvInput="ngModel" [(ngModel)]="myMunicipio.av" matInput [disabled]="true">
+                                    </mat-form-field>
+                                </mat-grid-tile>
+                            </mat-grid-list>
+                        </div>
 
+                        <app-suelo-info></app-suelo-info>
+                        <app-estructura-info [estructuraInfo]="estructuraInfo"></app-estructura-info>
 
-                    <mat-form-field appearance="outline">
-                        <mat-label>Tipo de Microzonificación</mat-label>
-                        <select matNativeControl>
-                          <option value="one">First option</option>
-                          <option value="two">Second option</option>
-                      </select>
-                    </mat-form-field>
+                        <button mat-button>LIKE</button>
+                    </form>
 
-                    <mat-form-field appearance="outline">
-                        <mat-label>Tipo de Suelo</mat-label>
-                        <select matNativeControl>
-                        <option value="one">First option</option>
-                        <option value="two">Second option</option>
-                    </select>
-                    </mat-form-field>
-                </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <app-espectro-grafica></app-espectro-grafica>
+        </div>
+    </div>
 
-            </mat-card>
-        </mat-grid-tile>
-        <mat-grid-tile>2</mat-grid-tile>
-    </mat-grid-list>
 </div>
-{{myMunicipio|json}}
+{{estructuraInfo|json}}

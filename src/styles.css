@@ -14,11 +14,6 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.clearFix {
-    float: none;
-    clear: both;
-}
-
 .alert {
     color: red;
 }
@@ -47,6 +42,9 @@ mat-form-field {
 }
 
 footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
     margin: 0px auto;
     background: black;
     color: white;
@@ -67,9 +65,32 @@ footer {
 
 .container {
     width: 100%;
+    height: 100%;
     margin: 0px auto;
-    padding: 5px;
+    padding: 15px;
     display: inline;
+}
+
+.container .card {
+    height: 600px;
+    margin: 0px auto;
+    margin-left: 20px;
+    margin-right: 20px;
+    overflow: auto;
+}
+
+.container .card .card-header {
+    text-align: center;
+    background: #1976D2;
+    color: white;
+}
+
+.container .card .canvasContainer {
+    border: solid 1px black;
+    height: 99%;
+    width: 99%;
+    margin: 0 auto;
+    display: block;
 }
 
 .drawer-content {
@@ -177,7 +198,7 @@ mat-list-option:hover {
 
 #contenido {
     width: 95%;
-    max-height: 90%;
+    height: 95%;
     margin: 0px auto;
     margin-top: 20px;
     box-shadow: 0px 0px 40px black;
@@ -191,9 +212,21 @@ mat-list-option:hover {
 }
 
 .dataCard {
-    width: 400px;
-    height: 500px;
+    width: 90%;
+    height: 90%;
+    margin: 0px auto;
     overflow: auto;
+}
+
+.myCanva {
+    width: 90%;
+    height: 90%;
+    border: solid 1px;
+    margin: 0px auto;
+}
+
+.myCanva canvas {
+    border: solid 1px;
 }
 
 .dataCard mat-card-header {
@@ -233,6 +266,13 @@ mat-list-option:hover {
 .prueba {
     height: 20px;
     overflow: auto;
+}
+
+.espectroInfoContainer {
+    border: solid 1px #ccc;
+    padding: 5px;
+    margin-top: 10px;
+    border-radius: 5px;
 }
 
 

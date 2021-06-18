@@ -1,0 +1,45 @@
+<div class="espectroInfoContainer">
+    <h4>Informacion Suelo</h4>
+    <div class="formCheckBox">
+        <mat-checkbox name="MicrozonificacionCheck" id="MicrozonificacionCheck" #MicrozonificacionCheck="ngModel" [(ngModel)]="microSelec" (ngModelChange)="onIsMicroChange()">
+            Microzonificacion
+        </mat-checkbox>
+    </div>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Tipo de Microzonificación</mat-label>
+        <select matNativeControl id="microzonificacionList" name="microzonificacionList" #microzonificacionList="ngModel" [(ngModel)]="zonificacion" required (ngModelChange)="onIsMicroSelectChange()">
+        <option value=""></option>
+        <option *ngFor="let zonificacionItem of zonificaciones" value="{{zonificacionItem.zonificacion}}" [disabled]="zonificacionItem.isDisabled">
+          {{zonificacionItem.zonificacion}}
+        </option>
+      </select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Tipo de Suelo</mat-label>
+        <select matNativeControl id="suelosList" name="suelosList" #suelosList="ngModel" [(ngModel)]="tipoSuelo" [disabled]="suelosDisabled">
+          <option value=""></option>
+          <option *ngFor="let suelo of suelos" value="{{suelo}}">{{suelo}}</option>
+       </select>
+    </mat-form-field>
+
+    <mat-grid-list cols="2" rowHeight="70px">
+        <mat-grid-tile>
+            <mat-form-field appearance="outline">
+                <mat-label>Fa:</mat-label>
+                <input type="number" name="FaInput" id="FaInput" matInput disabled required>
+            </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <mat-form-field appearance="outline">
+                <mat-label>Fv:</mat-label>
+                <input type="number" name="FvInput" id="FvInput" matInput disabled required>
+            </mat-form-field>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+
+
+</div>

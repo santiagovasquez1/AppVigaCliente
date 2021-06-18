@@ -1,3 +1,6 @@
+import { EGrupoUso } from './../../models/espectro/EGrupoUso';
+import { ETipoEstructura } from './../../models/espectro/ETipoEstructura';
+import { EstructuraInfo } from './../../models/espectro/EstrcutruaInfo';
 import { EZonaSismica } from './../../models/espectro/EzonaSismica';
 import { Municipio } from './../../models/espectro/Municipio';
 import { NgForm } from '@angular/forms';
@@ -21,6 +24,7 @@ export class EspectroComponent implements OnInit {
   public myMunicipio: Municipio;
   public departamentosDisabled: boolean;
   public municipiosDisabled: boolean;
+  public microSelec: any
 
   private _zonaSismica: string;
 
@@ -31,7 +35,8 @@ export class EspectroComponent implements OnInit {
     this._zonaSismica = EZonaSismica[this.myMunicipio.zonaSismica];
   }
 
-  public capacidades: string[];
+  public estructuraInfo: EstructuraInfo;
+
 
   constructor(private herramientaDisenioService: HerramientasDisenioService, public spinnerService: NgxSpinnerService) {
     this.departamentos = [];
@@ -39,16 +44,11 @@ export class EspectroComponent implements OnInit {
     this.selectDepartamento = "";
     this.selectMunicipio = "";
     this.myMunicipio = new Municipio(0, "", "", 0, 0, EZonaSismica.Baja);
+    this.estructuraInfo = new EstructuraInfo(ETipoEstructura.Porticos, 0, ECapacidad.DMO, EGrupoUso.I);
     this.departamentosDisabled = true;
     this.municipiosDisabled = true;
 
-    this.capacidades=[];
 
-    for (let value in ECapacidad) {
-      if(isNaN(Number(value))){
-        this.capacidades.push(value);
-      }
-    }
 
   }
 
@@ -67,7 +67,7 @@ export class EspectroComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    console.log("Send");
+    console.log(form.value);
   }
 
   onDepartamentoChange(departamento: string) {
@@ -98,7 +98,6 @@ export class EspectroComponent implements OnInit {
     } else {
       this.myMunicipio = new Municipio(0, "", "", 0, 0, EZonaSismica.Baja);
     }
-
   }
 
 }

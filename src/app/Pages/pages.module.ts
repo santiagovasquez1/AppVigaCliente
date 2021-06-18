@@ -34,6 +34,10 @@ import { MatRadioModule } from '@angular/material/radio';
 import { EspectroComponent } from './espectro/espectro.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { EspectroGraficaComponent } from './espectro-grafica/espectro-grafica.component';
+import { ChartsModule } from 'ng2-charts';
+import { EstructuraInfoComponent } from './estructura-info/estructura-info.component';
+import { SueloInfoComponent } from './suelo-info/suelo-info.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +53,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     CortanteOutputComponent,
     ContainerBaseComponent,
     EspectroComponent,
+    EspectroGraficaComponent,
+    EstructuraInfoComponent,
+    SueloInfoComponent,
   ],
   imports: [
     CommonModule,
@@ -75,7 +82,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     AngularResizedEventModule,
     NgxMaskModule.forRoot(),
     PipesModule,
-    DirectivesModule
+    DirectivesModule,
+    ChartsModule
   ],
   exports:[
     PagesComponent,
@@ -88,7 +96,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     CortanteBaseControlComponent,
     CortanteInputComponent,
     CortanteOutputComponent,
-    ContainerBaseComponent
+    ContainerBaseComponent,
+    EstructuraInfoComponent
   ]
 })
 export class PagesModule { }
