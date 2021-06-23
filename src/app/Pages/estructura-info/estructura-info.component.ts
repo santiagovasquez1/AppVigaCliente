@@ -2,7 +2,7 @@ import { EGrupoUso } from './../../models/espectro/EGrupoUso';
 import { ETipoEstructura } from './../../models/espectro/ETipoEstructura';
 import { Component, Input, OnInit } from '@angular/core';
 import { ECapacidad } from 'src/app/models/espectro/ECapacidad';
-import { EstructuraInfo } from 'src/app/models/espectro/EstrcutruaInfo';
+import { EstructuraInfo } from 'src/app/models/espectro/EstructuraInfo';
 
 @Component({
   selector: 'app-estructura-info',

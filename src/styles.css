@@ -76,13 +76,23 @@ footer {
     margin: 0px auto;
     margin-left: 20px;
     margin-right: 20px;
+}
+
+.container .card .card-body {
     overflow: auto;
+    padding-top: 0px;
 }
 
 .container .card .card-header {
     text-align: center;
     background: #1976D2;
     color: white;
+    margin-bottom: 0px;
+}
+
+.container .card .btn {
+    margin-top: 10px;
+    width: 100%;
 }
 
 .container .card .canvasContainer {

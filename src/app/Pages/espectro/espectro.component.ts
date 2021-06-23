@@ -1,6 +1,7 @@
+import { TipoSuelo } from './../../models/espectro/TipoSuelo';
 import { EGrupoUso } from './../../models/espectro/EGrupoUso';
 import { ETipoEstructura } from './../../models/espectro/ETipoEstructura';
-import { EstructuraInfo } from './../../models/espectro/EstrcutruaInfo';
+import { EstructuraInfo } from '../../models/espectro/EstructuraInfo';
 import { EZonaSismica } from './../../models/espectro/EzonaSismica';
 import { Municipio } from './../../models/espectro/Municipio';
 import { NgForm } from '@angular/forms';
@@ -8,6 +9,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Component, OnInit } from '@angular/core';
 import { HerramientasDisenioService } from 'src/app/services/herramientas-disenio.service';
 import { ECapacidad } from 'src/app/models/espectro/ECapacidad';
+import { param } from 'jquery';
 
 @Component({
   selector: 'app-espectro',
@@ -22,10 +24,10 @@ export class EspectroComponent implements OnInit {
   public selectDepartamento: string;
   public selectMunicipio: string;
   public myMunicipio: Municipio;
+  public tipoSuelo: TipoSuelo;
+  public estructuraInfo: EstructuraInfo;
   public departamentosDisabled: boolean;
   public municipiosDisabled: boolean;
-  public microSelec: any
-
   private _zonaSismica: string;
 
   public get zonaSismica(): string {
@@ -35,21 +37,16 @@ export class EspectroComponent implements OnInit {
     this._zonaSismica = EZonaSismica[this.myMunicipio.zonaSismica];
   }
 
-  public estructuraInfo: EstructuraInfo;
-
-
   constructor(private herramientaDisenioService: HerramientasDisenioService, public spinnerService: NgxSpinnerService) {
     this.departamentos = [];
     this.municipios = [];
     this.selectDepartamento = "";
     this.selectMunicipio = "";
     this.myMunicipio = new Municipio(0, "", "", 0, 0, EZonaSismica.Baja);
+    this.tipoSuelo = new TipoSuelo(0, "", "", 0, 0, 0, 0, 0);
     this.estructuraInfo = new EstructuraInfo(ETipoEstructura.Porticos, 0, ECapacidad.DMO, EGrupoUso.I);
     this.departamentosDisabled = true;
     this.municipiosDisabled = true;
-
-
-
   }
 
   ngOnInit(): void {
@@ -67,7 +64,13 @@ export class EspectroComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    console.log(form.value);
+    let params = {
+      "municipio": this.myMunicipio,
+      "suelo": this.tipoSuelo,
+      "estructura": this.estructuraInfo
+    }
+
+    console.log(params);
   }
 
   onDepartamentoChange(departamento: string) {
@@ -98,6 +101,10 @@ export class EspectroComponent implements OnInit {
     } else {
       this.myMunicipio = new Municipio(0, "", "", 0, 0, EZonaSismica.Baja);
     }
+  }
+
+  getSuelo(event: TipoSuelo) {
+    this.tipoSuelo = event;
   }
 
 }

@@ -18,9 +18,9 @@
 
     <mat-form-field appearance="outline">
         <mat-label>Tipo de Suelo</mat-label>
-        <select matNativeControl id="suelosList" name="suelosList" #suelosList="ngModel" [(ngModel)]="tipoSuelo" [disabled]="suelosDisabled">
+        <select matNativeControl id="suelosList" name="suelosList" #suelosList="ngModel" [(ngModel)]="selectedSuelo" (ngModelChange)="onTipoSueloChange()" [disabled]="suelosDisabled">
           <option value=""></option>
-          <option *ngFor="let suelo of suelos" value="{{suelo}}">{{suelo}}</option>
+          <option *ngFor="let suelo of suelos" value="{{suelo.idSuelo}}">{{suelo.perfil}}</option>
        </select>
     </mat-form-field>
 
@@ -28,18 +28,16 @@
         <mat-grid-tile>
             <mat-form-field appearance="outline">
                 <mat-label>Fa:</mat-label>
-                <input type="number" name="FaInput" id="FaInput" matInput disabled required>
+                <input type="number" name="FaInput" id="FaInput" #FaInput="ngModel" [(ngModel)]="tipoSuelo.Fa" matInput disabled required>
             </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
             <mat-form-field appearance="outline">
                 <mat-label>Fv:</mat-label>
-                <input type="number" name="FvInput" id="FvInput" matInput disabled required>
+                <input type="number" name="FvInput" id="FvInput" #FvInput="ngModel" [(ngModel)]="tipoSuelo.Fv" matInput disabled required>
             </mat-form-field>
         </mat-grid-tile>
     </mat-grid-list>
-
-
 
 </div>

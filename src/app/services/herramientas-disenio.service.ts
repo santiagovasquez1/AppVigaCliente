@@ -47,4 +47,16 @@ export class HerramientasDisenioService {
     return this.http.get<any>(url, { headers: this.headers });
   }
 
+  getZonificaciones():Observable<any>{
+    let url = `${this.global.url}/Suelos`;
+    console.log('Request is sent!');
+    return this.http.get<any>(url, { headers: this.headers });
+  }
+
+  getTipoSuelo(zonificacion:string):Observable<any>{
+    let url = `${this.global.url}/Suelos/Microzonificaciones/${zonificacion}`;
+    console.log('Request is sent!');
+    return this.http.get<any>(url, { headers: this.headers });
+  }
+
 }

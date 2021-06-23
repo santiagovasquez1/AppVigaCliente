@@ -60,10 +60,10 @@
                             </mat-grid-list>
                         </div>
 
-                        <app-suelo-info></app-suelo-info>
+                        <app-suelo-info (sendSuelo)="getSuelo($event)"></app-suelo-info>
                         <app-estructura-info [estructuraInfo]="estructuraInfo"></app-estructura-info>
 
-                        <button mat-button>LIKE</button>
+                        <input class="btn btn-primary" type="submit" value="Generar Espectro" [disabled]="!espectroForm.form.valid">
                     </form>
 
                 </div>
@@ -75,4 +75,3 @@
     </div>
 
 </div>
-{{estructuraInfo|json}}
