@@ -22,6 +22,17 @@ body {
     overflow: hidden;
 }
 
+mat-sidenav-container,
+mat-sidenav-content,
+mat-sidenav {
+    height: 100%;
+}
+
+mat-sidenav {
+    width: 350px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
 mat-form-field {
     width: 100%;
 }
@@ -83,11 +94,30 @@ footer {
     padding-top: 0px;
 }
 
-.container .card .card-header {
+.espectroOutputContainer {
+    margin-bottom: 40px;
+}
+
+.espectroOutputContainer .card {
+    margin-left: 20px;
+    margin-right: 20px;
+    max-height: 300px;
+    overflow: auto
+}
+
+.container .card .card-header,
+.espectroOutputContainer .card .card-header {
     text-align: center;
     background: #1976D2;
     color: white;
     margin-bottom: 0px;
+    cursor: pointer;
+    transition: 300ms all
+}
+
+.container .card .card-header:hover,
+.espectroOutputContainer .card .card-header:hover {
+    background: #114f8d
 }
 
 .container .card .btn {
@@ -96,10 +126,10 @@ footer {
 }
 
 .container .card .canvasContainer {
-    border: solid 1px black;
     height: 99%;
     width: 99%;
     margin: 0 auto;
+    margin-top: 10px;
     display: block;
 }
 
@@ -207,18 +237,9 @@ mat-list-option:hover {
 }
 
 #contenido {
-    width: 95%;
-    height: 95%;
-    margin: 0px auto;
-    margin-top: 20px;
-    box-shadow: 0px 0px 40px black;
-    background: rgba(255, 255, 255, 0.7);
-    border-left: solid 1px #b7b7b7;
-    border-right: solid #b7b7b7 1px;
-    overflow: auto;
-    /* padding-left: 20px;
-    padding-right: 20px;
-    min-height: 500px; */
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .dataCard {

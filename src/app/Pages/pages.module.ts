@@ -1,3 +1,6 @@
+import { SharedModule } from './../shared/shared.module';
+import { AppModule } from './../app.module';
+import { TittleComponent } from './../shared/tittle/tittle.component';
 import { DirectivesModule } from './../Directives/directives.module';
 import { PipesModule } from './../Pipes/pipes.module';
 import { AngularResizedEventModule } from 'angular-resize-event';
@@ -32,12 +35,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatRadioModule } from '@angular/material/radio';
 import { EspectroComponent } from './espectro/espectro.component';
-import {MatSelectModule} from '@angular/material/select';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EspectroGraficaComponent } from './espectro-grafica/espectro-grafica.component';
 import { ChartsModule } from 'ng2-charts';
 import { EstructuraInfoComponent } from './estructura-info/estructura-info.component';
 import { SueloInfoComponent } from './suelo-info/suelo-info.component';
+import { EspectroInfoComponent } from './espectro-info/espectro-info.component';
+import { EscalerasComponent } from './escaleras/escaleras.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +61,8 @@ import { SueloInfoComponent } from './suelo-info/suelo-info.component';
     EspectroGraficaComponent,
     EstructuraInfoComponent,
     SueloInfoComponent,
+    EspectroInfoComponent,
+    EscalerasComponent,
   ],
   imports: [
     CommonModule,
@@ -83,9 +90,10 @@ import { SueloInfoComponent } from './suelo-info/suelo-info.component';
     NgxMaskModule.forRoot(),
     PipesModule,
     DirectivesModule,
-    ChartsModule
+    ChartsModule,
+    SharedModule
   ],
-  exports:[
+  exports: [
     PagesComponent,
     VigaInputComponent,
     VigaOutputComponent,
@@ -97,7 +105,8 @@ import { SueloInfoComponent } from './suelo-info/suelo-info.component';
     CortanteInputComponent,
     CortanteOutputComponent,
     ContainerBaseComponent,
-    EstructuraInfoComponent
+    EstructuraInfoComponent,
+    EscalerasComponent
   ]
 })
 export class PagesModule { }

@@ -93,8 +93,10 @@ export class SueloInfoComponent implements OnInit {
         }
       }
     });
+
     this.zonificacion = "";
     this.suelosDisabled = true;
+    this.selectedSuelo = "";
     this.tipoSuelo = new TipoSuelo(0, "", "", 0, 0, 0, 0, 0);
   }
 

@@ -50,20 +50,11 @@ export class EspectroGraficaComponent implements OnInit {
   }
 
   constructor() {
-
-    this.Data = [
-      {
-        data: [65, 59, 80, 81, 56, 55, 40],
-        label: "Espectro"
-      }
-    ];
-    this.Labels = ["0", "2", "3", "4", "5", "6", "7"]
     this.colors = [
       {
         backgroundColor: 'rgba(25, 118, 210, 0.6)',
         borderColor: "#1976D2"
       }
-
     ];
 
     this.canvasHeight = 500;

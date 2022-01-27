@@ -1,0 +1,116 @@
+<div class="container">
+    <app-tittle [title]="title"></app-tittle>
+    <mat-grid-list cols="2" rowHeight="90%">
+        <mat-grid-tile>
+            1
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="escaleras-container">
+                <mat-card class="custom">
+                    <mat-card-header class="escaleras-card-title">
+                        <mat-card-title>
+                            <p>Datos de la escalera</p>
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content class="escaleras-content">
+
+                        <form [formGroup]="escalerasForm" novalidate autocomplete="off">
+                            <div class="row">
+                                <div class="col-4">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Altura de la escalera (m)</mat-label>
+                                        <input matInput formControlName="altura" type="number" placeholder="Altura de la escalera">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Longitud horizontal de la escalera (m)</mat-label>
+                                        <input matInput formControlName="longitud" type="number" placeholder="Longitud de la escalera">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Altura del peldaño (m)</mat-label>
+                                        <input matInput formControlName="alturaPeldano" type="number" placeholder="Altura del peldaño">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Longitud del peldaño (m)</mat-label>
+                                        <input matInput formControlName="longitudPeldano" type="number" placeholder="Longitud del peldaño">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Espesor de la losa (m)</mat-label>
+                                        <input matInput formControlName="espesor" type="number" placeholder="Espesor de la losa">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Espesor definitivo (m)</mat-label>
+                                        <input matInput formControlName="espesorDef" type="number" placeholder="Espesor definitivo">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-4">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Carga de acabados (tonf/m²)</mat-label>
+                                        <input matInput formControlName="cargaAcabados" type="number" placeholder="Carga de acabados">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Carga muerta (tonf/m²)</mat-label>
+                                        <input matInput formControlName="cargaMuerta" type="number" placeholder="Carga muerta">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Carga viva (tonf/m²)</mat-label>
+                                        <input matInput formControlName="cargaViva" type="number" placeholder="Carga viva">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Carga Ultima (tonf/m²)</mat-label>
+                                        <input matInput formControlName="cargaUltima" type="number" placeholder="Carga ultima">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Momento Ultimo (tonf-m/m²)</mat-label>
+                                        <input matInput formControlName="momentoUltimo" type="number" placeholder="Momento ultimo">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Cortante Ultimo (tonf/m)</mat-label>
+                                        <input matInput formControlName="cortanteUltimo" type="number" placeholder="Cortante ultimo">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-4">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>cuantia minima</mat-label>
+                                        <input matInput formControlName="rhoMin" type="number" placeholder="Cuantia minima">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Acero minimo (cm²)</mat-label>
+                                        <input matInput formControlName="asMin" type="number" placeholder="Acero minimo">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Phi Mn minimo (Tonf-m/m²)</mat-label>
+                                        <input matInput formControlName="phiMn" type="number" placeholder="Phi Mn minimo">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Phi Vc (Tonf/m²)</mat-label>
+                                        <input matInput formControlName="phiVc" type="number" placeholder="Resist cortante concreto">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Acero refuerzo</mat-label>
+                                        <mat-select formControlName="asDef">
+                                            <mat-option>#2</mat-option>
+                                            <mat-option>#3</mat-option>
+                                            <mat-option>#4</mat-option>
+                                            <mat-option>#5</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Separación (m)</mat-label>
+                                        <input matInput formControlName="separacion" type="number" placeholder="Separacion del refuerzo">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>phiMnDef (Tonf-m/m²)</mat-label>
+                                        <input matInput formControlName="phiMnDef" type="number" placeholder="Resistencia a momento definitivo">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </form>
+                        <mat-card-actions class="escaleras-actions">
+                            <button mat-raised-button color="primary">Calcular</button>
+                        </mat-card-actions>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

@@ -9,7 +9,8 @@ import { GlobalService } from './global.service';
 })
 export class HerramientasDisenioService {
 
-  headers: HttpHeaders;
+  public headers: HttpHeaders;
+
   constructor(private global: GlobalService, private http: HttpClient) {
     this.headers = new HttpHeaders().set('Content-Type', 'application/json');
   }
@@ -41,22 +42,29 @@ export class HerramientasDisenioService {
     return this.http.get<any>(url, { headers: this.headers });
   }
 
-  getMunicipios(departamento:string):Observable<any>{
+  getMunicipios(departamento: string): Observable<any> {
     let url = `${this.global.url}/Municipios/GetMunicipioByDeparment/${departamento}`;
     console.log('Request is sent!');
     return this.http.get<any>(url, { headers: this.headers });
   }
 
-  getZonificaciones():Observable<any>{
+  getZonificaciones(): Observable<any> {
     let url = `${this.global.url}/Suelos`;
     console.log('Request is sent!');
     return this.http.get<any>(url, { headers: this.headers });
   }
 
-  getTipoSuelo(zonificacion:string):Observable<any>{
+  getTipoSuelo(zonificacion: string): Observable<any> {
     let url = `${this.global.url}/Suelos/Microzonificaciones/${zonificacion}`;
     console.log('Request is sent!');
     return this.http.get<any>(url, { headers: this.headers });
+  }
+
+  setEspectro(paramsEspectro: any): Observable<any> {
+    let url = `${this.global.url}/Espectro/CreateEspectro`;
+    let params = JSON.stringify(paramsEspectro);
+    console.log('Request is sent!');
+    return this.http.post<any>(url, params, { headers: this.headers });
   }
 
 }

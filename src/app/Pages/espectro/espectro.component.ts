@@ -1,3 +1,6 @@
+import { element } from 'protractor';
+import { ChartDataSets } from 'chart.js';
+import { Label } from 'ng2-charts';
 import { TipoSuelo } from './../../models/espectro/TipoSuelo';
 import { EGrupoUso } from './../../models/espectro/EGrupoUso';
 import { ETipoEstructura } from './../../models/espectro/ETipoEstructura';
@@ -10,6 +13,7 @@ import { Component, OnInit } from '@angular/core';
 import { HerramientasDisenioService } from 'src/app/services/herramientas-disenio.service';
 import { ECapacidad } from 'src/app/models/espectro/ECapacidad';
 import { param } from 'jquery';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-espectro',
@@ -28,8 +32,11 @@ export class EspectroComponent implements OnInit {
   public estructuraInfo: EstructuraInfo;
   public departamentosDisabled: boolean;
   public municipiosDisabled: boolean;
-  private _zonaSismica: string;
+  public Labels: Label[];
+  public Data: ChartDataSets[];
 
+
+  private _zonaSismica: string;
   public get zonaSismica(): string {
     return EZonaSismica[this.myMunicipio.zonaSismica];
   }
@@ -40,6 +47,8 @@ export class EspectroComponent implements OnInit {
   constructor(private herramientaDisenioService: HerramientasDisenioService, public spinnerService: NgxSpinnerService) {
     this.departamentos = [];
     this.municipios = [];
+    this.Labels = [];
+    this.Data = [];
     this.selectDepartamento = "";
     this.selectMunicipio = "";
     this.myMunicipio = new Municipio(0, "", "", 0, 0, EZonaSismica.Baja);
@@ -70,7 +79,28 @@ export class EspectroComponent implements OnInit {
       "estructura": this.estructuraInfo
     }
 
-    console.log(params);
+    this.Labels = [];
+    let data = [];
+
+    this.spinnerService.show();
+    this.herramientaDisenioService.setEspectro(params)
+      .subscribe(result => {
+        result.ta_Sa.forEach(element => {
+          let { item1, item2 } = element;
+          this.Labels.push(item1.toFixed(2).toString());
+          data.push(item2);
+        });
+        this.Data = [{
+          data: data,
+          label: `Espectro ${this.myMunicipio.nombre} Suelo tipo ${this.tipoSuelo.perfil}`
+        }];
+        console.log(result);
+        this.spinnerService.hide();
+      }, error => {
+        console.log(error);
+        this.spinnerService.hide();
+      });
+
   }
 
   onDepartamentoChange(departamento: string) {
