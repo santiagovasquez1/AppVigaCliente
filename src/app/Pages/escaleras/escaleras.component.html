@@ -2,7 +2,9 @@
     <app-tittle [title]="title"></app-tittle>
     <mat-grid-list cols="2" rowHeight="90%">
         <mat-grid-tile>
-            1
+            <div (resized)="onCanvasResize($event)" class="escaleras-container">
+                <canvas id="escaleraCanvas" #escaleraCanvas width="300" height="400"></canvas>
+            </div>
         </mat-grid-tile>
         <mat-grid-tile>
             <div class="escaleras-container">
@@ -12,11 +14,14 @@
                             <p>Datos de la escalera</p>
                         </mat-card-title>
                     </mat-card-header>
-                    <mat-card-content class="escaleras-content">
-
+                    <mat-card-content #escalerasContainer class="escaleras-content">
                         <form [formGroup]="escalerasForm" novalidate autocomplete="off">
                             <div class="row">
                                 <div class="col-4">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Numero de peldaños</mat-label>
+                                        <input matInput formControlName="numPeldanios" type="number" placeholder="Numero de peldaños escalera">
+                                    </mat-form-field>
                                     <mat-form-field appearance="outline">
                                         <mat-label>Altura de la escalera (m)</mat-label>
                                         <input matInput formControlName="altura" type="number" placeholder="Altura de la escalera">
@@ -88,10 +93,7 @@
                                     <mat-form-field appearance="outline">
                                         <mat-label>Acero refuerzo</mat-label>
                                         <mat-select formControlName="asDef">
-                                            <mat-option>#2</mat-option>
-                                            <mat-option>#3</mat-option>
-                                            <mat-option>#4</mat-option>
-                                            <mat-option>#5</mat-option>
+                                            <mat-option *ngFor="let refuerzo of refuerzos" [value]="refuerzo.Area">{{refuerzo.NombreRefuerzo}}</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                     <mat-form-field appearance="outline">

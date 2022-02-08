@@ -18,7 +18,7 @@ import { VigaContainerComponent } from './viga-container/viga-container.componen
 import { VigaInputComponent } from './viga-input/viga-input.component';
 import { PagesComponent } from './pages.component';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { VigaOutputComponent } from './viga-output/viga-output.component';
 import { CortanteBaseControlComponent } from './Bases/cortante-base-control/cortante-base-control.component';
 import { CortanteInputComponent } from './CortanteViga/cortante-input/cortante-input.component';
@@ -107,6 +107,9 @@ import { EscalerasComponent } from './escaleras/escaleras.component';
     ContainerBaseComponent,
     EstructuraInfoComponent,
     EscalerasComponent
-  ]
+  ],
+  providers: [
+    DecimalPipe
+  ],
 })
 export class PagesModule { }

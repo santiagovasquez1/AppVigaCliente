@@ -31,3 +31,7 @@
 .escaleras-actions button {
     width: 100%;
 }
+
+#escaleraCanvas {
+    border: solid 1px #ccc;
+}
