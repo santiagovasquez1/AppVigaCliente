@@ -1,3 +1,4 @@
+import { CargaUltimaRequest } from './../../models/escaleras/cargaUltimaRequest';
 import { CargaMuertaRequest } from './../../models/escaleras/cargaMuertaRequest';
 import { ValidatorsService } from './../../services/validators.service';
 import { InfoRefuerzoResponse } from './../../models/refuerzo/infoRefuerzoResponse';
@@ -8,6 +9,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { DecimalPipe } from '@angular/common';
 import { PesoPeldaniosRequest } from 'src/app/models/escaleras/pesoPeldanioRequest';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MomentoUltimoRequest } from 'src/app/models/escaleras/momentoUltimoRequest';
 
 @Component({
   selector: 'app-escaleras',
@@ -89,6 +91,10 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
     this.escalerasForm.get('espesorDef').valueChanges.subscribe(data => this.onEspesorChanged(data));
     this.escalerasForm.get('cargaPeldanio').valueChanges.subscribe(data => this.onEspesorChanged(data));
     this.escalerasForm.get('cargaAcabados').valueChanges.subscribe(data => this.onEspesorChanged(data));
+    this.escalerasForm.get('cargaMuerta').valueChanges.subscribe(data => this.onCargaDefChanged(data));
+    this.escalerasForm.get('cargaViva').valueChanges.subscribe(data => this.onCargaDefChanged(data));
+    this.escalerasForm.get('cargaUltima').valueChanges.subscribe(data => this.onCargaUltimaChanged(data));
+    this.escalerasForm.get('longitud').valueChanges.subscribe(data => this.onCargaUltimaChanged(data));
   }
 
   onValueChanged(data: number): void {
@@ -115,6 +121,27 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
     let flag = this.validatorsService.validateRequest(request);
     this.calcCargaMuerta(request, flag);
   }
+
+  onCargaDefChanged(event) {
+    let request: CargaUltimaRequest = {
+      cargaMuerta: this.escalerasForm.get('cargaMuerta').value,
+      cargaViva: this.escalerasForm.get('cargaViva').value
+    }
+    let flag = this.validatorsService.validateRequest(request);
+    this.calcCargaUltima(request, flag);
+  }
+
+  onCargaUltimaChanged(event) {
+    let request: MomentoUltimoRequest = {
+      cargaUltima: this.escalerasForm.get('cargaUltima').value,
+      longEscalera: this.escalerasForm.get('longitud').value,
+    }
+
+    let flag = this.validatorsService.validateRequest(request);
+    this.calcMomentoUltimo(request, flag);
+  }
+
+
 
   onCanvasResize(event) {
     let canvasWidth = this.escalerasContainer.nativeElement.offsetWidth;
@@ -162,8 +189,6 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
   }
 
   private calcCargaMuerta(request: CargaMuertaRequest, flag: boolean) {
-
-
     if (flag) {
       this.spinnerService.show();
       this.escalerasService.calculoCargaMuerta(request).subscribe(result => {
@@ -177,6 +202,37 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
       });
     }
   }
+
+  private calcCargaUltima(request: CargaUltimaRequest, flag: boolean) {
+    if (flag) {
+      this.spinnerService.show();
+      this.escalerasService.calculoCargaUltima(request).subscribe(result => {
+        this.escalerasForm.patchValue({
+          "cargaUltima": this.numberPipe.transform(result.cargaUltima, '1.3-3'),
+        });
+        this.spinnerService.hide();
+      }, error => {
+        console.log(error);
+        this.spinnerService.hide();
+      });
+    }
+  }
+
+  calcMomentoUltimo(request: MomentoUltimoRequest, flag: boolean) {
+    if (flag) {
+      this.spinnerService.show();
+      this.escalerasService.calculoMomentoUltimo(request).subscribe(result => {
+        this.escalerasForm.patchValue({
+          "momentoUltimo": this.numberPipe.transform(result.momentoUltimo, '1.3-3'),
+        });
+        this.spinnerService.hide();
+      }, error => {
+        console.log(error);
+        this.spinnerService.hide();
+      });
+    }
+  }
+
 
   private drawEscalera(canvasWidth: number, canvasHeight: number) {
     this.canvasContext.fillStyle = '#BCBCBA';
