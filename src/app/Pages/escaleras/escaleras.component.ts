@@ -1,3 +1,5 @@
+import { CargaMuertaRequest } from './../../models/escaleras/cargaMuertaRequest';
+import { ValidatorsService } from './../../services/validators.service';
 import { InfoRefuerzoResponse } from './../../models/refuerzo/infoRefuerzoResponse';
 import { RefuerzoService } from './../../services/refuerzo.service';
 import { EscalerasService } from './../../services/escaleras.service';
@@ -5,6 +7,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { PesoPeldaniosRequest } from 'src/app/models/escaleras/pesoPeldanioRequest';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-escaleras',
@@ -30,7 +33,9 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
   constructor(private fb: FormBuilder,
     private numberPipe: DecimalPipe,
     private escalerasService: EscalerasService,
-    private refuerzoService: RefuerzoService) {
+    private refuerzoService: RefuerzoService,
+    public spinnerService: NgxSpinnerService,
+    private validatorsService: ValidatorsService) {
     this.escalerasForm = new FormGroup({});
   }
   ngAfterViewInit(): void {
@@ -60,6 +65,7 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
       longitudPeldano: ['', [Validators.required]],
       espesor: [{ value: '', disabled: true }, [Validators.required]],
       espesorDef: ['', [Validators.required]],
+      cargaPeldanio: [{ value: '', disabled: true }, [Validators.required]],
       cargaAcabados: ['', [Validators.required]],
       cargaMuerta: [{ value: '', disabled: true }, [Validators.required]],
       cargaViva: ['', [Validators.required]],
@@ -80,6 +86,9 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
     this.escalerasForm.get('alturaPeldano').valueChanges.subscribe(data => this.onInfoPeldanioChanged(data));
     this.escalerasForm.get('longitudPeldano').valueChanges.subscribe(data => this.onInfoPeldanioChanged(data));
     this.escalerasForm.get('longitud').valueChanges.subscribe(data => this.onInfoPeldanioChanged(data));
+    this.escalerasForm.get('espesorDef').valueChanges.subscribe(data => this.onEspesorChanged(data));
+    this.escalerasForm.get('cargaPeldanio').valueChanges.subscribe(data => this.onEspesorChanged(data));
+    this.escalerasForm.get('cargaAcabados').valueChanges.subscribe(data => this.onEspesorChanged(data));
   }
 
   onValueChanged(data: number): void {
@@ -93,6 +102,18 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
     if (longEscalera !== null && longEscalera !== undefined && longEscalera !== '' && longEscalera !== 0) {
       this.calcPesoPeldanios();
     }
+  }
+
+  onEspesorChanged(event) {
+
+    let request: CargaMuertaRequest = {
+      pesoPeldanios: this.escalerasForm.get('cargaPeldanio').value,
+      pesoAcabados: this.escalerasForm.get('cargaAcabados').value,
+      espesorDef: this.escalerasForm.get('espesorDef').value,
+    }
+
+    let flag = this.validatorsService.validateRequest(request);
+    this.calcCargaMuerta(request, flag);
   }
 
   onCanvasResize(event) {
@@ -124,23 +145,35 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
       lEscalera: this.escalerasForm.get('longitud').value,
     }
 
-    let flag = false;
-
-    for (var key in request) {
-      if (request[key] === null || request[key] === undefined || request[key] === '') {
-        flag = false;
-        break;
-      }
-      flag = true;
-    }
+    let flag = this.validatorsService.validateRequest(request);
 
     if (flag) {
+      this.spinnerService.show();
       this.escalerasService.calculoPesoPeldanios(request).subscribe(result => {
         this.escalerasForm.patchValue({
-          "cargaMuerta": this.numberPipe.transform(result.pesoPeldanios, '1.3-3'),
+          "cargaPeldanio": this.numberPipe.transform(result.pesoPeldanios, '1.3-3'),
         });
+        this.spinnerService.hide();
       }, error => {
         console.log(error);
+        this.spinnerService.hide();
+      });
+    }
+  }
+
+  private calcCargaMuerta(request: CargaMuertaRequest, flag: boolean) {
+
+
+    if (flag) {
+      this.spinnerService.show();
+      this.escalerasService.calculoCargaMuerta(request).subscribe(result => {
+        this.escalerasForm.patchValue({
+          "cargaMuerta": this.numberPipe.transform(result.cargaMuerta, '1.3-3'),
+        });
+        this.spinnerService.hide();
+      }, error => {
+        console.log(error);
+        this.spinnerService.hide();
       });
     }
   }
@@ -274,4 +307,5 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
   private calcEspesorLosa(LongEscalera: number) {
     return LongEscalera / 18;
   }
+
 }
