@@ -1,3 +1,5 @@
+import { chequeoFlexionRequest } from './../../models/Flexion/chequeoFlexionRequest';
+import { FlexionService } from './../../services/flexion.service';
 import { CargaUltimaRequest } from './../../models/escaleras/cargaUltimaRequest';
 import { CargaMuertaRequest } from './../../models/escaleras/cargaMuertaRequest';
 import { ValidatorsService } from './../../services/validators.service';
@@ -9,7 +11,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { DecimalPipe } from '@angular/common';
 import { PesoPeldaniosRequest } from 'src/app/models/escaleras/pesoPeldanioRequest';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { MomentoUltimoRequest } from 'src/app/models/escaleras/momentoUltimoRequest';
+import { ResistenciaUltimaRequest } from 'src/app/models/escaleras/resistenciaUltimaRequest';
 
 @Component({
   selector: 'app-escaleras',
@@ -28,6 +30,7 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
   public padding = 60;
   public escalaHtal: number = 0;
   public escalaVcal: number = 0;
+  public bw: number = 100;
   public refuerzos: InfoRefuerzoResponse[];
 
   @ViewChild("escalerasContainer") escalerasContainer: ElementRef;
@@ -37,7 +40,8 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
     private escalerasService: EscalerasService,
     private refuerzoService: RefuerzoService,
     public spinnerService: NgxSpinnerService,
-    private validatorsService: ValidatorsService) {
+    private validatorsService: ValidatorsService,
+    private flexionService: FlexionService) {
     this.escalerasForm = new FormGroup({});
   }
   ngAfterViewInit(): void {
@@ -75,12 +79,12 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
       momentoUltimo: [{ value: '', disabled: true }, [Validators.required]],
       cortanteUltimo: [{ value: '', disabled: true }, [Validators.required]],
       rhoMin: [0.0018, [Validators.required]],
-      asMin: ['', [Validators.required]],
-      phiMn: ['', [Validators.required]],
-      phiVc: ['', [Validators.required]],
+      asMin: [{ value: '', disabled: true }, [Validators.required]],
+      phiMn: [{ value: '', disabled: true }, [Validators.required]],
+      phiVc: [{ value: '', disabled: true }, [Validators.required]],
       asDef: ['', [Validators.required]],
       separacion: ['', [Validators.required]],
-      phiMnDef: ['', [Validators.required]],
+      phiMnDef: [{ value: '', disabled: true }, [Validators.required]],
     });
 
     this.escalerasForm.get('longitud').valueChanges.subscribe(data => this.onValueChanged(data));
@@ -89,12 +93,16 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
     this.escalerasForm.get('longitudPeldano').valueChanges.subscribe(data => this.onInfoPeldanioChanged(data));
     this.escalerasForm.get('longitud').valueChanges.subscribe(data => this.onInfoPeldanioChanged(data));
     this.escalerasForm.get('espesorDef').valueChanges.subscribe(data => this.onEspesorChanged(data));
+    this.escalerasForm.get('espesorDef').valueChanges.subscribe(data => this.onSectionFlexuralChanged(data));
+    this.escalerasForm.get('espesorDef').valueChanges.subscribe(data => this.onRefuerzoChanged(data));
     this.escalerasForm.get('cargaPeldanio').valueChanges.subscribe(data => this.onEspesorChanged(data));
     this.escalerasForm.get('cargaAcabados').valueChanges.subscribe(data => this.onEspesorChanged(data));
     this.escalerasForm.get('cargaMuerta').valueChanges.subscribe(data => this.onCargaDefChanged(data));
     this.escalerasForm.get('cargaViva').valueChanges.subscribe(data => this.onCargaDefChanged(data));
     this.escalerasForm.get('cargaUltima').valueChanges.subscribe(data => this.onCargaUltimaChanged(data));
     this.escalerasForm.get('longitud').valueChanges.subscribe(data => this.onCargaUltimaChanged(data));
+    this.escalerasForm.get('asDef').valueChanges.subscribe(data => this.onRefuerzoChanged(data));
+    this.escalerasForm.get('separacion').valueChanges.subscribe(data => this.onRefuerzoChanged(data));
   }
 
   onValueChanged(data: number): void {
@@ -120,6 +128,13 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
 
     let flag = this.validatorsService.validateRequest(request);
     this.calcCargaMuerta(request, flag);
+
+    //Calculo de acero minimo
+    let rhoMin = this.escalerasForm.get('rhoMin').value;
+    let asMin = rhoMin * this.escalerasForm.get('espesorDef').value * 100 * this.bw;
+    this.escalerasForm.patchValue({
+      "asMin": this.numberPipe.transform(asMin, '1.3-3'),
+    });
   }
 
   onCargaDefChanged(event) {
@@ -132,7 +147,7 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
   }
 
   onCargaUltimaChanged(event) {
-    let request: MomentoUltimoRequest = {
+    let request: ResistenciaUltimaRequest = {
       cargaUltima: this.escalerasForm.get('cargaUltima').value,
       longEscalera: this.escalerasForm.get('longitud').value,
     }
@@ -141,7 +156,43 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
     this.calcMomentoUltimo(request, flag);
   }
 
+  onSectionFlexuralChanged(event) {
+    let request: chequeoFlexionRequest = {
+      altura: this.escalerasForm.get('espesorDef').value * 100,
+      base: 100,
+      dPrimara: 3,
+      fc: 210,
+      fy: 4220,
+      phiFlexion: 0.90,
+      as: this.escalerasForm.get('asMin').value
+    }
 
+    let flag = this.validatorsService.validateRequest(request);
+    this.calcPhiMn(request, flag, "phiMn");
+  }
+
+  onRefuerzoChanged(event) {
+
+    let separacion = this.escalerasForm.get('separacion').value;
+    let tempAs = this.escalerasForm.get('asDef').value;
+
+    if (separacion > 0) {
+      let as = tempAs / separacion;
+      let request: chequeoFlexionRequest = {
+        altura: this.escalerasForm.get('espesorDef').value * 100,
+        base: 100,
+        dPrimara: 3,
+        fc: 210,
+        fy: 4220,
+        phiFlexion: 0.90,
+        as
+      }
+
+      let flag = this.validatorsService.validateRequest(request);
+      this.calcPhiMn(request, flag, "phiMnDef");
+    }
+
+  }
 
   onCanvasResize(event) {
     let canvasWidth = this.escalerasContainer.nativeElement.offsetWidth;
@@ -156,10 +207,13 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
   }
 
   private getAreaRefuerzo() {
+    this.spinnerService.show();
     this.refuerzoService.getRefuerzos().subscribe(result => {
       this.refuerzos = result;
+      this.spinnerService.hide();
     }, error => {
       console.log(error);
+      this.spinnerService.hide();
     });
   }
 
@@ -218,12 +272,13 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
     }
   }
 
-  calcMomentoUltimo(request: MomentoUltimoRequest, flag: boolean) {
+  private calcMomentoUltimo(request: ResistenciaUltimaRequest, flag: boolean) {
     if (flag) {
       this.spinnerService.show();
       this.escalerasService.calculoMomentoUltimo(request).subscribe(result => {
         this.escalerasForm.patchValue({
           "momentoUltimo": this.numberPipe.transform(result.momentoUltimo, '1.3-3'),
+          "cortanteUltimo": this.numberPipe.transform(result.cortanteUltimo, '1.3-3'),
         });
         this.spinnerService.hide();
       }, error => {
@@ -233,6 +288,20 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
     }
   }
 
+  private calcPhiMn(request: chequeoFlexionRequest, flag: boolean, formField: string) {
+    if (flag) {
+      this.spinnerService.show();
+      this.flexionService.chequeoFlexion(request).subscribe(result => {
+        this.escalerasForm.patchValue({
+          [formField]: this.numberPipe.transform(result.phiMn, '1.3-3'),
+        });
+        this.spinnerService.hide();
+      }, error => {
+        console.log(error);
+        this.spinnerService.hide();
+      });
+    }
+  }
 
   private drawEscalera(canvasWidth: number, canvasHeight: number) {
     this.canvasContext.fillStyle = '#BCBCBA';

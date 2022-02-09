@@ -1,4 +1,4 @@
-import { MomentoUltimoResponse } from './../models/escaleras/momentoUltimoResponse';
+import { ResistenciaUltimaResponse } from '../models/escaleras/resistenciaUtlimaResponse';
 import { CargaUltimaResponse } from './../models/escaleras/cargaUltimaResponse';
 import { CargaUltimaRequest } from './../models/escaleras/cargaUltimaRequest';
 import { CargaMuertaRequest } from './../models/escaleras/cargaMuertaRequest';
@@ -8,7 +8,7 @@ import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CargaMuertaResponse } from '../models/escaleras/CargaMuertaResponse';
-import { MomentoUltimoRequest } from '../models/escaleras/momentoUltimoRequest';
+import { ResistenciaUltimaRequest } from '../models/escaleras/resistenciaUltimaRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -36,8 +36,8 @@ export class EscalerasService {
     return this.http.post<CargaUltimaResponse>(url, cargaUltimaRequest, { headers: this.headers });
   }
 
-  calculoMomentoUltimo(momentoUltimoRequest: MomentoUltimoRequest): Observable<MomentoUltimoResponse> {
-    let url = `${this.env.herramientas_url}/momentoUltimo`;
-    return this.http.post<MomentoUltimoResponse>(url, momentoUltimoRequest, { headers: this.headers });
+  calculoMomentoUltimo(momentoUltimoRequest: ResistenciaUltimaRequest): Observable<ResistenciaUltimaResponse> {
+    let url = `${this.env.herramientas_url}/resistenciaUltima`;
+    return this.http.post<ResistenciaUltimaResponse>(url, momentoUltimoRequest, { headers: this.headers });
   }
 }
