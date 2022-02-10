@@ -1,17 +1,19 @@
-import { chequeoFlexionRequest } from './../../models/Flexion/chequeoFlexionRequest';
-import { FlexionService } from './../../services/flexion.service';
-import { CargaUltimaRequest } from './../../models/escaleras/cargaUltimaRequest';
-import { CargaMuertaRequest } from './../../models/escaleras/cargaMuertaRequest';
-import { ValidatorsService } from './../../services/validators.service';
-import { InfoRefuerzoResponse } from './../../models/refuerzo/infoRefuerzoResponse';
-import { RefuerzoService } from './../../services/refuerzo.service';
-import { EscalerasService } from './../../services/escaleras.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { ChequeoCortanteRequest } from './../../models/Cortante/chequeoCortanteRequest';
 import { DecimalPipe } from '@angular/common';
-import { PesoPeldaniosRequest } from 'src/app/models/escaleras/pesoPeldanioRequest';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { PesoPeldaniosRequest } from 'src/app/models/escaleras/pesoPeldanioRequest';
 import { ResistenciaUltimaRequest } from 'src/app/models/escaleras/resistenciaUltimaRequest';
+import { CortanteService } from 'src/app/services/cortante.service';
+import { CargaMuertaRequest } from './../../models/escaleras/cargaMuertaRequest';
+import { CargaUltimaRequest } from './../../models/escaleras/cargaUltimaRequest';
+import { chequeoFlexionRequest } from './../../models/Flexion/chequeoFlexionRequest';
+import { InfoRefuerzoResponse } from './../../models/refuerzo/infoRefuerzoResponse';
+import { EscalerasService } from './../../services/escaleras.service';
+import { FlexionService } from './../../services/flexion.service';
+import { RefuerzoService } from './../../services/refuerzo.service';
+import { ValidatorsService } from './../../services/validators.service';
 
 @Component({
   selector: 'app-escaleras',
@@ -41,7 +43,8 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
     private refuerzoService: RefuerzoService,
     public spinnerService: NgxSpinnerService,
     private validatorsService: ValidatorsService,
-    private flexionService: FlexionService) {
+    private flexionService: FlexionService,
+    private cortanteService: CortanteService) {
     this.escalerasForm = new FormGroup({});
   }
   ngAfterViewInit(): void {
@@ -135,6 +138,22 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
     this.escalerasForm.patchValue({
       "asMin": this.numberPipe.transform(asMin, '1.3-3'),
     });
+
+
+    //Calculo de phiVc
+    let chequeoRequest: ChequeoCortanteRequest = {
+      altura: this.escalerasForm.get('espesorDef').value * 100,
+      base: 100,
+      as: 0,
+      dPrimara: 3,
+      fc: 210,
+      fy: 4220,
+      phiCortante: 0.75,
+      separacion: 0
+    }
+
+    let flagChequeo = this.validatorsService.validateRequest(chequeoRequest);
+    this.chequeoCortanteConcreto(chequeoRequest, flagChequeo);
   }
 
   onCargaDefChanged(event) {
@@ -300,6 +319,22 @@ export class EscalerasComponent implements OnInit, AfterViewInit {
         console.log(error);
         this.spinnerService.hide();
       });
+    }
+  }
+
+  private chequeoCortanteConcreto(request: ChequeoCortanteRequest, flag: boolean) {
+    if (flag) {
+      this.spinnerService.show();
+      this.cortanteService.chequeoCortante(request).subscribe(result => {
+        this.escalerasForm.patchValue({
+          "phiVc": this.numberPipe.transform(result.phiVc, '1.3-3'),
+        });
+        this.spinnerService.hide();
+      },
+        error => {
+          console.log(error);
+          this.spinnerService.hide();
+        });
     }
   }
 
