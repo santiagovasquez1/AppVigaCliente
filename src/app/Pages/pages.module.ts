@@ -43,6 +43,7 @@ import { EstructuraInfoComponent } from './estructura-info/estructura-info.compo
 import { SueloInfoComponent } from './suelo-info/suelo-info.component';
 import { EspectroInfoComponent } from './espectro-info/espectro-info.component';
 import { EscalerasComponent } from './escaleras/escaleras.component';
+import { ElementosNoEstructuralesComponent } from './elementos-no-estructurales/elementos-no-estructurales.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { EscalerasComponent } from './escaleras/escaleras.component';
     SueloInfoComponent,
     EspectroInfoComponent,
     EscalerasComponent,
+    ElementosNoEstructuralesComponent,
   ],
   imports: [
     CommonModule,

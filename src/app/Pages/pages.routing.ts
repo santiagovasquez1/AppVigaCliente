@@ -6,6 +6,7 @@ import { VigaContainerComponent } from './viga-container/viga-container.componen
 import { VigaChequeoContainerComponent } from './ChequeoViga/viga-chequeo-container/viga-chequeo-container.component';
 import { CortanteContainerComponent } from './CortanteViga/cortante-container/cortante-container.component';
 import { EscalerasComponent } from './escaleras/escaleras.component';
+import { ElementosNoEstructuralesComponent } from './elementos-no-estructurales/elementos-no-estructurales.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: 'disenioCortante', component: CortanteContainerComponent },
       { path: 'espectro', component: EspectroComponent },
       { path: 'escaleras', component: EscalerasComponent },
+      { path: 'disenioElementosNoEstructurales', component: ElementosNoEstructuralesComponent },
       { path: '**', component: VigaContainerComponent },
     ]
   }
