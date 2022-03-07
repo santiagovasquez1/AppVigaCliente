@@ -7,6 +7,7 @@ export const environment = {
   herramientas_url: 'https://localhost:44340/api/HerramientasDisenio',
   flexion_url: 'https://localhost:44340/api/Flexion',
   cortante_url: 'https://localhost:44340/api/Cortante',
+  espectro_url: 'https://localhost:44340/api/InfoEspectro',
 };
 
 /*

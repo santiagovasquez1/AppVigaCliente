@@ -1,4 +1,3 @@
-import { EspectroComponent } from './espectro/espectro.component';
 import { PagesComponent } from './pages.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -16,7 +15,6 @@ const routes: Routes = [
       { path: 'disenioflexion', component: VigaContainerComponent },
       { path: 'chequeoSeccionFlexion', component: VigaChequeoContainerComponent },
       { path: 'disenioCortante', component: CortanteContainerComponent },
-      { path: 'espectro', component: EspectroComponent },
       { path: 'escaleras', component: EscalerasComponent },
       { path: 'disenioElementosNoEstructurales', component: ElementosNoEstructuralesComponent },
       { path: '**', component: VigaContainerComponent },

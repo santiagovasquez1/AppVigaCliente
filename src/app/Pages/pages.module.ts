@@ -1,15 +1,9 @@
+import { AngularMaterialModule } from './../angular-material.module';
 import { SharedModule } from './../shared/shared.module';
-import { AppModule } from './../app.module';
-import { TittleComponent } from './../shared/tittle/tittle.component';
 import { DirectivesModule } from './../Directives/directives.module';
 import { PipesModule } from './../Pipes/pipes.module';
 import { AngularResizedEventModule } from 'angular-resize-event';
 import { NgxMaskModule } from 'ngx-mask';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { CortanteContainerComponent } from './CortanteViga/cortante-container/cortante-container.component';
 import { BaseControlComponent } from './Bases/base-control/base-control.component';
@@ -28,20 +22,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatRadioModule } from '@angular/material/radio';
-import { EspectroComponent } from './espectro/espectro.component';
-import { MatSelectModule } from '@angular/material/select';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { EspectroGraficaComponent } from './espectro-grafica/espectro-grafica.component';
 import { ChartsModule } from 'ng2-charts';
-import { EstructuraInfoComponent } from './estructura-info/estructura-info.component';
-import { SueloInfoComponent } from './suelo-info/suelo-info.component';
-import { EspectroInfoComponent } from './espectro-info/espectro-info.component';
 import { EscalerasComponent } from './escaleras/escaleras.component';
 import { ElementosNoEstructuralesComponent } from './elementos-no-estructurales/elementos-no-estructurales.component';
 
@@ -58,11 +39,6 @@ import { ElementosNoEstructuralesComponent } from './elementos-no-estructurales/
     CortanteInputComponent,
     CortanteOutputComponent,
     ContainerBaseComponent,
-    EspectroComponent,
-    EspectroGraficaComponent,
-    EstructuraInfoComponent,
-    SueloInfoComponent,
-    EspectroInfoComponent,
     EscalerasComponent,
     ElementosNoEstructuralesComponent,
   ],
@@ -75,19 +51,7 @@ import { ElementosNoEstructuralesComponent } from './elementos-no-estructurales/
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatGridListModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatListModule,
-    MatDividerModule,
-    MatRadioModule,
-    MatSelectModule,
-    MatCheckboxModule,
+    AngularMaterialModule,
     AngularResizedEventModule,
     NgxMaskModule.forRoot(),
     PipesModule,
@@ -107,7 +71,6 @@ import { ElementosNoEstructuralesComponent } from './elementos-no-estructurales/
     CortanteInputComponent,
     CortanteOutputComponent,
     ContainerBaseComponent,
-    EstructuraInfoComponent,
     EscalerasComponent
   ],
   providers: [

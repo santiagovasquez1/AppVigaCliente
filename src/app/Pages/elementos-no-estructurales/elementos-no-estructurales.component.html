@@ -6,8 +6,150 @@
                 <p>Parametros sismicos</p>
             </mat-card-title>
         </mat-card-header>
-        <mat-card-content>
+        <mat-card-content class="custom-card-container">
+            <form [formGroup]="parametrosSismicosForm" novalidate autocomplete="off">
+                <div class="row">
+                    <div class="col-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Departamento</mat-label>
+                            <mat-select formControlName="departamento" placeholder="Departamento">
+                                <mat-option *ngFor="let departamento of departamentos" [value]="departamento.ID">
+                                    {{departamento.NOMBRE}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Municipio</mat-label>
+                            <mat-select formControlName="municipio" placeholder="Municipio">
+                                <mat-option *ngFor="let municipio of municipios" [value]="municipio">
+                                    {{municipio.nombre}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Tipo de estructura</mat-label>
+                            <mat-select formControlName="tipoEstructura" placeholder="Tipo de estructura">
+                                <mat-option *ngFor="let tipoEstructura of tiposDeEstructuras" [value]="tipoEstructura">
+                                    {{tipoEstructura.nombre}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Grupo de Uso</mat-label>
+                            <mat-select formControlName="grupoDeUso" placeholder="Grupos de uso">
+                                <mat-option *ngFor="let grupoDeUso of gruposDeUso" [value]="grupoDeUso">
+                                    {{grupoDeUso.nombre}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Coeficiente de aceleración horizontal (Aa)</mat-label>
+                            <input matInput formControlName="coefAa" type="number" placeholder="Coeficiente de aceleración horizontal (Aa)">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Coeficiente de velocidad horizontal (Av)</mat-label>
+                            <input matInput formControlName="coefAv" type="number" placeholder="Coeficiente de velocidad horizontal (Av)">
+                        </mat-form-field>
+                    </div>
+                </div>
 
+                <div class="row">
+                    <div class="col-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Tipo de suelo</mat-label>
+                            <mat-select formControlName="tipoSuelo" placeholder="Tipo de suelo">
+                                <mat-option *ngFor="let tipoSuelo of tiposSuelo" [value]="tipoSuelo.id">
+                                    {{tipoSuelo.nombre}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Coeficiente de amplificacion en zona de periodos cortos (Fa)</mat-label>
+                            <input matInput formControlName="coefFa" type="number" placeholder="Coeficiente de amplificacion en zona de periodos cortos (Fa)">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Coeficiente de amplificacion en zona de periodos intermedios (Fv)</mat-label>
+                            <input matInput formControlName="coefFv" type="number" placeholder="Coeficiente de amplificacion en zona de periodos intermedios (Fv)">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="custom">
+        <mat-card-header class="card-tittle">
+            <mat-card-title>
+                <p>Datos estructurales</p>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="custom-card-container">
+            <mat-table class="tabla" mat-table [dataSource]="dataSource">
+
+                <ng-container matColumnDef="Losa">
+                    <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Losa </mat-header-cell>
+                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Hw">
+                    <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Altura de piso (m)</mat-header-cell>
+                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Hacum">
+                    <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Altura acumulada (m)</mat-header-cell>
+                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="bMuro">
+                    <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Espesor muro (m) </mat-header-cell>
+                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Wmuro">
+                    <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Peso muro (tonf/m) </mat-header-cell>
+                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="ax">
+                    <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Ax </mat-header-cell>
+                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Fp">
+                    <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Fp(t) Servicio </mat-header-cell>
+                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="prsionSismo">
+                    <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Presión Sismo (tonf/m²)</mat-header-cell>
+                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="relacionHT">
+                    <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> h'/t </mat-header-cell>
+                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                </ng-container>
+
+                <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
         </mat-card-content>
     </mat-card>
 </div>
