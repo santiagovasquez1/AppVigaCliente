@@ -65,6 +65,9 @@ export class ElementosNoEstructuralesComponent implements OnInit {
       coefAv: [{ value: '', disabled: true }, [Validators.required]],
       coefFa: [{ value: '', disabled: true }, [Validators.required]],
       coefFv: [{ value: '', disabled: true }, [Validators.required]],
+      hw: ['', [Validators.required]],
+      ta: [{ value: '', disabled: true }, [Validators.required]],
+      sa: [{ value: '', disabled: true }, [Validators.required]],
     });
 
     this.parametrosSismicosForm.get('departamento').valueChanges.subscribe(data => this.onDepartamentoChange(data));
