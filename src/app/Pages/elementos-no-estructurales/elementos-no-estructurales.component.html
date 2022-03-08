@@ -94,12 +94,12 @@
                     <div class="col-4">
                         <mat-form-field appearance="outline">
                             <mat-label>Altura de la edificación (m)</mat-label>
-                            <input matInput formControlName="hw" type="number" placeholder="Altura de la edificación (m)">
+                            <input matInput formControlName="ht" type="number" placeholder="Altura de la edificación (m)">
                         </mat-form-field>
                     </div>
                     <div class="col-4">
                         <mat-form-field appearance="outline">
-                            <mat-label>Periodo aproximado de la estructura (Ta)</mat-label>
+                            <mat-label>Periodo aproximado de la estructura Ta (seg)</mat-label>
                             <input matInput formControlName="ta" type="number">
                         </mat-form-field>
                     </div>
@@ -107,6 +107,27 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Factor de aceleración (Sa)</mat-label>
                             <input matInput formControlName="sa" type="number">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Periodo T0 (seg) </mat-label>
+                            <input matInput formControlName="t0" type="number">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Periodo Tc (seg)</mat-label>
+                            <input matInput formControlName="tc" type="number">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Periodo Tl (seg)</mat-label>
+                            <input matInput formControlName="tl" type="number">
                         </mat-form-field>
                     </div>
                 </div>

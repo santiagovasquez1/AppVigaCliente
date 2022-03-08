@@ -1,3 +1,5 @@
+import { CalcSaRequest } from '../../models/espectroInfo/calcSaRequest';
+import { CalcPeriodosRequest } from './../../models/espectroInfo/calcPeriodosRequest';
 import { GrupoDeUsoModel } from './../../models/espectroInfo/grupoDeUsoModel';
 import { CalcFaFvRequest } from './../../models/espectroInfo/calcFaFvRequest';
 import { TipoSueloFullInfo } from './../../models/espectroInfo/tipoSueloFullInfoModel';
@@ -65,9 +67,12 @@ export class ElementosNoEstructuralesComponent implements OnInit {
       coefAv: [{ value: '', disabled: true }, [Validators.required]],
       coefFa: [{ value: '', disabled: true }, [Validators.required]],
       coefFv: [{ value: '', disabled: true }, [Validators.required]],
-      hw: ['', [Validators.required]],
+      ht: ['', [Validators.required]],
       ta: [{ value: '', disabled: true }, [Validators.required]],
       sa: [{ value: '', disabled: true }, [Validators.required]],
+      t0: [{ value: '', disabled: true }, [Validators.required]],
+      tc: [{ value: '', disabled: true }, [Validators.required]],
+      tl: [{ value: '', disabled: true }, [Validators.required]],
     });
 
     this.parametrosSismicosForm.get('departamento').valueChanges.subscribe(data => this.onDepartamentoChange(data));
@@ -75,6 +80,12 @@ export class ElementosNoEstructuralesComponent implements OnInit {
     this.parametrosSismicosForm.get('tipoSuelo').valueChanges.subscribe(data => this.onTipoSueloChange(data));
     this.parametrosSismicosForm.get('municipio').valueChanges.subscribe(data => this.onTipoSueloChange(data));
 
+    ///Calculo periodo y sa
+    this.parametrosSismicosForm.get('ht').valueChanges.subscribe(data => this.onParametrosChange(data));
+    this.parametrosSismicosForm.get('tipoEstructura').valueChanges.subscribe(data => this.onParametrosChange(data));
+    this.parametrosSismicosForm.get('tipoSuelo').valueChanges.subscribe(data => this.onParametrosChange(data));
+    this.parametrosSismicosForm.get('municipio').valueChanges.subscribe(data => this.onParametrosChange(data));
+    this.parametrosSismicosForm.get('grupoDeUso').valueChanges.subscribe(data => this.onParametrosChange(data));
   }
 
   onMunicipioChange(municipio: Municipio): void {
@@ -101,6 +112,45 @@ export class ElementosNoEstructuralesComponent implements OnInit {
     });
     this.getMunicipios(idDepartamento);
     this.parametrosSismicosForm.get('municipio').enable();
+  }
+
+  private onParametrosChange(data: any) {
+
+    let tipoEstructura: TipoEstructura = this.parametrosSismicosForm.get('tipoEstructura').value;
+    let grupoUso: GrupoDeUsoModel = this.parametrosSismicosForm.get('grupoDeUso').value;
+
+    let request: CalcPeriodosRequest = {
+      ht: this.parametrosSismicosForm.get('ht').value,
+      aa: this.parametrosSismicosForm.get('coefAa').value,
+      av: this.parametrosSismicosForm.get('coefAv').value,
+      fa: this.parametrosSismicosForm.get('coefFa').value,
+      fv: this.parametrosSismicosForm.get('coefFv').value,
+      ct: tipoEstructura.coeficiente_ct,
+      alpha: tipoEstructura.coeficiente_alpha
+    }
+
+    let saRequest: CalcSaRequest = {
+      aa: this.parametrosSismicosForm.get('coefAa').value,
+      av: this.parametrosSismicosForm.get('coefAv').value,
+      fa: this.parametrosSismicosForm.get('coefFa').value,
+      fv: this.parametrosSismicosForm.get('coefFv').value,
+      t: this.parametrosSismicosForm.get('ta').value,
+      coefImportancia: grupoUso.coeficiente,
+      t0: this.parametrosSismicosForm.get('t0').value,
+      tc: this.parametrosSismicosForm.get('tc').value,
+      tl: this.parametrosSismicosForm.get('tl').value
+    }
+
+    let flag = this.validatorsService.validateRequest(request);
+    let flag2 = this.validatorsService.validateRequest(saRequest);
+
+    if (flag) {
+      this.calcPeriodos(request);
+    }
+
+    if (flag2) {
+      this.calcSa(saRequest);
+    }
   }
 
   private onTipoSueloChange(data: any) {
@@ -183,6 +233,35 @@ export class ElementosNoEstructuralesComponent implements OnInit {
       this.parametrosSismicosForm.patchValue({
         "coefFa": this.numberPipe.transform(result.fa, '1.2-2'),
         "coefFv": this.numberPipe.transform(result.fv, '1.2-2')
+      });
+      this.spinnerServices.hide();
+    }, error => {
+      console.log(error);
+      this.spinnerServices.hide();
+    });
+  }
+
+  private calcPeriodos(calcPeriodosRequest: CalcPeriodosRequest) {
+    this.spinnerServices.show();
+    this.espectroInfoService.calcPeriodos(calcPeriodosRequest).subscribe(result => {
+      this.parametrosSismicosForm.patchValue({
+        "ta": this.numberPipe.transform(result.ta, '1.2-2'),
+        "t0": this.numberPipe.transform(result.t0, '1.2-2'),
+        "tc": this.numberPipe.transform(result.tc, '1.2-2'),
+        "tl": this.numberPipe.transform(result.tl, '1.2-2')
+      });
+      this.spinnerServices.hide();
+    }, error => {
+      console.log(error);
+      this.spinnerServices.hide();
+    });
+  }
+
+  private calcSa(calcSaRequest: CalcSaRequest) {
+    this.spinnerServices.show();
+    this.espectroInfoService.calcSa(calcSaRequest).subscribe(result => {
+      this.parametrosSismicosForm.patchValue({
+        "sa": this.numberPipe.transform(result.sa, '1.2-2')
       });
       this.spinnerServices.hide();
     }, error => {

@@ -1,3 +1,6 @@
+import { CalcSaRequest } from '../models/espectroInfo/calcSaRequest';
+import { CalcPeriodosResponse } from './../models/espectroInfo/calcPeriodosResponse';
+import { CalcPeriodosRequest } from './../models/espectroInfo/calcPeriodosRequest';
 import { GrupoDeUsoModel } from './../models/espectroInfo/grupoDeUsoModel';
 import { TipoEstructura } from './../models/espectroInfo/tipoDeEstructuraModel';
 import { TipoSueloFullInfo } from './../models/espectroInfo/tipoSueloFullInfoModel';
@@ -9,6 +12,7 @@ import { ServiceBaseService } from './service-base.service';
 import { map } from 'rxjs/operators';
 import { CalcFaFvRequest } from '../models/espectroInfo/calcFaFvRequest';
 import { CalcFaFvResponse } from '../models/espectroInfo/calcFaFvResponse';
+import { CalcSaResponse } from '../models/espectroInfo/calcSaResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -68,5 +72,15 @@ export class EspectroService extends ServiceBaseService {
   calcFaFv(calcFaFvRequest: CalcFaFvRequest): Observable<CalcFaFvResponse> {
     let url = `${this.env.espectro_url}/calcFaFv`;
     return this.http.post<CalcFaFvResponse>(url, calcFaFvRequest, { headers: this.headers });
+  }
+
+  calcPeriodos(calcPeriodosRequest: CalcPeriodosRequest): Observable<CalcPeriodosResponse> {
+    let url = `${this.env.espectro_url}/calcPeriodos`;
+    return this.http.post<CalcPeriodosResponse>(url, calcPeriodosRequest, { headers: this.headers });
+  }
+
+  calcSa(calcSaRequest: CalcSaRequest): Observable<CalcSaResponse> {
+    let url = `${this.env.espectro_url}/calcSa`;
+    return this.http.post<CalcSaResponse>(url, calcSaRequest, { headers: this.headers });
   }
 }
