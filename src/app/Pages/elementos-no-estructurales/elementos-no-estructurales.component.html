@@ -1,139 +1,6 @@
 <div class="container">
     <app-tittle [title]="tittle"></app-tittle>
-    <mat-card class="custom">
-        <mat-card-header class="card-tittle">
-            <mat-card-title>
-                <p>Parametros sismicos</p>
-            </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="custom-card-container">
-            <form [formGroup]="parametrosSismicosForm" novalidate autocomplete="off">
-                <div class="row">
-                    <div class="col-4">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Departamento</mat-label>
-                            <mat-select formControlName="departamento" placeholder="Departamento">
-                                <mat-option *ngFor="let departamento of departamentos" [value]="departamento.ID">
-                                    {{departamento.NOMBRE}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-4">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Municipio</mat-label>
-                            <mat-select formControlName="municipio" placeholder="Municipio">
-                                <mat-option *ngFor="let municipio of municipios" [value]="municipio">
-                                    {{municipio.nombre}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-4">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Tipo de estructura</mat-label>
-                            <mat-select formControlName="tipoEstructura" placeholder="Tipo de estructura">
-                                <mat-option *ngFor="let tipoEstructura of tiposDeEstructuras" [value]="tipoEstructura">
-                                    {{tipoEstructura.nombre}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Grupo de Uso</mat-label>
-                            <mat-select formControlName="grupoDeUso" placeholder="Grupos de uso">
-                                <mat-option *ngFor="let grupoDeUso of gruposDeUso" [value]="grupoDeUso">
-                                    {{grupoDeUso.nombre}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-4">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Coeficiente de aceleración horizontal (Aa)</mat-label>
-                            <input matInput formControlName="coefAa" type="number" placeholder="Coeficiente de aceleración horizontal (Aa)">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-4">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Coeficiente de velocidad horizontal (Av)</mat-label>
-                            <input matInput formControlName="coefAv" type="number" placeholder="Coeficiente de velocidad horizontal (Av)">
-                        </mat-form-field>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-4">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Tipo de suelo</mat-label>
-                            <mat-select formControlName="tipoSuelo" placeholder="Tipo de suelo">
-                                <mat-option *ngFor="let tipoSuelo of tiposSuelo" [value]="tipoSuelo.id">
-                                    {{tipoSuelo.nombre}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-4">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Coeficiente de amplificacion en zona de periodos cortos (Fa)</mat-label>
-                            <input matInput formControlName="coefFa" type="number" placeholder="Coeficiente de amplificacion en zona de periodos cortos (Fa)">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-4">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Coeficiente de amplificacion en zona de periodos intermedios (Fv)</mat-label>
-                            <input matInput formControlName="coefFv" type="number" placeholder="Coeficiente de amplificacion en zona de periodos intermedios (Fv)">
-                        </mat-form-field>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-4">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Altura de la edificación (m)</mat-label>
-                            <input matInput formControlName="ht" type="number" placeholder="Altura de la edificación (m)">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-4">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Periodo aproximado de la estructura Ta (seg)</mat-label>
-                            <input matInput formControlName="ta" type="number">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-4">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Factor de aceleración (Sa)</mat-label>
-                            <input matInput formControlName="sa" type="number">
-                        </mat-form-field>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-4">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Periodo T0 (seg) </mat-label>
-                            <input matInput formControlName="t0" type="number">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-4">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Periodo Tc (seg)</mat-label>
-                            <input matInput formControlName="tc" type="number">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-4">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Periodo Tl (seg)</mat-label>
-                            <input matInput formControlName="tl" type="number">
-                        </mat-form-field>
-                    </div>
-                </div>
-            </form>
-        </mat-card-content>
-    </mat-card>
+    <app-paramatros-sismicos></app-paramatros-sismicos>
 
     <mat-card class="custom">
         <mat-card-header class="card-tittle">
@@ -194,7 +61,7 @@
                     <ng-container matColumnDef="Hw">
                         <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Altura de piso (m)</mat-header-cell>
                         <mat-cell class="text-center" mat-cell *matCellDef="let element; let i=index">
-                            <input matInput type="number" [(ngModel)]="element.alturaPiso" (ngModelChange)="onAlturaPisoChange(element, i)">
+                            <input matInput type="number" [(ngModel)]="element.alturaPiso" (ngModelChange)="onAlturaPisoChange($event,element, i)">
                         </mat-cell>
                     </ng-container>
 
