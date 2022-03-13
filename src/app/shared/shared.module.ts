@@ -4,6 +4,8 @@ import { TittleComponent } from './tittle/tittle.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ParamatrosSismicosComponent } from './paramatros-sismicos/paramatros-sismicos.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -11,16 +13,20 @@ import { NavbarComponent } from './navbar/navbar.component';
   declarations: [
     TittleComponent,
     SecurityTellerIdComponent,
-    NavbarComponent
+    NavbarComponent,
+    ParamatrosSismicosComponent
   ],
   imports: [
     CommonModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     TittleComponent,
     SecurityTellerIdComponent,
-    NavbarComponent
+    NavbarComponent,
+    ParamatrosSismicosComponent
   ]
 })
 export class SharedModule { }
