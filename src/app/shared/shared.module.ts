@@ -5,6 +5,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NumericInputDirective } from './directives/numeric-input.directive';
+import { ParamatrosSismicosComponent } from './paramatros-sismicos/paramatros-sismicos.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -14,16 +16,20 @@ import { NumericInputDirective } from './directives/numeric-input.directive';
     SecurityTellerIdComponent,
     NavbarComponent,
     NumericInputDirective
+    ParamatrosSismicosComponent
   ],
   imports: [
     CommonModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     TittleComponent,
     SecurityTellerIdComponent,
     NavbarComponent,
     NumericInputDirective
+    ParamatrosSismicosComponent
   ]
 })
 export class SharedModule { }
