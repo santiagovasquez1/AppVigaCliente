@@ -164,14 +164,14 @@
                     </div>
                     <div class="col-2">
                         <mat-form-field appearance="outline">
-                            <mat-label>Ap</mat-label>
-                            <input matInput formControlName="ap" type="number" placeholder="Ap">
+                            <mat-label>Coeficiente de amplicifación dinámica (Ap)</mat-label>
+                            <input matInput formControlName="ap" type="number" placeholder="Coeficiente de amplicifación dinámica del elemento no estructural">
                         </mat-form-field>
                     </div>
                     <div class="col-2">
                         <mat-form-field appearance="outline">
-                            <mat-label>Rp</mat-label>
-                            <input matInput formControlName="rp" type="number" placeholder="Rp">
+                            <mat-label>Coeficiente de capacidad de dicipación del elemento (Rp)</mat-label>
+                            <input matInput formControlName="rp" type="number" placeholder="Capacidad de dicipación del elemento no estructural">
                         </mat-form-field>
                     </div>
                     <div class="col-2">
@@ -183,61 +183,64 @@
                 </div>
             </form>
             <hr>
-            <mat-table class="tabla" mat-table [dataSource]="dataSource">
+            <div class="tableContainer">
+                <mat-table class="elementosNoEstructurales-table" mat-table [dataSource]="dataSource">
 
-                <ng-container matColumnDef="Losa">
-                    <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Losa </mat-header-cell>
-                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.losa}} </mat-cell>
-                </ng-container>
+                    <ng-container matColumnDef="Losa">
+                        <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Losa </mat-header-cell>
+                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.losa}} </mat-cell>
+                    </ng-container>
 
-                <ng-container matColumnDef="Hw">
-                    <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Altura de piso (m)</mat-header-cell>
-                    <mat-cell class="text-center" mat-cell *matCellDef="let element; let i=index">
-                        <input matInput type="number" [(ngModel)]="element.alturaPiso" (ngModelChange)="onAlturaPisoChange(element, i)">
-                    </mat-cell>
-                </ng-container>
+                    <ng-container matColumnDef="Hw">
+                        <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Altura de piso (m)</mat-header-cell>
+                        <mat-cell class="text-center" mat-cell *matCellDef="let element; let i=index">
+                            <input matInput type="number" [(ngModel)]="element.alturaPiso" (ngModelChange)="onAlturaPisoChange(element, i)">
+                        </mat-cell>
+                    </ng-container>
 
-                <ng-container matColumnDef="Hacum">
-                    <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Altura acumulada (m)</mat-header-cell>
-                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.alturaAcumulada| number:'1.2-2'}} </mat-cell>
-                </ng-container>
+                    <ng-container matColumnDef="Hacum">
+                        <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Altura acumulada (m)</mat-header-cell>
+                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.alturaAcumulada| number:'1.2-2'}} </mat-cell>
+                    </ng-container>
 
-                <ng-container matColumnDef="bMuro">
-                    <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Espesor muro (m) </mat-header-cell>
-                    <mat-cell class="text-center" mat-cell *matCellDef="let element; let i=index">
-                        <input matInput type="number" [(ngModel)]="element.espesorMuro" (ngModelChange)="onEspesorMuroChange(element, i)">
-                    </mat-cell>
-                </ng-container>
+                    <ng-container matColumnDef="bMuro">
+                        <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Espesor muro (m) </mat-header-cell>
+                        <mat-cell class="text-center" mat-cell *matCellDef="let element; let i=index">
+                            <input matInput type="number" [(ngModel)]="element.espesorMuro" (ngModelChange)="onEspesorMuroChange(element, i)">
+                        </mat-cell>
+                    </ng-container>
 
-                <ng-container matColumnDef="Wmuro">
-                    <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Peso muro (tonf/m) </mat-header-cell>
-                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
-                </ng-container>
+                    <ng-container matColumnDef="Wmuro">
+                        <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Peso muro (tonf/m) </mat-header-cell>
+                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                    </ng-container>
 
-                <ng-container matColumnDef="ax">
-                    <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Ax </mat-header-cell>
-                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
-                </ng-container>
+                    <ng-container matColumnDef="ax">
+                        <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Ax </mat-header-cell>
+                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                    </ng-container>
 
-                <ng-container matColumnDef="Fp">
-                    <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Fp(t) Servicio </mat-header-cell>
-                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
-                </ng-container>
+                    <ng-container matColumnDef="Fp">
+                        <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Fp(t) Servicio </mat-header-cell>
+                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                    </ng-container>
 
-                <ng-container matColumnDef="prsionSismo">
-                    <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Presión Sismo (tonf/m²)</mat-header-cell>
-                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
-                </ng-container>
+                    <ng-container matColumnDef="prsionSismo">
+                        <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Presión Sismo (tonf/m²)</mat-header-cell>
+                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                    </ng-container>
 
-                <ng-container matColumnDef="relacionHT">
-                    <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> h'/t </mat-header-cell>
-                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
-                </ng-container>
+                    <ng-container matColumnDef="relacionHT">
+                        <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> h'/t </mat-header-cell>
+                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                    </ng-container>
 
-                <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-                <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-            </mat-table>
-            <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+                    <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                    <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+            </div>
+
 
         </mat-card-content>
     </mat-card>

@@ -4,6 +4,7 @@ import { TittleComponent } from './tittle/tittle.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
+import { NumericInputDirective } from './directives/numeric-input.directive';
 
 
 
@@ -11,7 +12,8 @@ import { NavbarComponent } from './navbar/navbar.component';
   declarations: [
     TittleComponent,
     SecurityTellerIdComponent,
-    NavbarComponent
+    NavbarComponent,
+    NumericInputDirective
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { NavbarComponent } from './navbar/navbar.component';
   exports: [
     TittleComponent,
     SecurityTellerIdComponent,
-    NavbarComponent
+    NavbarComponent,
+    NumericInputDirective
   ]
 })
 export class SharedModule { }
