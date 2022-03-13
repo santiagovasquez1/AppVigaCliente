@@ -61,7 +61,7 @@
                     <ng-container matColumnDef="Hw">
                         <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Altura de piso (m)</mat-header-cell>
                         <mat-cell class="text-center" mat-cell *matCellDef="let element; let i=index">
-                            <input matInput type="number" [(ngModel)]="element.alturaPiso" (ngModelChange)="onAlturaPisoChange(element, i)">
+                            <input matInput type="number" [(ngModel)]="element.alturaPiso" (ngModelChange)="onAlturaPisoChange($event,element, i)">
                         </mat-cell>
                     </ng-container>
 

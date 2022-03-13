@@ -1,3 +1,4 @@
+import { ParamatrosSismicosComponent } from './paramatros-sismicos/paramatros-sismicos.component';
 import { AngularMaterialModule } from './../angular-material.module';
 import { SecurityTellerIdComponent } from './components/security-teller-id/security-teller-id.component';
 import { TittleComponent } from './tittle/tittle.component';
@@ -5,7 +6,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NumericInputDirective } from './directives/numeric-input.directive';
-import { ParamatrosSismicosComponent } from './paramatros-sismicos/paramatros-sismicos.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -15,7 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TittleComponent,
     SecurityTellerIdComponent,
     NavbarComponent,
-    NumericInputDirective
+    NumericInputDirective,
     ParamatrosSismicosComponent
   ],
   imports: [
@@ -28,7 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TittleComponent,
     SecurityTellerIdComponent,
     NavbarComponent,
-    NumericInputDirective
+    NumericInputDirective,
     ParamatrosSismicosComponent
   ]
 })

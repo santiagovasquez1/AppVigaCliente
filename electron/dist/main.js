@@ -4,7 +4,6 @@ var electron_1 = require("electron");
 var path = require("path");
 var url = require("url");
 var win;
-
 function createWindow() {
     win = new electron_1.BrowserWindow({ width: 800, height: 600 });
     win.loadURL(url.format({
@@ -16,7 +15,7 @@ function createWindow() {
 }
 // Para ver el estado de la app
 electron_1.app.on('ready', createWindow);
-electron_1.app.on('activate', function() {
+electron_1.app.on('activate', function () {
     if (win === null) {
         createWindow();
     }
