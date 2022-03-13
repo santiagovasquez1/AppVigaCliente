@@ -142,26 +142,71 @@
             </mat-card-title>
         </mat-card-header>
         <mat-card-content class="custom-card-container">
+            <form [formGroup]="elementosNoEstructuralesForm" novalidate autocomplete="off">
+                <div class="row">
+                    <div class="col-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Numero de pisos</mat-label>
+                            <input matInput formControlName="numeroPisos" type="number" placeholder="Numero de pisos de la estructura">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Altura de viga o losa (m)</mat-label>
+                            <input matInput formControlName="hViga" type="number" placeholder="Altura de viga de remate o losa">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Densidad de la mampostería (Tonf/m³)</mat-label>
+                            <input matInput formControlName="densidadMuro" type="number" placeholder="Densidad de la mampostería">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Ap</mat-label>
+                            <input matInput formControlName="ap" type="number" placeholder="Ap">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Rp</mat-label>
+                            <input matInput formControlName="rp" type="number" placeholder="Rp">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Altura equivalente (m)</mat-label>
+                            <input matInput formControlName="hEquivalente" type="number" placeholder="Altura equivalente">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+            <hr>
             <mat-table class="tabla" mat-table [dataSource]="dataSource">
 
                 <ng-container matColumnDef="Losa">
                     <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Losa </mat-header-cell>
-                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.losa}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Hw">
                     <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Altura de piso (m)</mat-header-cell>
-                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                    <mat-cell class="text-center" mat-cell *matCellDef="let element; let i=index">
+                        <input matInput type="number" [(ngModel)]="element.alturaPiso" (ngModelChange)="onAlturaPisoChange(element, i)">
+                    </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Hacum">
                     <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Altura acumulada (m)</mat-header-cell>
-                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.alturaAcumulada| number:'1.2-2'}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="bMuro">
                     <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Espesor muro (m) </mat-header-cell>
-                    <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                    <mat-cell class="text-center" mat-cell *matCellDef="let element; let i=index">
+                        <input matInput type="number" [(ngModel)]="element.espesorMuro" (ngModelChange)="onEspesorMuroChange(element, i)">
+                    </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Wmuro">
@@ -189,9 +234,11 @@
                     <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
                 </ng-container>
 
-                <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
                 <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
             </mat-table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+
         </mat-card-content>
     </mat-card>
 </div>
