@@ -100,7 +100,7 @@ export class ElementosNoEstructuralesComponent implements OnInit {
 
   public onAlturaPisoChange(event: string, infoPiso: InfoPisoModel, index: number) {
 
-    infoPiso.alturaPiso = parseFloat(event);
+    // infoPiso.alturaPiso = parseFloat(event);
     if (index === 0) {
       for (let i = 1; i < this.dataSource.data.length; i++) {
         this.dataSource.data[i].alturaPiso = infoPiso.alturaPiso;
