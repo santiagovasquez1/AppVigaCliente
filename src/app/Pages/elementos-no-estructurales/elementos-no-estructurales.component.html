@@ -29,6 +29,37 @@
                             <input matInput formControlName="densidadMuro" type="number" placeholder="Densidad de la mampostería">
                         </mat-form-field>
                     </div>
+
+                    <div class="col-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Altura equivalente (m)</mat-label>
+                            <input matInput formControlName="hEquivalente" type="number" placeholder="Altura equivalente">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Tipos de anclajes</mat-label>
+                            <mat-select formControlName="tipoAnclaje" placeholder="Tipos de anclajes">
+                                <mat-option *ngFor="let tipoAnclaje of tiposAnclajes" [value]="tipoAnclaje">
+                                    {{tipoAnclaje.nombre}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-2">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Amplificaciones dinamicas</mat-label>
+                            <mat-select formControlName="amplificacionDinamica" placeholder="amplificaciones Dinamicas">
+                                <mat-option *ngFor="let amplificacionDinamica of amplificacionesDinamicas" [value]="amplificacionDinamica">
+                                    {{amplificacionDinamica.nombre}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-2">
                         <mat-form-field appearance="outline">
                             <mat-label>Coeficiente de amplicifación dinámica (Ap)</mat-label>
@@ -39,12 +70,6 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Coeficiente de capacidad de dicipación del elemento (Rp)</mat-label>
                             <input matInput formControlName="rp" type="number" placeholder="Capacidad de dicipación del elemento no estructural">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-2">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Altura equivalente (m)</mat-label>
-                            <input matInput formControlName="hEquivalente" type="number" placeholder="Altura equivalente">
                         </mat-form-field>
                     </div>
                 </div>

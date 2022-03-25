@@ -8,6 +8,7 @@ export const environment = {
   flexion_url: 'https://localhost:44340/api/Flexion',
   cortante_url: 'https://localhost:44340/api/Cortante',
   espectro_url: 'https://localhost:44340/api/InfoEspectro',
+  elementosNoEstructurales_url: 'https://localhost:44340/api/ElementosNoEstructurales',
 };
 
 /*
