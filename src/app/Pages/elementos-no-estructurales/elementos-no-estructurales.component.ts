@@ -9,6 +9,8 @@ import { debounceTime } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { AmplificacionDinamica } from 'src/app/models/elementosNoEstructurales/amplificacionDinamica';
 import { DecimalPipe } from '@angular/common';
+import { CalculoPesoMuroRequest } from 'src/app/models/elementosNoEstructurales/calculoPesoMuroRequest';
+import { ValidatorsService } from 'src/app/services/validators.service';
 
 @Component({
   selector: 'app-elementos-no-estructurales',
@@ -34,12 +36,14 @@ export class ElementosNoEstructuralesComponent implements OnInit {
   public amplificacionesDinamicas: AmplificacionDinamica[];
   public panelOpenState: boolean = false;
   public dataSource = new MatTableDataSource<InfoPisoModel>();
+  public alturaEquivalente: number;
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   constructor(private fb: FormBuilder,
     public spinnerServices: NgxSpinnerService,
     private elementosNoEstructuralesService: ElementosNoEstructuralesService,
-    private numberPipe: DecimalPipe
+    private numberPipe: DecimalPipe,
+    private validatorsService: ValidatorsService
   ) {
 
   }
@@ -75,7 +79,7 @@ export class ElementosNoEstructuralesComponent implements OnInit {
       rp: [{ value: '', disabled: true }, [Validators.required]],
       densidadMuro: ['', [Validators.required]],
       hViga: ['', [Validators.required]],
-      hEquivalente: ['', [Validators.required]],
+      hEquivalente: [{ value: '', disabled: true }, [Validators.required]],
       tipoAnclaje: ['', [Validators.required]],
       amplificacionDinamica: ['', [Validators.required]]
     });
@@ -131,9 +135,32 @@ export class ElementosNoEstructuralesComponent implements OnInit {
   }
 
   public onEspesorMuroChange(infoPiso: InfoPisoModel, index: number) {
+
+    let calcPesoMuroRequest: CalculoPesoMuroRequest = {
+      densidadMuro: this.elementosNoEstructuralesForm.get('densidadMuro').value,
+      espesorMuro: infoPiso.espesorMuro,
+      hPiso: infoPiso.alturaPiso,
+      hViga: this.elementosNoEstructuralesForm.get('hViga').value,
+    };
+
+    if (this.validatorsService.validateRequest(calcPesoMuroRequest)) {
+      infoPiso.pesoMuro = this.calcPesoMuro(calcPesoMuroRequest);
+    }
+
     if (index === 0) {
       for (let i = 1; i < this.dataSource.data.length; i++) {
         this.dataSource.data[i].espesorMuro = infoPiso.espesorMuro;
+        
+        let calcPesoMuroRequest: CalculoPesoMuroRequest = {
+          densidadMuro: this.elementosNoEstructuralesForm.get('densidadMuro').value,
+          espesorMuro: this.dataSource.data[i].espesorMuro,
+          hPiso: this.dataSource.data[i].alturaPiso,
+          hViga: this.elementosNoEstructuralesForm.get('hViga').value
+        };
+
+        if (this.validatorsService.validateRequest(calcPesoMuroRequest)) {
+          this.dataSource.data[i].pesoMuro = this.calcPesoMuro(calcPesoMuroRequest);
+        }
       }
     }
   }
@@ -166,5 +193,17 @@ export class ElementosNoEstructuralesComponent implements OnInit {
     this.elementosNoEstructuralesForm.patchValue({
       ap: this.numberPipe.transform(amplificacionDinamica.ap, '1.2-2')
     });
+  }
+
+  public calcAlturaEquivalente(alturaTotal: number) {
+    this.alturaEquivalente = 0.75 * alturaTotal;
+    this.elementosNoEstructuralesForm.patchValue({
+      hEquivalente: this.numberPipe.transform(this.alturaEquivalente, '1.2-2')
+    });
+  }
+
+  private calcPesoMuro(calculoPesoMuroRequest: CalculoPesoMuroRequest): number {
+    let pesoMuro = calculoPesoMuroRequest.espesorMuro * (calculoPesoMuroRequest.hPiso - calculoPesoMuroRequest.hViga) * calculoPesoMuroRequest.densidadMuro;
+    return pesoMuro;
   }
 }

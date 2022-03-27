@@ -1,5 +1,5 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { debounceTime } from 'rxjs/operators';
@@ -28,6 +28,7 @@ export class ParamatrosSismicosComponent implements OnInit {
   public gruposDeUso: GrupoDeUsoModel[];
   public tiposDeEstructuras: TipoEstructura[];
 
+  @Output("AlturaTotalChange") AlturaChangeEventEmitter: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(private fb: FormBuilder,
     private espectroInfoService: EspectroService,
@@ -42,7 +43,6 @@ export class ParamatrosSismicosComponent implements OnInit {
     this.getGruposDeUso();
     this.createParamsSismicosForm();
   }
-
 
   createParamsSismicosForm() {
     this.parametrosSismicosForm = this.fb.group({
@@ -71,11 +71,16 @@ export class ParamatrosSismicosComponent implements OnInit {
     ///Calculo periodo y sa
     this.parametrosSismicosForm.get('ht').valueChanges.pipe(
       debounceTime(200)).subscribe(data => this.onParametrosChange(data));
+    this.parametrosSismicosForm.get('ht').valueChanges.subscribe(data => this.onAlturaChange(data));
     this.parametrosSismicosForm.get('tipoEstructura').valueChanges.subscribe(data => this.onParametrosChange(data));
     this.parametrosSismicosForm.get('tipoSuelo').valueChanges.subscribe(data => this.onParametrosChange(data));
     this.parametrosSismicosForm.get('municipio').valueChanges.subscribe(data => this.onParametrosChange(data));
     this.parametrosSismicosForm.get('grupoDeUso').valueChanges.subscribe(data => this.onTaChange(data));
     this.parametrosSismicosForm.get('ta').valueChanges.subscribe(data => this.onTaChange(data));
+  }
+
+  private onAlturaChange(data: any): void {
+    this.AlturaChangeEventEmitter.emit(data);
   }
 
   onMunicipioChange(municipio: Municipio): void {
@@ -123,8 +128,6 @@ export class ParamatrosSismicosComponent implements OnInit {
     if (flag) {
       this.calcPeriodos(request);
     }
-
-
   }
 
   private onTaChange(data: any) {

@@ -1,6 +1,6 @@
 <div class="container">
     <app-tittle [title]="tittle"></app-tittle>
-    <app-paramatros-sismicos></app-paramatros-sismicos>
+    <app-paramatros-sismicos (AlturaTotalChange)="calcAlturaEquivalente($event)"></app-paramatros-sismicos>
 
     <mat-card class="custom">
         <mat-card-header class="card-tittle">
@@ -104,12 +104,12 @@
 
                     <ng-container matColumnDef="Wmuro">
                         <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Peso muro (tonf/m) </mat-header-cell>
-                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.pesoMuro | number:'1.2-3'}} </mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="ax">
                         <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Ax </mat-header-cell>
-                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId| number:'1.2-2'}} </mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="Fp">
