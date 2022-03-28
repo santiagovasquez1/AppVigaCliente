@@ -1,3 +1,4 @@
+import { CalcAxResponse } from './../../models/elementosNoEstructurales/calcAxResponse';
 import { ElementosNoEstructuralesService } from './../../services/elementos-no-estructurales.service';
 import { TipoAnclaje } from './../../models/elementosNoEstructurales/tipoAnclaje';
 import { InfoPisoModel } from './../../models/elementosNoEstructurales/infoPisoModel';
@@ -11,6 +12,8 @@ import { AmplificacionDinamica } from 'src/app/models/elementosNoEstructurales/a
 import { DecimalPipe } from '@angular/common';
 import { CalculoPesoMuroRequest } from 'src/app/models/elementosNoEstructurales/calculoPesoMuroRequest';
 import { ValidatorsService } from 'src/app/services/validators.service';
+import { forkJoin, Observable, of } from 'rxjs';
+import { CalcAxRequest } from 'src/app/models/elementosNoEstructurales/calcAxRequest';
 
 @Component({
   selector: 'app-elementos-no-estructurales',
@@ -37,6 +40,32 @@ export class ElementosNoEstructuralesComponent implements OnInit {
   public panelOpenState: boolean = false;
   public dataSource = new MatTableDataSource<InfoPisoModel>();
   public alturaEquivalente: number;
+
+  public coefAa: number;
+  public _coefAa(value: number) {
+    this.coefAa = value;
+  }
+
+  public coefImportancia: number;
+  public _coefImportancia(value: number) {
+    this.coefImportancia = value;
+  }
+
+  public coefFa: number;
+  public _coefFa(value: number) {
+    this.coefFa = value;
+  }
+
+  public aceleracionSismo: number;
+  public _aceleleracionSismo(value: number) {
+    this.aceleracionSismo = value;
+  }
+
+  public isEspectroFormValid: boolean = false;
+  public _isEspectroFormValid(value: boolean) {
+    this.isEspectroFormValid = value;
+  }
+
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   constructor(private fb: FormBuilder,
@@ -150,7 +179,7 @@ export class ElementosNoEstructuralesComponent implements OnInit {
     if (index === 0) {
       for (let i = 1; i < this.dataSource.data.length; i++) {
         this.dataSource.data[i].espesorMuro = infoPiso.espesorMuro;
-        
+
         let calcPesoMuroRequest: CalculoPesoMuroRequest = {
           densidadMuro: this.elementosNoEstructuralesForm.get('densidadMuro').value,
           espesorMuro: this.dataSource.data[i].espesorMuro,
@@ -205,5 +234,49 @@ export class ElementosNoEstructuralesComponent implements OnInit {
   private calcPesoMuro(calculoPesoMuroRequest: CalculoPesoMuroRequest): number {
     let pesoMuro = calculoPesoMuroRequest.espesorMuro * (calculoPesoMuroRequest.hPiso - calculoPesoMuroRequest.hViga) * calculoPesoMuroRequest.densidadMuro;
     return pesoMuro;
+  }
+
+  private calcAxObservable(infoPiso: InfoPisoModel): Observable<CalcAxResponse> {
+    let calcAxRequest: CalcAxRequest = {
+      aa: this.coefAa,
+      fa: this.coefFa,
+      coefImportancia: this.coefImportancia,
+      alturaEquivalente: this.alturaEquivalente,
+      alturaAcumulada: infoPiso.alturaAcumulada,
+      amplificacionDinamica: this.elementosNoEstructuralesForm.get('amplificacionDinamica').value,
+      aceleracionSismica: this.aceleracionSismo
+    }
+
+    if (this.validatorsService.validateRequest(calcAxRequest)) {
+      return this.elementosNoEstructuralesService.calcAceleracionDinamica(calcAxRequest);
+    } else {
+      return of(null);
+    }
+  };
+
+  public calcAxAllFloors() {
+
+    let calcAxObservables: Observable<CalcAxResponse>[] = [];
+    this.spinnerServices.show();
+
+    for (let i = 0; i < this.dataSource.data.length; i++) {
+      calcAxObservables.push(this.calcAxObservable(this.dataSource.data[i]));
+    }
+
+    forkJoin(calcAxObservables).subscribe(result => {
+      console.log(result);
+      this.spinnerServices.hide();
+    }, error => {
+      console.log(error);
+      this.spinnerServices.hide();
+    });
+  }
+
+  get isAllValid(): boolean {
+    if (this.isEspectroFormValid && this.elementosNoEstructuralesForm.valid) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

@@ -1,6 +1,6 @@
 <div class="container">
     <app-tittle [title]="tittle"></app-tittle>
-    <app-paramatros-sismicos (AlturaTotalChange)="calcAlturaEquivalente($event)"></app-paramatros-sismicos>
+    <app-paramatros-sismicos (AlturaTotalChange)="calcAlturaEquivalente($event)" (CoefAaChange)="_coefAa($event)" (CoefImportanciaChange)="_coefImportancia($event)" (CoefFaChange)="_coefFa($event)" (AceleracionSismoChange)="_aceleleracionSismo($event)" (IsFormValid)="_isEspectroFormValid($event)"></app-paramatros-sismicos>
 
     <mat-card class="custom">
         <mat-card-header class="card-tittle">
@@ -71,6 +71,9 @@
                             <mat-label>Coeficiente de capacidad de dicipación del elemento (Rp)</mat-label>
                             <input matInput formControlName="rp" type="number" placeholder="Capacidad de dicipación del elemento no estructural">
                         </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                        <button mat-raised-button color="primary" [disabled]="!isAllValid" (click)="calcAxAllFloors()">Calular</button>
                     </div>
                 </div>
             </form>

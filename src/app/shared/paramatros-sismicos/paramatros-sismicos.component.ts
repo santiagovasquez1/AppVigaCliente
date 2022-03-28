@@ -29,6 +29,11 @@ export class ParamatrosSismicosComponent implements OnInit {
   public tiposDeEstructuras: TipoEstructura[];
 
   @Output("AlturaTotalChange") AlturaChangeEventEmitter: EventEmitter<number> = new EventEmitter<number>();
+  @Output("CoefAaChange") coefAaChangeEventEmitter: EventEmitter<number> = new EventEmitter<number>();
+  @Output("CoefImportanciaChange") CoefImportanciaChangeEventEmitter: EventEmitter<number> = new EventEmitter<number>();
+  @Output("CoefFaChange") CoefFaChangeEventEmitter: EventEmitter<number> = new EventEmitter<number>();
+  @Output("AceleracionSismoChange") AceleracionSismoChangeEventEmitter: EventEmitter<number> = new EventEmitter<number>();
+  @Output("IsFormValid") IsFormValidEventEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private fb: FormBuilder,
     private espectroInfoService: EspectroService,
@@ -77,10 +82,43 @@ export class ParamatrosSismicosComponent implements OnInit {
     this.parametrosSismicosForm.get('municipio').valueChanges.subscribe(data => this.onParametrosChange(data));
     this.parametrosSismicosForm.get('grupoDeUso').valueChanges.subscribe(data => this.onTaChange(data));
     this.parametrosSismicosForm.get('ta').valueChanges.subscribe(data => this.onTaChange(data));
+
+    this.parametrosSismicosForm.get('coefAa').valueChanges.subscribe(data => this.onCoefAaChange(data));
+    this.parametrosSismicosForm.get('coefFa').valueChanges.subscribe(data => this.onCoefFaChange(data));
+    this.parametrosSismicosForm.get('grupoDeUso').valueChanges.subscribe(data => this.onCoefImportanciaChange(data));
+    this.parametrosSismicosForm.get('sa').valueChanges.subscribe(data => this.onSaChange(data));
+
+    this.parametrosSismicosForm.statusChanges.subscribe(data => this.onFormStatusChange(data));
   }
 
-  private onAlturaChange(data: any): void {
+  onFormStatusChange(data: any): void {
+    if (data === 'VALID') {
+      this.IsFormValidEventEmitter.emit(true);
+    }
+    else {
+      this.IsFormValidEventEmitter.emit(false);
+    }
+  }
+
+  private onAlturaChange(data: number): void {
     this.AlturaChangeEventEmitter.emit(data);
+  }
+
+  private onCoefImportanciaChange(data: GrupoDeUsoModel) {
+    let coefImportancia = data.coeficiente;
+    this.CoefImportanciaChangeEventEmitter.emit(coefImportancia);
+  }
+
+  private onCoefFaChange(data: number) {
+    this.CoefFaChangeEventEmitter.emit(data);
+  }
+
+  private onCoefAaChange(data: number) {
+    this.coefAaChangeEventEmitter.emit(data);
+  }
+
+  private onSaChange(data: number) {
+    this.AceleracionSismoChangeEventEmitter.emit(data);
   }
 
   onMunicipioChange(municipio: Municipio): void {
