@@ -51,7 +51,7 @@
                     <div class="col-2">
                         <mat-form-field appearance="outline">
                             <mat-label>Amplificaciones dinamicas</mat-label>
-                            <mat-select formControlName="amplificacionDinamica" placeholder="amplificaciones Dinamicas">
+                            <mat-select formControlName="amplificacionDinamica" placeholder="amplificaciones Dinamicas" matTooltip="{{amplificacionDinamicaValue}}">
                                 <mat-option *ngFor="let amplificacionDinamica of amplificacionesDinamicas" [value]="amplificacionDinamica">
                                     {{amplificacionDinamica.nombre}}
                                 </mat-option>
@@ -112,12 +112,12 @@
 
                     <ng-container matColumnDef="ax">
                         <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Ax </mat-header-cell>
-                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId| number:'1.2-2'}} </mat-cell>
+                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.ax | number:'1.2-3'}} </mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="Fp">
-                        <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Fp(t) Servicio </mat-header-cell>
-                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
+                        <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Fp(Tonf) Servicio </mat-header-cell>
+                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.fp | number:'1.2-3'}} </mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="prsionSismo">

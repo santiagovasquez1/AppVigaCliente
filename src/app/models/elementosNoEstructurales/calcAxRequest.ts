@@ -8,4 +8,5 @@ export interface CalcAxRequest {
     aa:number;
     fa:number;
     coefImportancia:number;
+    losa:string;
 }

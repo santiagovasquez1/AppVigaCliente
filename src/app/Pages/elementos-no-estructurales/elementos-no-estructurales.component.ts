@@ -14,6 +14,8 @@ import { CalculoPesoMuroRequest } from 'src/app/models/elementosNoEstructurales/
 import { ValidatorsService } from 'src/app/services/validators.service';
 import { forkJoin, Observable, of } from 'rxjs';
 import { CalcAxRequest } from 'src/app/models/elementosNoEstructurales/calcAxRequest';
+import { CalcFpResponse } from 'src/app/models/elementosNoEstructurales/calcFpResponse';
+import { CalcFpRequest } from 'src/app/models/elementosNoEstructurales/calcFpRequest';
 
 @Component({
   selector: 'app-elementos-no-estructurales',
@@ -42,28 +44,37 @@ export class ElementosNoEstructuralesComponent implements OnInit {
   public alturaEquivalente: number;
 
   public coefAa: number;
-  public _coefAa(value: number) {
-    this.coefAa = value;
+  public _coefAa(value: string) {
+    this.coefAa = parseFloat(value);
   }
 
   public coefImportancia: number;
-  public _coefImportancia(value: number) {
-    this.coefImportancia = value;
+  public _coefImportancia(value: string) {
+    this.coefImportancia = parseFloat(value);
   }
 
   public coefFa: number;
-  public _coefFa(value: number) {
-    this.coefFa = value;
+  public _coefFa(value: string) {
+    this.coefFa = parseFloat(value);
   }
 
   public aceleracionSismo: number;
-  public _aceleleracionSismo(value: number) {
-    this.aceleracionSismo = value;
+  public _aceleleracionSismo(value: string) {
+    this.aceleracionSismo = parseFloat(value);
   }
 
   public isEspectroFormValid: boolean = false;
   public _isEspectroFormValid(value: boolean) {
     this.isEspectroFormValid = value;
+  }
+  public amplificacionDinamicaValue: string = "";
+
+  get isAllValid(): boolean {
+    if (this.isEspectroFormValid && this.elementosNoEstructuralesForm.valid) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
@@ -219,6 +230,7 @@ export class ElementosNoEstructuralesComponent implements OnInit {
 
   private onAmplificacionDinamicaChange(data: any): void {
     let amplificacionDinamica: AmplificacionDinamica = data as AmplificacionDinamica;
+    this.amplificacionDinamicaValue = amplificacionDinamica.nombre;
     this.elementosNoEstructuralesForm.patchValue({
       ap: this.numberPipe.transform(amplificacionDinamica.ap, '1.2-2')
     });
@@ -237,14 +249,16 @@ export class ElementosNoEstructuralesComponent implements OnInit {
   }
 
   private calcAxObservable(infoPiso: InfoPisoModel): Observable<CalcAxResponse> {
+
     let calcAxRequest: CalcAxRequest = {
       aa: this.coefAa,
       fa: this.coefFa,
       coefImportancia: this.coefImportancia,
       alturaEquivalente: this.alturaEquivalente,
       alturaAcumulada: infoPiso.alturaAcumulada,
-      amplificacionDinamica: this.elementosNoEstructuralesForm.get('amplificacionDinamica').value,
-      aceleracionSismica: this.aceleracionSismo
+      amplificacionDinamica: this.elementosNoEstructuralesForm.get('amplificacionDinamica').value.ap,
+      aceleracionSismica: this.aceleracionSismo,
+      losa: infoPiso.losa,
     }
 
     if (this.validatorsService.validateRequest(calcAxRequest)) {
@@ -254,9 +268,29 @@ export class ElementosNoEstructuralesComponent implements OnInit {
     }
   };
 
+  private calcFpObservable(infoPiso: InfoPisoModel): Observable<CalcFpResponse> {
+    let calcFpRequest: CalcFpRequest = {
+      aa: this.coefAa,
+      aceleracionSoporte: infoPiso.ax,
+      ap: this.elementosNoEstructuralesForm.get('amplificacionDinamica').value.ap,
+      coefImportancia: this.coefImportancia,
+      mp: infoPiso.pesoMuro,
+      rp: this.elementosNoEstructuralesForm.get('tipoAnclaje').value.rp,
+      losa: infoPiso.losa,
+    }
+
+    if (this.validatorsService.validateRequest(calcFpRequest)) {
+      return this.elementosNoEstructuralesService.calcfuerzaSismica(calcFpRequest);
+    } else {
+      return of(null);
+    }
+  }
+
   public calcAxAllFloors() {
 
     let calcAxObservables: Observable<CalcAxResponse>[] = [];
+    let calcFpObservables: Observable<CalcFpResponse>[] = [];
+
     this.spinnerServices.show();
 
     for (let i = 0; i < this.dataSource.data.length; i++) {
@@ -264,19 +298,25 @@ export class ElementosNoEstructuralesComponent implements OnInit {
     }
 
     forkJoin(calcAxObservables).subscribe(result => {
-      console.log(result);
-      this.spinnerServices.hide();
+      
+      result.forEach((element, index) => {
+        this.dataSource.data[index].ax = element.aceleracionSoporte; 
+        calcFpObservables.push(this.calcFpObservable(this.dataSource.data[index]));
+      });
+      forkJoin(calcFpObservables).subscribe(result => {
+        console.log(result);
+        result.forEach((element, index) => {
+          this.dataSource.data[index].fp = element.fuerzaSismica;
+        });
+        this.spinnerServices.hide();
+      }, error => {
+        console.log(error);
+        this.spinnerServices.hide();
+      })
     }, error => {
       console.log(error);
       this.spinnerServices.hide();
     });
   }
 
-  get isAllValid(): boolean {
-    if (this.isEspectroFormValid && this.elementosNoEstructuralesForm.valid) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 }

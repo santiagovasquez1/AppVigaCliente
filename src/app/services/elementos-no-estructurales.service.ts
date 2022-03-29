@@ -6,6 +6,8 @@ import { map } from 'rxjs/operators';
 import { TipoAnclaje } from '../models/elementosNoEstructurales/tipoAnclaje';
 import { Observable } from 'rxjs';
 import { AmplificacionDinamica } from '../models/elementosNoEstructurales/amplificacionDinamica';
+import { CalcFpRequest } from '../models/elementosNoEstructurales/calcFpRequest';
+import { CalcFpResponse } from '../models/elementosNoEstructurales/calcFpResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -32,12 +34,22 @@ export class ElementosNoEstructuralesService extends ServiceBaseService {
       );
   }
 
-  calcAceleracionDinamica(calAxRequest:CalcAxRequest):Observable<CalcAxResponse>{
+  calcAceleracionDinamica(calcAxRequest: CalcAxRequest): Observable<CalcAxResponse> {
     let url = `${this.env.elementosNoEstructurales_url}/calculoAx`;
-    return this.http.post<any>(url, { headers: this.headers })
+    return this.http.post<any>(url,calcAxRequest, { headers: this.headers})
       .pipe(
         map(res => {
-          return res.aceleracionDinamica as CalcAxResponse;
+          return res as CalcAxResponse;
+        })
+      );
+  }
+
+  calcfuerzaSismica(calcFpRequest: CalcFpRequest): Observable<CalcFpResponse> {
+    let url = `${this.env.elementosNoEstructurales_url}/calculoFuerzaSismica`;
+    return this.http.post<any>(url,calcFpRequest, { headers: this.headers})
+      .pipe(
+        map(res => {
+          return res as CalcFpResponse;
         })
       );
   }
