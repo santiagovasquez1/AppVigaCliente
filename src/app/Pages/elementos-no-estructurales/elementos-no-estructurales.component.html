@@ -79,64 +79,64 @@
             </form>
             <hr>
             <div class="tableContainer">
-                <mat-table class="elementosNoEstructurales-table" mat-table [dataSource]="dataSource">
+                <mat-tab-group mat-align-tabs="start">
+                    <mat-tab label="Analisis Sismico">
+                        <mat-table class="custom-table" mat-table [dataSource]="dataSource">
 
-                    <ng-container matColumnDef="Losa">
-                        <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Losa </mat-header-cell>
-                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.losa}} </mat-cell>
-                    </ng-container>
+                            <ng-container matColumnDef="Losa">
+                                <mat-header-cell mat-header-cell *matHeaderCellDef> Losa </mat-header-cell>
+                                <mat-cell mat-cell *matCellDef="let element"> {{element.losa}} </mat-cell>
+                            </ng-container>
 
-                    <ng-container matColumnDef="Hw">
-                        <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Altura de piso (m)</mat-header-cell>
-                        <mat-cell class="text-center" mat-cell *matCellDef="let element; let i=index">
-                            <input matInput type="number" [(ngModel)]="element.alturaPiso" (ngModelChange)="onAlturaPisoChange($event,element, i)">
-                        </mat-cell>
-                    </ng-container>
+                            <ng-container matColumnDef="Hw">
+                                <mat-header-cell mat-header-cell *matHeaderCellDef> Altura de piso (m)</mat-header-cell>
+                                <mat-cell mat-cell *matCellDef="let element; let i=index">
+                                    <input matInput type="number" [(ngModel)]="element.alturaPiso" (ngModelChange)="onAlturaPisoChange($event,element, i)">
+                                </mat-cell>
+                            </ng-container>
 
-                    <ng-container matColumnDef="Hacum">
-                        <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Altura acumulada (m)</mat-header-cell>
-                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.alturaAcumulada| number:'1.2-2'}} </mat-cell>
-                    </ng-container>
+                            <ng-container matColumnDef="Hacum">
+                                <mat-header-cell mat-header-cell *matHeaderCellDef> Altura acumulada (m)</mat-header-cell>
+                                <mat-cell mat-cell *matCellDef="let element"> {{element.alturaAcumulada| number:'1.2-2'}} </mat-cell>
+                            </ng-container>
 
-                    <ng-container matColumnDef="bMuro">
-                        <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Espesor muro (m) </mat-header-cell>
-                        <mat-cell class="text-center" mat-cell *matCellDef="let element; let i=index">
-                            <input matInput type="number" [(ngModel)]="element.espesorMuro" (ngModelChange)="onEspesorMuroChange(element, i)">
-                        </mat-cell>
-                    </ng-container>
+                            <ng-container matColumnDef="bMuro">
+                                <mat-header-cell mat-header-cell *matHeaderCellDef> Espesor muro (m) </mat-header-cell>
+                                <mat-cell mat-cell *matCellDef="let element; let i=index">
+                                    <input matInput type="number" [(ngModel)]="element.espesorMuro" (ngModelChange)="onEspesorMuroChange(element, i)">
+                                </mat-cell>
+                            </ng-container>
 
-                    <ng-container matColumnDef="Wmuro">
-                        <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Peso muro (tonf/m) </mat-header-cell>
-                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.pesoMuro | number:'1.2-3'}} </mat-cell>
-                    </ng-container>
+                            <ng-container matColumnDef="Wmuro">
+                                <mat-header-cell mat-header-cell *matHeaderCellDef> Peso muro (tonf/m) </mat-header-cell>
+                                <mat-cell mat-cell *matCellDef="let element"> {{element.pesoMuro | number:'1.2-3'}} </mat-cell>
+                            </ng-container>
 
-                    <ng-container matColumnDef="ax">
-                        <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Ax </mat-header-cell>
-                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.ax | number:'1.2-3'}} </mat-cell>
-                    </ng-container>
+                            <ng-container matColumnDef="ax">
+                                <mat-header-cell mat-header-cell *matHeaderCellDef> Ax </mat-header-cell>
+                                <mat-cell mat-cell *matCellDef="let element"> {{element.ax | number:'1.2-3'}} </mat-cell>
+                            </ng-container>
 
-                    <ng-container matColumnDef="Fp">
-                        <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Fp(Tonf) Servicio </mat-header-cell>
-                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.fp | number:'1.2-3'}} </mat-cell>
-                    </ng-container>
+                            <ng-container matColumnDef="Fp">
+                                <mat-header-cell mat-header-cell *matHeaderCellDef> Fp(Tonf) Servicio </mat-header-cell>
+                                <mat-cell mat-cell *matCellDef="let element"> {{element.fp | number:'1.2-3'}} </mat-cell>
+                            </ng-container>
 
-                    <ng-container matColumnDef="prsionSismo">
-                        <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> Presión Sismo (tonf/m²)</mat-header-cell>
-                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
-                    </ng-container>
+                            <ng-container matColumnDef="presionSismo">
+                                <mat-header-cell mat-header-cell *matHeaderCellDef> Presión Sismo (tonf/m²)</mat-header-cell>
+                                <mat-cell mat-cell *matCellDef="let element"> {{element.presionSismo | number:'1.2-3'}} </mat-cell>
+                            </ng-container>
 
-                    <ng-container matColumnDef="relacionHT">
-                        <mat-header-cell class="text-center" mat-header-cell *matHeaderCellDef> h'/t </mat-header-cell>
-                        <mat-cell class="text-center" mat-cell *matCellDef="let element"> {{element.transactionId}} </mat-cell>
-                    </ng-container>
-
-                    <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-                    <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                </mat-table>
-                <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+                            <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                            <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+                        <mat-paginator #paginator1 [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+                    </mat-tab>
+                    <mat-tab label="Esfuerzos en muros">
+                        <app-disenio-muros-mamp #disenioMamposteria></app-disenio-muros-mamp>
+                    </mat-tab>
+                </mat-tab-group>
             </div>
-
-
         </mat-card-content>
     </mat-card>
 </div>

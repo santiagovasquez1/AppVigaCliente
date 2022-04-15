@@ -4,11 +4,11 @@
 
 export const environment = {
   production: false,
-  herramientas_url: 'https://localhost:5001/api/HerramientasDisenio',
-  flexion_url: 'https://localhost:5001/api/Flexion',
-  cortante_url: 'https://localhost:5001/api/Cortante',
-  espectro_url: 'https://localhost:5001/api/InfoEspectro',
-  elementosNoEstructurales_url: 'https://localhost:5001/api/ElementosNoEstructurales',
+  herramientas_url: 'https://localhost:44340/api/HerramientasDisenio',
+  flexion_url: 'https://localhost:44340/api/Flexion',
+  cortante_url: 'https://localhost:44340/api/Cortante',
+  espectro_url: 'https://localhost:44340/api/InfoEspectro',
+  elementosNoEstructurales_url: 'https://localhost:44340/api/ElementosNoEstructurales',
 };
 
 /*

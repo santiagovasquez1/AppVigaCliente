@@ -37,6 +37,13 @@ mat-form-field {
     width: 100%;
 }
 
+
+/* Elemento para que los elementos debajo del objeto float se queden en su posicion  */
+
+.clearfix {
+    clear: both;
+}
+
 .mat-form-field-wrapper {
     padding-bottom: 0rem;
 }
@@ -315,9 +322,83 @@ mat-list-option:hover {
     display: inline;
 }
 
+.tableContainer {
+    max-height: 500px;
+    overflow-y: auto;
+}
 
-/* Elemento para que los elementos debajo del objeto float se queden en su posicion  */
+.custom-table {
+    width: 100%;
+    margin-top: 10px;
+    border: solid 1px #ccc;
+    box-shadow: 0px 0px 5px #ccc;
+}
 
-.clearfix {
-    clear: both;
+.custom-table .mat-header-row {
+    height: 50px;
+    background-color: #1976D2;
+}
+
+.custom-table .mat-header-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: inherit;
+    color: white;
+    padding: 10px;
+    font-size: 14px;
+    border-right: solid 1px #ccc;
+    text-align: center;
+}
+
+.custom-table .mat-header-cell:last-child {
+    border-right: none;
+}
+
+.custom-table .mat-row {
+    border-bottom: solid 1px #ccc;
+}
+
+
+/* .custom-table .mat-row:last-child {
+    border-bottom: none;
+} */
+
+.custom-table .mat-row {
+    transition: all 300ms;
+}
+
+.custom-table .mat-row .mat-cell {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: solid 1px #ccc;
+}
+
+.custom-table .mat-row .mat-cell:last-child {
+    border-right: none;
+}
+
+.custom-table .mat-row:hover .mat-cell {
+    background-color: #f5f5f5;
+}
+
+.custom-table input {
+    display: block;
+    width: 90%;
+    height: 100%;
+    margin: 0px auto;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: left;
+    text-indent: 10px;
+    background: #f2f2f2;
+    border: none;
+    border-radius: 5px;
+}
+
+.custom-table .mat-row:hover .mat-cell input {
+    background: #c4c4c4;
 }

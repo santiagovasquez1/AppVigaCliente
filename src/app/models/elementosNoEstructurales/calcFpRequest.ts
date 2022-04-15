@@ -6,4 +6,5 @@ export interface CalcFpRequest {
     aa: number;
     coefImportancia: number;
     losa: string;
+    alturaPiso: number;
 }

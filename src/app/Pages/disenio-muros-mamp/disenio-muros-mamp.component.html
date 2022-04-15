@@ -1,0 +1,47 @@
+<mat-table class="custom-table" mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="Losa">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>Losa</mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element"> {{element.losa}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="h/t">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>Relacion h'/t</mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element"> {{element.presionSismo | number:'1.2-3'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Re">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>Re</mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element"> {{element.presionSismo | number:'1.2-3'}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="Fa">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>Fa</mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element"> {{element.presionSismo | number:'1.2-3'}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="fa">
+        <mat-header-cell mat-header-cell *matHeaderCellDef> fa </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element"> {{element.presionSismo | number:'1.2-3'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Fb">
+        <mat-header-cell mat-header-cell *matHeaderCellDef> Fb </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element"> {{element.presionSismo | number:'1.2-3'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="fb">
+        <mat-header-cell mat-header-cell *matHeaderCellDef> fb </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element"> {{element.presionSismo | number:'1.2-3'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Fa/fa + Fb/fb">
+        <mat-header-cell mat-header-cell *matHeaderCellDef> Fa/fa + Fb/fb </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element"> {{element.presionSismo | number:'1.2-3'}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mat-paginator #paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>

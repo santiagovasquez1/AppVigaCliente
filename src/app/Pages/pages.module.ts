@@ -25,6 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts';
 import { EscalerasComponent } from './escaleras/escaleras.component';
 import { ElementosNoEstructuralesComponent } from './elementos-no-estructurales/elementos-no-estructurales.component';
+import { DisenioMurosMampComponent } from './disenio-muros-mamp/disenio-muros-mamp.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ElementosNoEstructuralesComponent } from './elementos-no-estructurales/
     ContainerBaseComponent,
     EscalerasComponent,
     ElementosNoEstructuralesComponent,
+    DisenioMurosMampComponent,
   ],
   imports: [
     CommonModule,
@@ -71,7 +73,8 @@ import { ElementosNoEstructuralesComponent } from './elementos-no-estructurales/
     CortanteInputComponent,
     CortanteOutputComponent,
     ContainerBaseComponent,
-    EscalerasComponent
+    EscalerasComponent,
+    DisenioMurosMampComponent
   ],
   providers: [
     DecimalPipe

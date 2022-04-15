@@ -75,7 +75,7 @@ export class ParamatrosSismicosComponent implements OnInit {
 
     ///Calculo periodo y sa
     this.parametrosSismicosForm.get('ht').valueChanges.pipe(
-      debounceTime(200)).subscribe(data => this.onParametrosChange(data));
+      debounceTime(100)).subscribe(data => this.onParametrosChange(data));
     this.parametrosSismicosForm.get('ht').valueChanges.subscribe(data => this.onAlturaChange(data));
     this.parametrosSismicosForm.get('tipoEstructura').valueChanges.subscribe(data => this.onParametrosChange(data));
     this.parametrosSismicosForm.get('tipoSuelo').valueChanges.subscribe(data => this.onParametrosChange(data));

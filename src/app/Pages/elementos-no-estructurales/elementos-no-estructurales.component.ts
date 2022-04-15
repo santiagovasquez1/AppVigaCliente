@@ -4,7 +4,7 @@ import { TipoAnclaje } from './../../models/elementosNoEstructurales/tipoAnclaje
 import { InfoPisoModel } from './../../models/elementosNoEstructurales/infoPisoModel';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
@@ -16,6 +16,7 @@ import { forkJoin, Observable, of } from 'rxjs';
 import { CalcAxRequest } from 'src/app/models/elementosNoEstructurales/calcAxRequest';
 import { CalcFpResponse } from 'src/app/models/elementosNoEstructurales/calcFpResponse';
 import { CalcFpRequest } from 'src/app/models/elementosNoEstructurales/calcFpRequest';
+import { DisenioMurosMampComponent } from '../disenio-muros-mamp/disenio-muros-mamp.component';
 
 @Component({
   selector: 'app-elementos-no-estructurales',
@@ -34,9 +35,9 @@ export class ElementosNoEstructuralesComponent implements OnInit {
     'Wmuro',
     'ax',
     'Fp',
-    'prsionSismo',
-    'relacionHT'
+    'presionSismo',
   ];
+
   public tiposAnclajes: TipoAnclaje[];
   public amplificacionesDinamicas: AmplificacionDinamica[];
   public panelOpenState: boolean = false;
@@ -77,8 +78,9 @@ export class ElementosNoEstructuralesComponent implements OnInit {
     }
   }
 
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
-
+  public numeroPisos: number;
+  @ViewChild('paginator1', { static: true }) paginator1!: MatPaginator;
+  @ViewChild('disenioMamposteria') disenioMamposteriaComponent:DisenioMurosMampComponent;
   constructor(private fb: FormBuilder,
     public spinnerServices: NgxSpinnerService,
     private elementosNoEstructuralesService: ElementosNoEstructuralesService,
@@ -94,12 +96,12 @@ export class ElementosNoEstructuralesComponent implements OnInit {
     this.getTiposAnclajes();
     this.createElementosNoEstructuralesForm();
 
-    this.paginator._intl.itemsPerPageLabel = 'Elementos por página';
-    this.paginator._intl.nextPageLabel = 'Siguiente';
-    this.paginator._intl.previousPageLabel = 'Anterior';
-    this.paginator._intl.firstPageLabel = 'Primera página';
-    this.paginator._intl.lastPageLabel = 'Última página';
-    this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
+    this.paginator1._intl.itemsPerPageLabel = 'Elementos por página';
+    this.paginator1._intl.nextPageLabel = 'Siguiente';
+    this.paginator1._intl.previousPageLabel = 'Anterior';
+    this.paginator1._intl.firstPageLabel = 'Primera página';
+    this.paginator1._intl.lastPageLabel = 'Última página';
+    this.paginator1._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
       if (length == 0 || pageSize == 0) {
         return `0 de ${length}`;
       }
@@ -152,7 +154,8 @@ export class ElementosNoEstructuralesComponent implements OnInit {
       }
 
       this.dataSource = new MatTableDataSource<InfoPisoModel>(tempData);
-      this.dataSource.paginator = this.paginator;
+      this.dataSource.paginator = this.paginator1;
+      this.disenioMamposteriaComponent.onNumeroPisosChange(data);
       this.spinnerServices.hide();
     }, 300);
 
@@ -255,7 +258,7 @@ export class ElementosNoEstructuralesComponent implements OnInit {
       fa: this.coefFa,
       coefImportancia: this.coefImportancia,
       alturaEquivalente: this.alturaEquivalente,
-      alturaAcumulada: infoPiso.alturaAcumulada,
+      alturaAcumulada: infoPiso.alturaAcumulada - infoPiso.alturaPiso,
       amplificacionDinamica: this.elementosNoEstructuralesForm.get('amplificacionDinamica').value.ap,
       aceleracionSismica: this.aceleracionSismo,
       losa: infoPiso.losa,
@@ -277,6 +280,7 @@ export class ElementosNoEstructuralesComponent implements OnInit {
       mp: infoPiso.pesoMuro,
       rp: this.elementosNoEstructuralesForm.get('tipoAnclaje').value.rp,
       losa: infoPiso.losa,
+      alturaPiso: infoPiso.alturaPiso
     }
 
     if (this.validatorsService.validateRequest(calcFpRequest)) {
@@ -298,15 +302,15 @@ export class ElementosNoEstructuralesComponent implements OnInit {
     }
 
     forkJoin(calcAxObservables).subscribe(result => {
-      
       result.forEach((element, index) => {
-        this.dataSource.data[index].ax = element.aceleracionSoporte; 
+        this.dataSource.data[index].ax = element.aceleracionSoporte;
         calcFpObservables.push(this.calcFpObservable(this.dataSource.data[index]));
       });
       forkJoin(calcFpObservables).subscribe(result => {
         console.log(result);
         result.forEach((element, index) => {
           this.dataSource.data[index].fp = element.fuerzaSismica;
+          this.dataSource.data[index].presionSismo = element.presionSismica;
         });
         this.spinnerServices.hide();
       }, error => {
